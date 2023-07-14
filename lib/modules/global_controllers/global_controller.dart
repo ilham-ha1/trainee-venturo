@@ -9,7 +9,7 @@ class GlobalController extends GetxController {
   /// Check Connection Variable
   var isConnect = false.obs;
 
-    Future<void> checkConnection() async {
+  Future<void> checkConnection() async {
     try {
       final result = await InternetAddress.lookup('space.venturo.id');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -26,7 +26,7 @@ class GlobalController extends GetxController {
     }
   }
 
-  Future<void> checkConnectionInPage() async {
+  Future<void> checkConnectionInPageUsingButton() async {
     try {
       final result = await InternetAddress.lookup('space.venturo.id');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -40,5 +40,4 @@ class GlobalController extends GetxController {
       );
     }
   }
-  
 }

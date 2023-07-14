@@ -73,7 +73,7 @@ class NoConnectionView extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  GlobalController.to.checkConnectionInPage();
+                  GlobalController.to.checkConnectionInPageUsingButton();
                   if (GlobalController.to.isConnect.value == true) {
                     Get.offNamed(MainRoute.initial);
                   }
