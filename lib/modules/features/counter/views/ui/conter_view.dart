@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/counter/controllers/conter_controller.dart';
-
+import 'package:firebase_analytics/firebase_analytics.dart';
 class ConterView extends StatelessWidget {
   const ConterView({super.key});
-
+ static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   @override
   Widget build(BuildContext context) {
     return Obx(

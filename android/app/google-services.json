@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "749638894127",
+    "project_id": "core-venturo-4fcbe",
+    "storage_bucket": "core-venturo-4fcbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749638894127:android:878c79540414a58f9f7cda",
+        "android_client_info": {
+          "package_name": "com.core.venturo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749638894127-j4pre83t2t44us9ajn0d7a0c24uka6jt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTr4wHZqk_O5vEr0UVB7OVMpHeRmbhsoM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749638894127-j4pre83t2t44us9ajn0d7a0c24uka6jt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
