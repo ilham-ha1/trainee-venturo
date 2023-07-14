@@ -29,6 +29,13 @@
             {
               "client_id": "749638894127-j4pre83t2t44us9ajn0d7a0c24uka6jt.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "749638894127-d06d8ntc7vslcsbdk1jk3g24bbrc1tcp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.core.venturo"
+              }
             }
           ]
         }

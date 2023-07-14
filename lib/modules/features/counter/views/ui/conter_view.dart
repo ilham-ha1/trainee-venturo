@@ -10,6 +10,11 @@ class ConterView extends StatelessWidget {
  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(
+      screenName: 'Conter Screen',
+      screenClassOverride: 'Trainee',
+    );
+    
     return Obx(
       () => Scaffold(
         appBar: AppBar(

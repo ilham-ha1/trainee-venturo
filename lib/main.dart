@@ -5,18 +5,10 @@ import 'package:trainee/configs/pages/main_page.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:trainee/modules/global_binddings/global_binding.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-
-// void main() async{
-//    WidgetsFlutterBinding.ensureInitialized();
-//    await Firebase.initializeApp(
-//      options: DefaultFirebaseOptions.currentPlatform,
-//    );
-
-//   runApp(const MyApp());
-// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +24,7 @@ void main() async {
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 1.0;
     },
-    appRunner: () => runApp(MyApp()),
+    appRunner: () => runApp(const MyApp()),
   );
 // or define SENTRY_DSN via Dart environment variable (--dart-define)
 }
@@ -55,6 +47,7 @@ class MyApp extends StatelessWidget {
           theme: mainTheme,
           defaultTransition: Transition.native,
           getPages: MainPage.main,
+          initialBinding: GlobalBinding(),
         );
       },
     );

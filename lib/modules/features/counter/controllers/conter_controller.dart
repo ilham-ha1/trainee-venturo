@@ -9,6 +9,7 @@ class ConterController extends GetxController {
  void increment() async {
     try {
       count++;
+      throw Exception('Error occurred');
     } catch (exception, stackTrace) {
       await Sentry.captureException(
         exception,

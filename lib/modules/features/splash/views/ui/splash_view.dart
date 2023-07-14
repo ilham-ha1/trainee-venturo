@@ -11,6 +11,10 @@ class SplashView extends StatelessWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(
+      screenName: 'Splash Screen',
+      screenClassOverride: 'Trainee',
+    );
     Timer(
       const Duration(seconds: 3),
       () => Get.offNamed(MainRoute.initial), // Navigate to the ConterView
