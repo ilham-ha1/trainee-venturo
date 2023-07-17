@@ -153,6 +153,42 @@ class SignInView extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 20.h),
+              ElevatedButton(
+                style: EvelatedButtonStyle.mainRounded.copyWith(
+                  backgroundColor: const MaterialStatePropertyAll(Colors.black),
+                ),
+                onPressed: () => () {},
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: Image.asset(ImageConstant.icApple),
+                        ),
+                        const SizedBox(width: 30),
+                        RichText(
+                          text: const TextSpan(
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            children: [
+                              TextSpan(text: 'Masuk menggunakan '),
+                              TextSpan(
+                                text: 'Apple',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
