@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "749638894127-j4pre83t2t44us9ajn0d7a0c24uka6jt.apps.googleusercontent.com",
+          "client_id": "749638894127-k3d59rk5f2grv1g8j6q2b3s1t6u2af7d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.core.venturo",
+            "certificate_hash": "c152e9e4a604e5a021d885f9e093786cf25506ba"
+          }
+        },
+        {
+          "client_id": "749638894127-mb5jok3cmp9vge91u4hlbucpq2ngfs7e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

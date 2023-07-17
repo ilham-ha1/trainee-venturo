@@ -10,13 +10,21 @@ import 'package:trainee/modules/global_binddings/global_binding.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// Localstorage init
+  await Hive.initFlutter();
+  await Hive.openBox("venturo");
+
+  /// Firebase init
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  /// Sentry init
   await SentryFlutter.init(
     (options) {
       options.dsn =
@@ -36,6 +44,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(
+      screenName: 'Initial Screen',
+      screenClassOverride: 'Trainee',
+    );
+
     return ScreenUtilInit(
       designSize: const Size(414, 896),
       minTextAdapt: true,

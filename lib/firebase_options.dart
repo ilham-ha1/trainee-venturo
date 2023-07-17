@@ -67,6 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '749638894127',
     projectId: 'core-venturo-4fcbe',
     storageBucket: 'core-venturo-4fcbe.appspot.com',
+    androidClientId: '749638894127-k3d59rk5f2grv1g8j6q2b3s1t6u2af7d.apps.googleusercontent.com',
     iosClientId: '749638894127-d06d8ntc7vslcsbdk1jk3g24bbrc1tcp.apps.googleusercontent.com',
     iosBundleId: 'com.core.venturo',
   );
@@ -77,6 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '749638894127',
     projectId: 'core-venturo-4fcbe',
     storageBucket: 'core-venturo-4fcbe.appspot.com',
+    androidClientId: '749638894127-k3d59rk5f2grv1g8j6q2b3s1t6u2af7d.apps.googleusercontent.com',
     iosClientId: '749638894127-d06d8ntc7vslcsbdk1jk3g24bbrc1tcp.apps.googleusercontent.com',
     iosBundleId: 'com.core.venturo',
   );
