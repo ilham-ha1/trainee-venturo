@@ -22,7 +22,7 @@ class NoConnectionView extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(ImageConstant.bgBlank),
+            image: AssetImage(ImageConstant.bg),
             fit: BoxFit.cover,
           ),
         ),
