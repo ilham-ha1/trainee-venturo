@@ -9,18 +9,18 @@ class LocalStorageService extends GetxService {
   static const String _isLoggedInKey = 'isLogin';
 
   /// Kode untuk setting localstorage sesuai dengan repository
-  static Future<void> setAuth(Data serverSelected) async {
-    await box.put("id", serverSelected.user!.id);
-    await box.put("name", serverSelected.user!.nama);
-    await box.put("photo", serverSelected.user!.humanisFoto);
-    await box.put("roles", serverSelected.user!.jabatan);
-    await box.put(_isLoggedInKey, true);
+    static Future<void> setAuth(Data serverSelected) async {
+      await box.put("id", serverSelected.user.idUser);
+      await box.put("name", serverSelected.user.nama);
+      await box.put("photo", serverSelected.user.foto);
+      await box.put("roles", serverSelected.user.roles);
+      await box.put(_isLoggedInKey, true);
 
-    /// Log id user
-    await FirebaseAnalytics.instance.setUserId(
-      id: serverSelected.user!.id.toString(),
-    );
-  } 
+      /// Log id user
+      await FirebaseAnalytics.instance.setUserId(
+        id: serverSelected.user.idUser.toString(),
+      );
+    } 
   //
   //untuk login dengan admin@gmail
 

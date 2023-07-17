@@ -11,6 +11,7 @@ import 'package:trainee/constants/cores/api/api_constant.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/shared/styles/google_text_style.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:trainee/utils/services/http_service.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
 
 class SignInController extends GetxController {
@@ -53,22 +54,37 @@ class SignInController extends GetxController {
       );
 
       formKey.currentState!.save();
-      if (emailCtrl.text == "admin@gmail.com" && passwordCtrl.text == "admin") {
+
+      try {
+        final response = await HttpService.dioService.login(
+          emailCtrl.text,
+          passwordCtrl.text,
+        );
+
+        if (response!.statusCode == 200) {
+          EasyLoading.dismiss();
+          LocalStorageService.setAuth(response.data);
+          Get.offAllNamed(MainRoute.initial);
+        } else {
+          EasyLoading.dismiss();
+          PanaraInfoDialog.show(
+            context,
+            title: "Warning",
+            message: "Email & Password Salah",
+            buttonText: "Coba lagi",
+            onTapDismiss: () {
+              Get.back();
+            },
+            panaraDialogType: PanaraDialogType.warning,
+            barrierDismissible: false,
+          );
+        }
+      } catch (error) {
         EasyLoading.dismiss();
-        setLoggedIn(true);
-        Get.offAllNamed(MainRoute.initial);
-      } else {
-        EasyLoading.dismiss();
-        PanaraInfoDialog.show(
-          context,
-          title: "Warning",
-          message: "Email & Password Salah",
-          buttonText: "Coba lagi",
-          onTapDismiss: () {
-            Get.back();
-          },
-          panaraDialogType: PanaraDialogType.warning,
-          barrierDismissible: false,
+        Get.snackbar(
+          "Error",
+          "Failed to make login request. Please try again later.",
+          snackPosition: SnackPosition.BOTTOM,
         );
       }
     } else if (GlobalController.to.isConnect.value == false) {
@@ -166,13 +182,18 @@ class SignInController extends GetxController {
           );
 
           await _auth.signInWithCredential(credential);
-          setLoggedIn(true);
+          final response = await HttpService.dioService.loginWithGmail(
+            googleSignInAccount.email,
+            googleSignInAccount.displayName!,
+          );
+
+          LocalStorageService.setAuth(response!.data);
           Get.offAndToNamed(MainRoute.initial);
         }
       }
     } catch (exception, stackTrace) {
       Get.snackbar(
-        "Error",
+        "Error Gmail Sign In",
         exception.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -181,9 +202,5 @@ class SignInController extends GetxController {
         stackTrace: stackTrace,
       );
     }
-  }
-
-   static Future<void> setLoggedIn(bool isLoggedIn) async {
-    LocalStorageService.setLoggedIn(isLoggedIn);
   }
 }

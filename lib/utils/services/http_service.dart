@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
+import 'package:trainee/modules/global_models/global_model.dart';
 
 class HttpService extends GetxService {
   HttpService._();
@@ -71,4 +73,58 @@ class HttpService extends GetxService {
       },
     );
   }
+
+  static const String baseUrl = 'https://trainee.landa.id/javacode';
+
+Future<LoginResponse?> login(String email, String password) async {
+  const url = '$baseUrl/auth/login';
+
+  try {
+    final response = await dioCall().post(
+      url,
+      data: {
+        'email': email,
+        'password': password,
+      },
+    );
+
+    // Assuming the response.data is of type Map<String, dynamic>
+    return LoginResponse.fromJson(response.data);
+  } catch (exception, stackTrace) {
+    await Sentry.captureException(
+      exception,
+      stackTrace: stackTrace,
+    );
+
+    // Handle the exception by returning an appropriate LoginResponse with status code and null data or throw an error.
+    return null;
+  }
+}
+
+Future<LoginResponse?> loginWithGmail(String email, String nama) async {
+  const url = '$baseUrl/auth/login';
+
+  try {
+    final response = await dioCall().post(
+      url,
+      data: {
+        'is_google': "1",
+        'email': email,
+        'nama': nama,
+      },
+    );
+
+    // Assuming the response.data is of type Map<String, dynamic>
+    return LoginResponse.fromJson(response.data);
+  } catch (exception, stackTrace) {
+    await Sentry.captureException(
+      exception,
+      stackTrace: stackTrace,
+    );
+
+    // Handle the exception by returning an appropriate LoginResponse with status code and null data or throw an error.
+    return null;
+  }
+}
+
 }
