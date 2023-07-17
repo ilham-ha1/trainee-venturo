@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/modules/global_models/global_model.dart';
 
@@ -113,7 +114,7 @@ Future<LoginResponse?> loginWithGmail(String email, String nama) async {
         'nama': nama,
       },
     );
-
+    Get.offAndToNamed(MainRoute.initial);
     // Assuming the response.data is of type Map<String, dynamic>
     return LoginResponse.fromJson(response.data);
   } catch (exception, stackTrace) {

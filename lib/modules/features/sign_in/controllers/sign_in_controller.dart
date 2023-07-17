@@ -188,7 +188,7 @@ class SignInController extends GetxController {
           );
 
           LocalStorageService.setAuth(response!.data);
-          Get.offAndToNamed(MainRoute.initial);
+          
         }
       }
     } catch (exception, stackTrace) {
