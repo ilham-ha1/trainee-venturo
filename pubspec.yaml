@@ -50,6 +50,7 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   app_settings: ^4.2.0
+  flutter_conditional_rendering: ^2.0.0
 
 
 dev_dependencies:

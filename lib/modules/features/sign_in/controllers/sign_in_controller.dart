@@ -64,7 +64,7 @@ class SignInController extends GetxController {
         if (response!.statusCode == 200) {
           EasyLoading.dismiss();
           LocalStorageService.setAuth(response.data);
-          Get.offAllNamed(MainRoute.initial);
+          Get.offAllNamed(MainRoute.getLocation);
         } else {
           EasyLoading.dismiss();
           PanaraInfoDialog.show(
@@ -188,7 +188,7 @@ class SignInController extends GetxController {
           );
 
           LocalStorageService.setAuth(response!.data);
-          Get.offAndToNamed(MainRoute.initial);
+          Get.offAndToNamed(MainRoute.getLocation);
         }
       }
     } catch (exception, stackTrace) {

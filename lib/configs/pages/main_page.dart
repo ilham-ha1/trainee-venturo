@@ -2,6 +2,8 @@ import 'package:get/route_manager.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/counter/binddings/conter_bindding.dart';
 import 'package:trainee/modules/features/counter/views/ui/conter_view.dart';
+import 'package:trainee/modules/features/initial/binddings/initial_binding.dart';
+import 'package:trainee/modules/features/initial/views/ui/get_location_screen.dart';
 import 'package:trainee/modules/features/no_connection/view/ui/no_connection_view.dart';
 import 'package:trainee/modules/features/splash/binddings/splash_binding.dart';
 import 'package:trainee/modules/features/splash/views/ui/splash_view.dart';
@@ -25,6 +27,11 @@ abstract class MainPage {
       name: MainRoute.signIn,
       page: () => const SignInView(),
       binding: SignInBinding(),
+    ),
+     GetPage(
+      name: MainRoute.getLocation,
+      page: () => const GetLocationScreen(),
+      binding: InitialBinding(),
     ),
   ];
 }

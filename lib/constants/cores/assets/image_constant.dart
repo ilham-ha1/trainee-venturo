@@ -5,5 +5,4 @@ class ImageConstant {
   static const String noInet = 'assets/images/no-internet.png';
   static const String icGoogle = 'assets/icons/ic-google.png';
   static const String location = 'assets/images/map.png';
-  static const String pointer = 'assets/icons/pointer.png';
 }

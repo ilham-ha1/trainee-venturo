@@ -15,10 +15,10 @@ class SplashController extends GetxController {
 
   Future<void> loading() async{
     Timer(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () {
         if (LocalStorageService.isLoggedIn() == true) {
-          Get.offNamed(MainRoute.initial); // Navigate to the Initial page
+          Get.offNamed(MainRoute.getLocation); // Navigate to the Initial page
         } else {
           Get.offNamed(MainRoute.signIn); // Navigate to the SignIn page
         }

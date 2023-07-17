@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:get/get.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
 import 'package:trainee/modules/global_controllers/initial_controller.dart';
@@ -30,7 +31,7 @@ class GetLocationScreen extends StatelessWidget {
               Text(
                 'Searching location...'.tr,
                 style: Get.textTheme.titleLarge!
-                    .copyWith(color: AppColor.kDarkColor.withOpacity(0.5)),
+                    .copyWith(color: Colors.black.withOpacity(0.5)),
                 textAlign: TextAlign.center,
               ),
               50.verticalSpacingRadius,
@@ -81,7 +82,7 @@ class GetLocationScreen extends StatelessWidget {
                                 children: [
                                   const Icon(
                                     Icons.settings,
-                                    color: AppColor.kDarkColor,
+                                    color: Colors.black,
                                   ),
                                   16.horizontalSpaceRadius,
                                   Text(
@@ -100,7 +101,7 @@ class GetLocationScreen extends StatelessWidget {
                         ),
                   },
                   fallbackBuilder: (context) => const CircularProgressIndicator(
-                    color: AppColor.kBlueColor,
+                    color: Colors.blue,
                   ),
                 ),
               ),

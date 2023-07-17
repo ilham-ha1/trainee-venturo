@@ -2,14 +2,16 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
-import 'package:trainee/constants/cores/api/api_constant.dart';
-import 'package:trainee/utils/services/local_storage_service.dart';
+import 'package:trainee/modules/features/initial/views/ui/get_location_screen.dart';
 import 'package:trainee/utils/services/location_service.dart';
 
 class InitialController extends GetxController {
   static InitialController get to => Get.find();
+
+  RxString id = RxString('');
+  RxString name = RxString('');
+  RxString photo = RxString('');
 
   @override
   void onReady() {
@@ -18,9 +20,9 @@ class InitialController extends GetxController {
     getLocation();
     LocationServices.streamService.listen((status) => getLocation());
 
-    id.value = LocalStorageService.box.get("id");
-    name.value = LocalStorageService.box.get("name");
-    photo.value = LocalStorageService.box.get("photo");
+    // id.value = LocalStorageService.box.get("id");
+    // name.value = LocalStorageService.box.get("name");
+    // photo.value = LocalStorageService.box.get("photo");
   }
 
   /// Location
@@ -31,7 +33,7 @@ class InitialController extends GetxController {
 
   Future<void> getLocation() async {
     if (Get.isDialogOpen == false) {
-      // Get.dialog(const GetLocationScreen(), barrierDismissible: false);
+      Get.dialog(const GetLocationScreen(), barrierDismissible: false);
     }
 
     try {
