@@ -1,7 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:trainee/modules/global_models/global_model.dart';
+import 'package:trainee/modules/global_models/login_response.dart';
 
 class LocalStorageService extends GetxService {
   LocalStorageService._();
@@ -9,20 +9,23 @@ class LocalStorageService extends GetxService {
   static const String _isLoggedInKey = 'isLogin';
 
   /// Kode untuk setting localstorage sesuai dengan repository
-    static Future<void> setAuth(Data serverSelected) async {
-      await box.put("id", serverSelected.user.idUser);
-      await box.put("name", serverSelected.user.nama);
-      await box.put("photo", serverSelected.user.foto);
-      await box.put("roles", serverSelected.user.roles);
-      await box.put(_isLoggedInKey, true);
+  static Future<void> setAuth(Data serverSelected) async {
+    await box.put("id", serverSelected.user.idUser);
+    await box.put("name", serverSelected.user.nama);
+    await box.put("photo", serverSelected.user.foto);
+    await box.put("roles", serverSelected.user.roles);
+    await box.put("token", serverSelected.token);
+    await box.put(_isLoggedInKey, true);
 
-      /// Log id user
-      await FirebaseAnalytics.instance.setUserId(
-        id: serverSelected.user.idUser.toString(),
-      );
-    } 
-  //
-  //untuk login dengan admin@gmail
+    /// Log id user
+    await FirebaseAnalytics.instance.setUserId(
+      id: serverSelected.user.idUser.toString(),
+    );
+  }
+
+  static dynamic getToken() {
+    return box.get("token");
+  }
 
   static bool isLoggedIn() {
     return box.get(_isLoggedInKey, defaultValue: false) ?? false;
@@ -36,8 +39,4 @@ class LocalStorageService extends GetxService {
       box.put("isLogin", false);
     }
   }
-
-
-
-  
 }

@@ -75,7 +75,7 @@ class NoConnectionView extends StatelessWidget {
                 onPressed: () {
                   GlobalController.to.checkConnectionInPageUsingButton();
                   if (GlobalController.to.isConnect.value == true) {
-                    Get.offNamed(MainRoute.initial);
+                    Get.offNamed(MainRoute.list);
                   }else {
                     Get.snackbar(
                       "Terjadi Kesalahan",

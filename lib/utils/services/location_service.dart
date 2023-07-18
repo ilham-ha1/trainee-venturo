@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -32,7 +30,7 @@ class LocationServices {
       /// Jika tidak, minta izin
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-/// Jika izin ditolak, kirim pesan error
+        /// Jika izin ditolak, kirim pesan error
         return LocationResult.error(
           message: 'Location permission not granted'.tr,
         );

@@ -1,11 +1,13 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
-import 'package:trainee/modules/global_models/global_model.dart';
+import 'package:trainee/modules/global_models/detail_menu_response.dart';
+import 'package:trainee/modules/global_models/login_response.dart';
+import 'package:trainee/modules/global_models/menu_response.dart';
+import 'package:trainee/utils/services/local_storage_service.dart';
 
 class HttpService extends GetxService {
   HttpService._();
@@ -77,54 +79,113 @@ class HttpService extends GetxService {
 
   static const String baseUrl = 'https://trainee.landa.id/javacode';
 
-Future<LoginResponse?> login(String email, String password) async {
-  const url = '$baseUrl/auth/login';
+  Future<LoginResponse?> login(String email, String password) async {
+    const url = '$baseUrl/auth/login';
 
-  try {
-    final response = await dioCall().post(
-      url,
-      data: {
-        'email': email,
-        'password': password,
-      },
-    );
-
-    // Assuming the response.data is of type Map<String, dynamic>
-    return LoginResponse.fromJson(response.data);
-  } catch (exception, stackTrace) {
-    await Sentry.captureException(
-      exception,
-      stackTrace: stackTrace,
-    );
-
-    // Handle the exception by returning an appropriate LoginResponse with status code and null data or throw an error.
-    return null;
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          'email': email,
+          'password': password,
+        },
+      );
+      return LoginResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
   }
-}
 
-Future<LoginResponse?> loginWithGmail(String email, String nama) async {
-  const url = '$baseUrl/auth/login';
+  Future<LoginResponse?> loginWithGmail(String email, String nama) async {
+    const url = '$baseUrl/auth/login';
 
-  try {
-    final response = await dioCall().post(
-      url,
-      data: {
-        'is_google': "1",
-        'email': email,
-        'nama': nama,
-      },
-    );
-    Get.offAndToNamed(MainRoute.getLocation);
-    return LoginResponse.fromJson(response.data);
-  } catch (exception, stackTrace) {
-    await Sentry.captureException(
-      exception,
-      stackTrace: stackTrace,
-    );
-
-    // Handle the exception by returning an appropriate LoginResponse with status code and null data or throw an error.
-    return null;
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          'is_google': "1",
+          'email': email,
+          'nama': nama,
+        },
+      );
+      Get.offAndToNamed(MainRoute.getLocation);
+      return LoginResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
   }
-}
 
+  Future<MenuAll?> getAllMenu() async {
+    const url = '$baseUrl/menu/all';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+       return MenuAll.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<MenuAll?> getMenuByCategory(String kategori) async {
+    final url = '$baseUrl/menu/kategori/$kategori';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return MenuAll.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<DataDetailMenu?> getDetailMenu(String id) async {
+    final url = '$baseUrl/menu/kategori/$id';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      final Map<String, dynamic> responseData = response.data;
+      final DataDetailMenu detailMenu = DataDetailMenu.fromJson(responseData);
+      return detailMenu;
+     
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
 }

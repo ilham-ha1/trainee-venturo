@@ -48,7 +48,7 @@ class InitialController extends GetxController {
         statusLocation.value = 'success';
 
         await Future.delayed(const Duration(seconds: 1));
-        Get.offAllNamed(MainRoute.initial);
+        Get.offAllNamed(MainRoute.list);
       } else {
         /// Jika jarak lokasi tidak cukup dekat, tampilkan pesan
         statusLocation.value = 'error';

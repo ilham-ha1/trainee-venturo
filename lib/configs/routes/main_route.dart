@@ -5,4 +5,5 @@ abstract class MainRoute {
   static const String noConnection = "/no-connection";
   static const String signIn = "/sign-in";
   static const String getLocation = "/get-location";
+  static const String list = '/list';
 }
