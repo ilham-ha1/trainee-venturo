@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,9 @@ class LocationServices {
   static Stream<ServiceStatus> streamService =
   Geolocator.getServiceStatusStream();
 
+  static Future<bool> getStatusLocationPermission() async{
+    return await Geolocator.isLocationServiceEnabled();
+  }
   /// Mendapatkan informasi lokasi
   static Future<LocationResult> getCurrentPosition() async {
     /// Apakah layanan lokasi aktif?

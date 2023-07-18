@@ -114,8 +114,7 @@ Future<LoginResponse?> loginWithGmail(String email, String nama) async {
         'nama': nama,
       },
     );
-    Get.offAndToNamed(MainRoute.initial);
-    // Assuming the response.data is of type Map<String, dynamic>
+    Get.offAndToNamed(MainRoute.getLocation);
     return LoginResponse.fromJson(response.data);
   } catch (exception, stackTrace) {
     await Sentry.captureException(

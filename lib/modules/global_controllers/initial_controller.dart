@@ -1,17 +1,17 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/initial/views/ui/get_location_screen.dart';
+import 'package:trainee/utils/services/local_storage_service.dart';
 import 'package:trainee/utils/services/location_service.dart';
 
 class InitialController extends GetxController {
   static InitialController get to => Get.find();
 
-  RxString id = RxString('');
-  RxString name = RxString('');
-  RxString photo = RxString('');
+  RxInt id = 0.obs;
+  RxString name = ''.obs;
+  RxString photo = ''.obs;
 
   @override
   void onReady() {
@@ -20,9 +20,9 @@ class InitialController extends GetxController {
     getLocation();
     LocationServices.streamService.listen((status) => getLocation());
 
-    // id.value = LocalStorageService.box.get("id");
-    // name.value = LocalStorageService.box.get("name");
-    // photo.value = LocalStorageService.box.get("photo");
+    id.value = LocalStorageService.box.get("id")?? 0;
+    name.value = LocalStorageService.box.get("name") ?? '';
+    photo.value = LocalStorageService.box.get("photo") ?? '';
   }
 
   /// Location
@@ -48,7 +48,7 @@ class InitialController extends GetxController {
         statusLocation.value = 'success';
 
         await Future.delayed(const Duration(seconds: 1));
-        Get.until(ModalRoute.withName(MainRoute.initial));
+        Get.offAllNamed(MainRoute.initial);
       } else {
         /// Jika jarak lokasi tidak cukup dekat, tampilkan pesan
         statusLocation.value = 'error';

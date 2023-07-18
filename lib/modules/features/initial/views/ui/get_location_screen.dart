@@ -66,6 +66,7 @@ class GetLocationScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             24.verticalSpacingRadius,
+
                             ElevatedButton(
                               onPressed: () =>
                                   AppSettings.openLocationSettings(),
@@ -92,8 +93,10 @@ class GetLocationScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
+
                           ],
                         ),
+                        
                     'success': (context) => Text(
                           InitialController.to.address.value!,
                           style: Get.textTheme.titleLarge,
