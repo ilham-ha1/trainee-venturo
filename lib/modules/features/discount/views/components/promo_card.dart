@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:trainee/configs/routes/main_route.dart';
 
 class PromoCard extends StatelessWidget {
   const PromoCard({
@@ -23,9 +22,7 @@ class PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Get.toNamed(MainRoute.discount);
-      },
+      onTap: () {},
       borderRadius: BorderRadius.circular(15.r),
       child: thumbnailUrl!='' ? Container(
         width: width ?? 282.w,

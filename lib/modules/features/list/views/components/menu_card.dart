@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/modules/global_models/menu_response.dart';
 
 class MenuCard extends StatelessWidget {
-  final Map<String, dynamic> menu;
+  final Menu menu;
   final bool isSelected;
   final void Function()? onTap;
 
@@ -44,8 +45,10 @@ class MenuCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.r),
                 color: Colors.grey[100],
               ),
-              child: CachedNetworkImage(
-                imageUrl: menu['foto'] ??
+              child: 
+             
+              CachedNetworkImage(
+                imageUrl: menu.foto ??
                     'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
                 useOldImageOnUrlChange: true,
                 fit: BoxFit.contain,
@@ -59,16 +62,32 @@ class MenuCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    menu['name'],
+                    menu.nama ?? '',
                     style: Get.textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   Text(
-                    menu['harga'].toString(),
+                    menu.harga.toString(),
                     style: Get.textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(Icons.edit_note),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        'Tambahkan Catatan',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

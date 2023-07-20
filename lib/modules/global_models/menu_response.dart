@@ -4,22 +4,22 @@
 
 import 'dart:convert';
 
-MenuAll welcomeFromJson(String str) => MenuAll.fromJson(json.decode(str));
+MenuResponse welcomeFromJson(String str) => MenuResponse.fromJson(json.decode(str));
 
-String welcomeToJson(MenuAll data) => json.encode(data.toJson());
+String welcomeToJson(MenuResponse data) => json.encode(data.toJson());
 
-class MenuAll {
+class MenuResponse {
     int? statusCode;
-    List<Datum>? data;
+    List<Menu>? data;
 
-    MenuAll({
+    MenuResponse({
         this.statusCode,
         this.data,
     });
 
-    factory MenuAll.fromJson(Map<String, dynamic> json) => MenuAll(
+    factory MenuResponse.fromJson(Map<String, dynamic> json) => MenuResponse(
         statusCode: json["status_code"],
-        data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+        data: json["data"] == null ? [] : List<Menu>.from(json["data"]!.map((x) => Menu.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class MenuAll {
     };
 }
 
-class Datum {
+class Menu {
     int? idMenu;
     String? nama;
     String? kategori;
@@ -37,7 +37,7 @@ class Datum {
     String? foto;
     int? status;
 
-    Datum({
+    Menu({
         this.idMenu,
         this.nama,
         this.kategori,
@@ -47,7 +47,7 @@ class Datum {
         this.status,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory Menu.fromJson(Map<String, dynamic> json) => Menu(
         idMenu: json["id_menu"],
         nama: json["nama"],
         kategori: json["kategori"],

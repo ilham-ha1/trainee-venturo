@@ -7,7 +7,9 @@ import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/modules/global_models/detail_menu_response.dart';
 import 'package:trainee/modules/global_models/login_response.dart';
 import 'package:trainee/modules/global_models/menu_response.dart';
+import 'package:trainee/modules/global_models/promo_response.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
+import 'package:trainee/modules/global_models/detail_promo_response.dart';
 
 class HttpService extends GetxService {
   HttpService._();
@@ -123,7 +125,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<MenuAll?> getAllMenu() async {
+  Future<MenuResponse?> getAllMenu() async {
     const url = '$baseUrl/menu/all';
     final authToken = LocalStorageService.getToken();
 
@@ -134,7 +136,7 @@ class HttpService extends GetxService {
           headers: {'token': '$authToken'},
         ),
       );
-       return MenuAll.fromJson(response.data);
+      return MenuResponse.fromJson(response.data);
     } catch (exception, stackTrace) {
       await Sentry.captureException(
         exception,
@@ -144,7 +146,49 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<MenuAll?> getMenuByCategory(String kategori) async {
+  Future<PromoResponse?> getAllUserPromo() async {
+    const url = '$baseUrl/promo/all';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final promoResponse = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return PromoResponse.fromJson(promoResponse.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<DetailPromo?> getDetailUserPromo(String idPromo) async {
+    final url = '$baseUrl/promo/detail/$idPromo';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return DetailPromo.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<MenuResponse?> getMenuByCategory(String kategori) async {
     final url = '$baseUrl/menu/kategori/$kategori';
     final authToken = LocalStorageService.getToken();
 
@@ -155,7 +199,7 @@ class HttpService extends GetxService {
           headers: {'token': '$authToken'},
         ),
       );
-      return MenuAll.fromJson(response.data);
+      return MenuResponse.fromJson(response.data);
     } catch (exception, stackTrace) {
       await Sentry.captureException(
         exception,
@@ -179,7 +223,6 @@ class HttpService extends GetxService {
       final Map<String, dynamic> responseData = response.data;
       final DataDetailMenu detailMenu = DataDetailMenu.fromJson(responseData);
       return detailMenu;
-     
     } catch (exception, stackTrace) {
       await Sentry.captureException(
         exception,
@@ -188,4 +231,6 @@ class HttpService extends GetxService {
       return null;
     }
   }
+
+
 }

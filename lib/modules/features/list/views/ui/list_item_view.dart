@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/list/controllers/list_controller.dart';
 import 'package:trainee/modules/features/list/views/components/menu_card.dart';
 import 'package:trainee/modules/features/list/views/components/menu_chip.dart';
 import 'package:trainee/modules/features/list/views/components/promo_card.dart';
 import 'package:trainee/modules/features/list/views/components/search_app_bar.dart';
 import 'package:trainee/modules/features/list/views/components/section_header.dart';
+import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 
 class ListItemView extends StatelessWidget {
   const ListItemView({super.key});
@@ -30,32 +32,37 @@ class ListItemView extends StatelessWidget {
                 const SliverToBoxAdapter(
                   child: SectionHeader(
                     icon: Icons.note_alt_outlined,
-                    title: 'Available promo',
+                    title: 'Promo yang tersedia',
                   ),
                 ),
                 SliverToBoxAdapter(child: 22.verticalSpace),
+
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    width: 1.sw,
-                    height: 188.h,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
-                      itemBuilder: (context, index) {
-                        return PromoCard(
-                          enableShadow: false,
-                          promoName: 'Promo $index',
-                          discountNominal: '${index * 10}',
-                          thumbnailUrl:
-                              "https://javacode.landa.id/img/promo/gambar_62661b52223ff.png",
-                        );
-                      },
-                      separatorBuilder: (context, index) => 26.horizontalSpace,
-                      itemCount: 2,
+                  child: Obx( () =>
+                    SizedBox(
+                      width: 1.sw,
+                      height: 188.h,
+                      child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(horizontal: 25.w),
+                          itemBuilder: (context, index) {
+                            final item = ListController.to.promo[index];
+                            return PromoCard(
+                                enableShadow: false,
+                                promoName: item.nama.toString(),
+                                discountNominal: item.nominal.toString(),
+                                thumbnailUrl: item.foto ?? "",
+                              );
+                            
+                          },
+                          separatorBuilder: (context, index) =>
+                              26.horizontalSpace,
+                          itemCount: ListController.to.promo.length),
                     ),
                   ),
                 ),
+
                 SliverToBoxAdapter(child: 22.verticalSpace),
                 // Row of categories
                 SliverToBoxAdapter(
@@ -98,14 +105,14 @@ class ListItemView extends StatelessWidget {
                     color: Colors.grey[100],
                     margin: EdgeInsets.only(bottom: 10.h),
                     child: SectionHeader(
-                      title: currentCategory == 'all'
-                          ? 'All Menu'
-                          : currentCategory == 'food'
-                              ? 'Food'
-                              : 'Drink',
-                      icon: currentCategory == 'all'
+                      title: currentCategory == 'semua menu'
+                          ? 'Semua Menu'
+                          : currentCategory == 'makanan'
+                              ? 'Makanan'
+                              : 'Minuman',
+                      icon: currentCategory == 'semua menu'
                           ? Icons.menu_book
-                          : currentCategory == 'food'
+                          : currentCategory == 'makanan'
                               ? Icons.food_bank
                               : Icons.local_drink,
                     ),
@@ -117,8 +124,7 @@ class ListItemView extends StatelessWidget {
                       controller: ListController.to.refreshController,
                       enablePullDown: true,
                       onRefresh: ListController.to.onRefresh,
-                      enablePullUp:
-                          ListController.to.canLoadMore.isTrue ? true : false,
+                      enablePullUp: ListController.to.canLoadMore.isTrue ? true : false,
                       onLoading: ListController.to.getListOfData,
                       child: ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 25.w),
@@ -126,7 +132,7 @@ class ListItemView extends StatelessWidget {
                           final item = ListController.to.filteredList[index];
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 8.5.h),
-                            child: Obx(() => Slidable(
+                            child: Slidable(
                                   endActionPane: ActionPane(
                                     motion: const ScrollMotion(),
                                     children: [
@@ -150,22 +156,12 @@ class ListItemView extends StatelessWidget {
                                     elevation: 2,
                                     child: MenuCard(
                                       menu: item,
-                                      isSelected: ListController
-                                          .to.selectedItems
-                                          .contains(item),
                                       onTap: () {
-                                        if (ListController.to.selectedItems
-                                            .contains(item)) {
-                                          ListController.to.selectedItems
-                                              .remove(item);
-                                        } else {
-                                          ListController.to.selectedItems
-                                              .add(item);
-                                        }
+                                        Get.toNamed(MainRoute.menu, arguments: item.idMenu);
                                       },
                                     ),
                                   ),
-                                )),
+                                )
                           );
                         },
                         itemCount: ListController.to.filteredList.length,
@@ -176,6 +172,7 @@ class ListItemView extends StatelessWidget {
                 ),
               ],
             )),
+        bottomNavigationBar: const BottomNavigation(),
       ),
     );
   }

@@ -1,23 +1,24 @@
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
+import 'package:trainee/modules/global_models/menu_response.dart';
+import 'package:trainee/utils/services/http_service.dart';
 import '../repositories/list_repository.dart';
+import 'package:trainee/modules/global_models/promo_response.dart';
 
 class ListController extends GetxController {
   static ListController get to => Get.find<ListController>();
   late final ListRepository repository;
   final RxInt page = 0.obs;
-  final RxList<Map<String, dynamic>> items = <Map<String, dynamic>>[].obs;
-  final RxList<Map<String, dynamic>> selectedItems =
-      <Map<String, dynamic>>[].obs;
+  final RxList<Menu> items = <Menu>[].obs;
+  final RxList<Menu> selectedItems = <Menu>[].obs;
   final RxBool canLoadMore = true.obs;
-  final RxString selectedCategory = 'all'.obs;
+  final RxString selectedCategory = 'semua menu'.obs;
   final RxString keyword = ''.obs;
   final List<String> categories = [
-    'All',
-    'Food',
-    'Drink',
+    'Semua Menu',
+    'Makanan',
+    'Minuman',
   ];
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -26,6 +27,7 @@ class ListController extends GetxController {
   void onInit() async {
     super.onInit();
     repository = ListRepository();
+    await observePromos();
     await getListOfData();
   }
 
@@ -40,21 +42,39 @@ class ListController extends GetxController {
     }
   }
 
-  List<Map<String, dynamic>> get filteredList => items
+  final RxList<Promo> promo = <Promo>[].obs;
+
+  Future observePromos() async {
+    try {
+      final promoResponse = await HttpService.dioService.getAllUserPromo();
+      promo.clear();
+      if (promoResponse?.data != null) {
+        promo.addAll(promoResponse!.data!.toList());
+      }
+    } catch (exception, stacktrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stacktrace,
+      );
+    }
+  }
+
+  List<Menu> get filteredList => items
       .where((element) =>
-          element['name']
+          element.nama
               .toString()
               .toLowerCase()
               .contains(keyword.value.toLowerCase()) &&
-          (selectedCategory.value == 'all' ||
-              element['category'] == selectedCategory.value))
+          (selectedCategory.value == 'semua menu' ||
+              element.kategori == selectedCategory.value))
       .toList();
 
   Future<bool> getListOfData() async {
     try {
-      final result = repository.getListOfData(
+      final result = await repository.getListOfData(
         offset: page.value * 5,
       );
+
       if (result['previous'] == null) {
         items.clear();
       }
@@ -78,9 +98,9 @@ class ListController extends GetxController {
     }
   }
 
-  Future<void> deleteItem(Map<String, dynamic> item) async {
+  Future<void> deleteItem(Menu item) async {
     try {
-      repository.deleteItem(item['id_menu']);
+      repository.deleteItem(item.idMenu ?? 0);
       items.remove(item);
       selectedItems.remove(item);
     } catch (exception, stacktrace) {
