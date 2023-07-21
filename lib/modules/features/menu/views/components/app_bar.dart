@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppBarMenu extends StatelessWidget implements PreferredSizeWidget{
   const AppBarMenu({super.key});
@@ -40,8 +41,9 @@ class AppBarMenu extends StatelessWidget implements PreferredSizeWidget{
             padding: const EdgeInsets.only(right: 35.0),
             child: Text(
               "Detail Menu",
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                 fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
                 color: MainColor.black,
               ),
               textAlign: TextAlign.center,

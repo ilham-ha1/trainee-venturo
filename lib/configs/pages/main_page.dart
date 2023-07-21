@@ -2,7 +2,8 @@ import 'package:get/route_manager.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/counter/binddings/conter_bindding.dart';
 import 'package:trainee/modules/features/counter/views/ui/conter_view.dart';
-import 'package:trainee/modules/features/discount/views/ui/discount_view.dart';
+import 'package:trainee/modules/features/promo/binddings/promo_binding.dart';
+import 'package:trainee/modules/features/promo/views/ui/promo_view.dart';
 import 'package:trainee/modules/features/initial/binddings/initial_binding.dart';
 import 'package:trainee/modules/features/initial/views/ui/get_location_screen.dart';
 import 'package:trainee/modules/features/list/binddings/list_binding.dart';
@@ -45,12 +46,13 @@ abstract class MainPage {
     ),
     GetPage(
       name: MainRoute.menu, 
-      page: () => MenuView(idMenu: Get.arguments,),
+      page: () =>  const MenuView(),
       binding: MenuBinding(),
     ),
     GetPage(
-      name: MainRoute.discount, 
-      page: () => const DiscountView(),
+      name: MainRoute.promo, 
+      page: () => const PromoView(),
+      binding: PromoBinding(),
     )
   ];
 }

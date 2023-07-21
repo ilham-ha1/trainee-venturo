@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/menu/views/components/app_bar.dart';
+import 'package:trainee/modules/global_controllers/user_order_controller.dart';
+import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 import 'package:trainee/shared/styles/elevated_button_style.dart';
 import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuView extends StatelessWidget {
-  const MenuView({required this.idMenu, super.key});
-  final int idMenu;
+  const MenuView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class MenuView extends StatelessWidget {
         child: Scaffold(
       appBar: const AppBarMenu(),
       body: Obx(() {
-        final detailMenu = MenuDetailController.to.detailMenu.value;
+        final detailMenu = MenuDetailController.to.menu.value;
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -26,8 +28,8 @@ class MenuView extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      detailMenu.menu?.foto ?? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                  imageUrl: detailMenu.foto ??
+                      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
                   useOldImageOnUrlChange: true,
                   height: 180,
                   fit: BoxFit.contain,
@@ -53,26 +55,42 @@ class MenuView extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(detailMenu.menu?.nama ?? '',
-                            style: TextStyle(
-                              fontSize: 20.sp,
+                        Obx(
+                          () => Text(
+                            detailMenu.nama ?? '',
+                            style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                               color: MainColor.primary,
-                            )),
+                            ),
+                          ),
+                        ),
                         const Expanded(child: SizedBox()),
                         Material(
                           color: Colors.transparent,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                                Icons.indeterminate_check_box_outlined),
+                          child: Obx(
+                            () => IconButton(
+                              onPressed: UserOrderController.to.qty.value > 1
+                                  ? () {
+                                      UserOrderController.to.minMoreQuantity();
+                                    }
+                                  : () {},
+                              icon: const Icon(
+                                  Icons.indeterminate_check_box_outlined),
+                            ),
                           ),
                         ),
-                        const Text("1"),
+                        Obx(() =>
+                            Text(UserOrderController.to.qty.value.toString())),
                         Material(
                           color: Colors.transparent,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.add_box_outlined),
+                          child: Obx(
+                            () => IconButton(
+                              onPressed: () {
+                                UserOrderController.to.addMoreQuantity();
+                              },
+                              icon: const Icon(Icons.add_box_outlined),
+                            ),
                           ),
                         ),
                       ],
@@ -80,9 +98,8 @@ class MenuView extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Text(
-                        detailMenu.menu?.deskripsi ?? '',
-                        style: TextStyle(
+                    Text(detailMenu.deskripsi ?? '',
+                        style: GoogleFonts.montserrat(
                           fontSize: 12.sp,
                           color: MainColor.black,
                         )),
@@ -103,18 +120,22 @@ class MenuView extends StatelessWidget {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                const Text("Harga",
-                                    style: TextStyle(
-                                        fontSize: 16, color: MainColor.black)),
+                                Text("Harga",
+                                    style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: MainColor.black)),
                                 const Expanded(
                                   child: SizedBox(),
                                 ),
                                 Text(
-                                  'Rp. ${detailMenu.menu?.harga.toString() ?? ''}',
-                                  style: const TextStyle(
+                                  'Rp. ${detailMenu.harga ?? 0}',
+                                  style: GoogleFonts.montserrat(
                                     fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                     color: MainColor.primary,
-                                  ),)
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -122,27 +143,29 @@ class MenuView extends StatelessWidget {
                             color: MainColor.black,
                             height: 1.5,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(Icons.local_fire_department),
-                                SizedBox(
+                                const Icon(Icons.local_fire_department),
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Text("Level",
-                                    style: TextStyle(
-                                        fontSize: 16, color: MainColor.black)),
-                                Expanded(
+                                    style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: MainColor.black)),
+                                const Expanded(
                                   child: SizedBox(),
                                 ),
                                 Text(
                                   "1",
-                                  style: TextStyle(
+                                  style: GoogleFonts.montserrat(
                                       fontSize: 18, color: MainColor.black),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.keyboard_arrow_right,
                                   color: MainColor.grey,
                                 ),
@@ -153,25 +176,27 @@ class MenuView extends StatelessWidget {
                             color: MainColor.black,
                             height: 1.5,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(Icons.local_pizza_outlined),
-                                SizedBox(
+                                const Icon(Icons.local_pizza_outlined),
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Text("Toping",
-                                    style: TextStyle(
-                                        fontSize: 16, color: MainColor.black)),
-                                Expanded(
+                                    style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: MainColor.black)),
+                                const Expanded(
                                   child: SizedBox(),
                                 ),
                                 Text("Mozarella",
-                                    style: TextStyle(
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 18, color: MainColor.black)),
-                                Icon(
+                                const Icon(
                                   Icons.keyboard_arrow_right,
                                   color: MainColor.grey,
                                 ),
@@ -182,32 +207,34 @@ class MenuView extends StatelessWidget {
                             color: MainColor.black,
                             height: 1.5,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(Icons.edit_note),
-                                SizedBox(
+                                const Icon(Icons.edit_note),
+                                const SizedBox(
                                   width: 8,
                                 ),
                                 Text("Catatan",
-                                    style: TextStyle(
-                                        fontSize: 16, color: MainColor.black)),
-                                Expanded(
+                                    style: GoogleFonts.montserrat(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: MainColor.black)),
+                                const Expanded(
                                   child: SizedBox(),
                                 ),
                                 SizedBox(
                                   width: 150,
                                   child: Text(
-                                    "Lorem Ipsum sitdolor amet as asii",
-                                    style: TextStyle(
+                                    "Tambahkan Catatan",
+                                    style: GoogleFonts.montserrat(
                                         fontSize: 18, color: MainColor.black),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.keyboard_arrow_right,
                                   color: MainColor.grey,
                                 ),
@@ -225,7 +252,7 @@ class MenuView extends StatelessWidget {
                         ),
                       ),
                       child: Text("Tambahkan Ke Pesanan",
-                          style: TextStyle(
+                          style: GoogleFonts.montserrat(
                               fontSize: 16.sp, color: MainColor.white)),
                     )
                   ],
@@ -235,6 +262,7 @@ class MenuView extends StatelessWidget {
           ],
         );
       }),
+      bottomNavigationBar: const BottomNavigation(),
     ));
   }
 }

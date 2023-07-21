@@ -6,25 +6,31 @@ import 'package:trainee/utils/services/http_service.dart';
 class MenuDetailController extends GetxController {
   static MenuDetailController get to => Get.find();
 
-  int itemIdMenu = 0;
+  final RxInt itemIdMenu = 0.obs;
 
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
-    itemIdMenu = Get.arguments;
+    itemIdMenu.value = Get.arguments;
+    await observeMenu();
   }
 
-  final Rx<DataDetailMenu> detailMenu = DataDetailMenu().obs;
-  Future observePromos() async {
+  final Rx<Menu> menu = Menu().obs;
+  final RxList<Topping> topping = <Topping>[].obs;
+  final RxList<Level> level = <Level>[].obs;
+
+  Future observeMenu() async {
     try {
       final detailMenuResponse =
-          await HttpService.dioService.getDetailMenu(itemIdMenu.toString());
-      if (detailMenuResponse?.menu != null) {
-        detailMenu.value = DataDetailMenu(
-          menu: detailMenuResponse!.menu,
-          topping: detailMenuResponse.topping,
-          level: detailMenuResponse.level,
-        );
+          await HttpService.dioService.getDetailMenu(itemIdMenu.value);
+      if (detailMenuResponse?.data != null) {
+        final dataMenu = detailMenuResponse?.data?.menu;
+        final dataTopping = detailMenuResponse?.data?.topping;
+        final dataLevel = detailMenuResponse?.data?.level;
+
+        menu.value = dataMenu!;
+        topping.value = dataTopping!;
+        level.value = dataLevel!;
       }
     } catch (exception, stacktrace) {
       await Sentry.captureException(

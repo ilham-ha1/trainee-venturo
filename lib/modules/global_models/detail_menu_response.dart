@@ -30,7 +30,7 @@ class DetailMenu {
 
 class DataDetailMenu {
     Menu? menu;
-    List<Level>? topping;
+    List<Topping>? topping;
     List<Level>? level;
 
     DataDetailMenu({
@@ -41,7 +41,7 @@ class DataDetailMenu {
 
     factory DataDetailMenu.fromJson(Map<String, dynamic> json) => DataDetailMenu(
         menu: json["menu"] == null ? null : Menu.fromJson(json["menu"]),
-        topping: json["topping"] == null ? [] : List<Level>.from(json["topping"]!.map((x) => Level.fromJson(x))),
+        topping: json["topping"] == null ? [] : List<Topping>.from(json["topping"]!.map((x) => Topping.fromJson(x))),
         level: json["level"] == null ? [] : List<Level>.from(json["level"]!.map((x) => Level.fromJson(x))),
     );
 
@@ -84,6 +84,37 @@ class Level {
     };
 }
 
+class Topping {
+    int? idDetail;
+    int? idMenu;
+    String? keterangan;
+    String? type;
+    int? harga;
+
+    Topping({
+        this.idDetail,
+        this.idMenu,
+        this.keterangan,
+        this.type,
+        this.harga,
+    });
+
+    factory Topping.fromJson(Map<String, dynamic> json) => Topping(
+        idDetail: json["id_detail"],
+        idMenu: json["id_menu"],
+        keterangan: json["keterangan"],
+        type: json["type"],
+        harga: json["harga"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id_detail": idDetail,
+        "id_menu": idMenu,
+        "keterangan": keterangan,
+        "type": type,
+        "harga": harga,
+    };
+}
 class Menu {
     int? idMenu;
     String? nama;

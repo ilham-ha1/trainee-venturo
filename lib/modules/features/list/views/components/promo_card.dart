@@ -8,23 +8,93 @@ class PromoCard extends StatelessWidget {
   const PromoCard({
     super.key,
     this.enableShadow,
+    required this.id,
     required this.promoName,
-    required this.discountNominal,
+    this.discountNominal,
     required this.thumbnailUrl,
+    required this.type,
+    required this.termCondition,
+    this.voucherNominal,
     this.width,
   });
 
   final bool? enableShadow;
+  final int id;
+  final String type;
+  final String? termCondition;
   final String promoName;
-  final String discountNominal;
+  final int? discountNominal;
+  final int? voucherNominal;
   final String thumbnailUrl;
   final double? width;
 
   @override
   Widget build(BuildContext context) {
+
+    final voucherTemplate = [
+      Text(
+        'Voucher',
+        style: Get.textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w800,
+          color: Colors.white,
+        ),
+      ),
+      Text(
+        'Rp. $voucherNominal',
+        style: Get.textTheme.displaySmall?.copyWith(
+          fontWeight: FontWeight.w800,
+          fontSize: 32.sp,
+          foreground: Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1
+            ..color = Colors.white,
+        ),
+      ),
+      Text(
+        promoName,
+        textAlign: TextAlign.center,
+        style: Get.textTheme.labelMedium?.copyWith(
+          color: Colors.white,
+        ),
+      ),
+    ];
+
+    final discountTemplate = [
+      Text.rich(
+        softWrap: true,
+        textAlign: TextAlign.center,
+        TextSpan(
+          text: 'Diskon',
+          style: Get.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+          ),
+          children: [
+            TextSpan(
+              text: ' $discountNominal %',
+              style: Get.textTheme.displaySmall?.copyWith(
+                fontWeight: FontWeight.w800,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 1
+                  ..color = Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+      Text(
+        promoName,
+        textAlign: TextAlign.center,
+        style: Get.textTheme.labelMedium?.copyWith(
+          color: Colors.white,
+        ),
+      ),
+    ];
+
     return InkWell(
       onTap: () {
-        Get.toNamed(MainRoute.discount);
+        Get.toNamed(MainRoute.promo, arguments: id);
       },
       borderRadius: BorderRadius.circular(15.r),
       child: thumbnailUrl!='' ? Container(
@@ -57,38 +127,7 @@ class PromoCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text.rich(
-                softWrap: true,
-                textAlign: TextAlign.center,
-                TextSpan(
-                  text: 'Diskon',
-                  style: Get.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: discountNominal,
-                      style: Get.textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 1
-                          ..color = Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                promoName,
-                textAlign: TextAlign.center,
-                style: Get.textTheme.labelMedium?.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-            ],
+            children: type.toLowerCase() == 'diskon' ? discountTemplate: voucherTemplate,
           ),
         ),
       ): 
@@ -112,38 +151,7 @@ class PromoCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text.rich(
-                softWrap: true,
-                textAlign: TextAlign.center,
-                TextSpan(
-                  text: 'Diskon',
-                  style: Get.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: discountNominal,
-                      style: Get.textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 1
-                          ..color = Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(
-                promoName,
-                textAlign: TextAlign.center,
-                style: Get.textTheme.labelMedium?.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-            ],
+            children: type.toLowerCase().toString() == 'discount' ? voucherTemplate: discountTemplate,
           ),
         ),
       ),

@@ -7,5 +7,5 @@ abstract class MainRoute {
   static const String getLocation = "/get-location";
   static const String list = '/list';
   static const String menu = '/menu';
-  static const String discount = '/discount';
+  static const String promo = '/promo';
 }

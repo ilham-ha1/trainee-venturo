@@ -18,6 +18,7 @@ class MenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(10.r),
@@ -46,12 +47,16 @@ class MenuCard extends StatelessWidget {
                 color: Colors.grey[100],
               ),
               child: 
-             
               CachedNetworkImage(
-                imageUrl: menu.foto ??
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                imageUrl: menu.foto ?? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
                 useOldImageOnUrlChange: true,
                 fit: BoxFit.contain,
+                errorWidget: ((context, url, error) => 
+                  Image.network(
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png',
+                    fit: BoxFit.contain,
+                  )
+                ),
               ),
             ),
 
@@ -68,7 +73,7 @@ class MenuCard extends StatelessWidget {
                     maxLines: 1,
                   ),
                   Text(
-                    menu.harga.toString(),
+                    "Rp. ${menu.harga}",
                     style: Get.textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),

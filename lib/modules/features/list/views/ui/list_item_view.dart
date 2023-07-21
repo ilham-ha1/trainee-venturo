@@ -49,9 +49,13 @@ class ListItemView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final item = ListController.to.promo[index];
                             return PromoCard(
+                                id: item.idPromo ?? 0,
                                 enableShadow: false,
+                                termCondition: item.syaratKetentuan,
+                                type: item.type ?? '',
                                 promoName: item.nama.toString(),
-                                discountNominal: item.nominal.toString(),
+                                discountNominal: item.nominal ?? 0,
+                                voucherNominal: item.nominal ?? 0,
                                 thumbnailUrl: item.foto ?? "",
                               );
                             

@@ -146,48 +146,6 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<PromoResponse?> getAllUserPromo() async {
-    const url = '$baseUrl/promo/all';
-    final authToken = LocalStorageService.getToken();
-
-    try {
-      final promoResponse = await dioCall().get(
-        url,
-        options: Options(
-          headers: {'token': '$authToken'},
-        ),
-      );
-      return PromoResponse.fromJson(promoResponse.data);
-    } catch (exception, stackTrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stackTrace,
-      );
-      return null;
-    }
-  }
-
-  Future<DetailPromo?> getDetailUserPromo(String idPromo) async {
-    final url = '$baseUrl/promo/detail/$idPromo';
-    final authToken = LocalStorageService.getToken();
-
-    try {
-      final response = await dioCall().get(
-        url,
-        options: Options(
-          headers: {'token': '$authToken'},
-        ),
-      );
-      return DetailPromo.fromJson(response.data);
-    } catch (exception, stackTrace) {
-      await Sentry.captureException(
-        exception,
-        stackTrace: stackTrace,
-      );
-      return null;
-    }
-  }
-
   Future<MenuResponse?> getMenuByCategory(String kategori) async {
     final url = '$baseUrl/menu/kategori/$kategori';
     final authToken = LocalStorageService.getToken();
@@ -209,8 +167,8 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<DataDetailMenu?> getDetailMenu(String id) async {
-    final url = '$baseUrl/menu/kategori/$id';
+  Future<DetailMenu?> getDetailMenu(int id) async {
+    final url = '$baseUrl/menu/detail/$id';
     final authToken = LocalStorageService.getToken();
 
     try {
@@ -220,8 +178,7 @@ class HttpService extends GetxService {
           headers: {'token': '$authToken'},
         ),
       );
-      final Map<String, dynamic> responseData = response.data;
-      final DataDetailMenu detailMenu = DataDetailMenu.fromJson(responseData);
+      final DetailMenu detailMenu = DetailMenu.fromJson(response.data);
       return detailMenu;
     } catch (exception, stackTrace) {
       await Sentry.captureException(
@@ -232,5 +189,46 @@ class HttpService extends GetxService {
     }
   }
 
+  Future<PromoResponse?> getAllUserPromo() async {
+    const url = '$baseUrl/promo/all';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final promoResponse = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return PromoResponse.fromJson(promoResponse.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+   Future<DetailPromoResponse?> getDetailUserPromo(int idPromo) async {
+    final url = '$baseUrl/promo/detail/$idPromo';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return DetailPromoResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
 
 }
