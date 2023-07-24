@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trainee/modules/global_models/login_response.dart';
+import 'package:trainee/modules/global_models/cart.dart';
 
 class LocalStorageService extends GetxService {
   LocalStorageService._();
@@ -23,14 +24,17 @@ class LocalStorageService extends GetxService {
     );
   }
 
+  //mendapatkan token
   static dynamic getToken() {
     return box.get("token");
   }
 
+  //mendapatkan status login
   static bool isLoggedIn() {
     return box.get(_isLoggedInKey, defaultValue: false) ?? false;
   }
 
+  //menghapus auth
   static Future deleteAuth() async {
     if (box.get("isRememberMe") == false) {
       box.clear();
@@ -38,5 +42,16 @@ class LocalStorageService extends GetxService {
     } else {
       box.put("isLogin", false);
     }
+  }
+
+  //mendapatkan data menu di cart
+  static Future<List<Cart>> getCart() async {
+    final data = box.get('cart');
+    return List<Cart>.from(data);
+  }
+
+  //menyimpan data menu di cart
+  static Future<void> saveCart(List<Cart> cart) async {
+    await box.put('cart', cart);
   }
 }

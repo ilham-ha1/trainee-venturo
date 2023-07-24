@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/modules/features/menu/views/components/adding_note.dart';
 import 'package:trainee/modules/features/menu/views/components/app_bar.dart';
-import 'package:trainee/modules/global_controllers/user_order_controller.dart';
+import 'package:trainee/modules/features/menu/views/components/level_option.dart';
+import 'package:trainee/modules/features/menu/views/components/topping_option.dart';
+import 'package:trainee/modules/global_controllers/menu_cart_controller.dart';
+import 'package:trainee/modules/global_models/cart.dart';
 import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 import 'package:trainee/shared/styles/elevated_button_style.dart';
 import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
@@ -53,10 +57,10 @@ class MenuView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Obx(
-                          () => Text(
+                    Obx(
+                      () => Row(
+                        children: [
+                          Text(
                             detailMenu.nama ?? '',
                             style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
@@ -64,36 +68,29 @@ class MenuView extends StatelessWidget {
                               color: MainColor.primary,
                             ),
                           ),
-                        ),
-                        const Expanded(child: SizedBox()),
-                        Material(
-                          color: Colors.transparent,
-                          child: Obx(
-                            () => IconButton(
-                              onPressed: UserOrderController.to.qty.value > 1
-                                  ? () {
-                                      UserOrderController.to.minMoreQuantity();
-                                    }
-                                  : () {},
-                              icon: const Icon(
-                                  Icons.indeterminate_check_box_outlined),
-                            ),
+                          const Expanded(child: SizedBox()),
+                          Material(
+                            color: Colors.transparent,
+                            child:  IconButton(
+                                onPressed: () {
+                                  MenuDetailController.to.minMoreQuantity();
+                                },
+                                icon: const Icon(
+                                    Icons.indeterminate_check_box_outlined),
+                              ),
                           ),
-                        ),
-                        Obx(() =>
-                            Text(UserOrderController.to.qty.value.toString())),
-                        Material(
-                          color: Colors.transparent,
-                          child: Obx(
-                            () => IconButton(
+                          Text(MenuDetailController.to.qty.value.toString()),
+                          Material(
+                            color: Colors.transparent,
+                            child: IconButton(
                               onPressed: () {
-                                UserOrderController.to.addMoreQuantity();
+                                MenuDetailController.to.addMoreQuantity();
                               },
                               icon: const Icon(Icons.add_box_outlined),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
@@ -143,109 +140,46 @@ class MenuView extends StatelessWidget {
                             color: MainColor.black,
                             height: 1.5,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Icon(Icons.local_fire_department),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text("Level",
-                                    style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: MainColor.black)),
-                                const Expanded(
-                                  child: SizedBox(),
-                                ),
-                                Text(
-                                  "1",
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 18, color: MainColor.black),
-                                ),
-                                const Icon(
-                                  Icons.keyboard_arrow_right,
-                                  color: MainColor.grey,
-                                ),
-                              ],
-                            ),
-                          ),
+                          const LevelOption(),
                           const Divider(
                             color: MainColor.black,
                             height: 1.5,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Icon(Icons.local_pizza_outlined),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text("Toping",
-                                    style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: MainColor.black)),
-                                const Expanded(
-                                  child: SizedBox(),
-                                ),
-                                Text("Mozarella",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 18, color: MainColor.black)),
-                                const Icon(
-                                  Icons.keyboard_arrow_right,
-                                  color: MainColor.grey,
-                                ),
-                              ],
-                            ),
-                          ),
+                          const ToppingOption(),
                           const Divider(
                             color: MainColor.black,
                             height: 1.5,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Icon(Icons.edit_note),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text("Catatan",
-                                    style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: MainColor.black)),
-                                const Expanded(
-                                  child: SizedBox(),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: Text(
-                                    "Tambahkan Catatan",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 18, color: MainColor.black),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                const Icon(
-                                  Icons.keyboard_arrow_right,
-                                  color: MainColor.grey,
-                                ),
-                              ],
-                            ),
-                          )
+                          const AddingNote(),
                         ],
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        Get.snackbar(
+                            "Menambahkan", "Menambahkan pesanan ke keranjang");
+                        await MenuCartControlller.to.saveToCart(Cart(
+                            id: MenuDetailController.to.menu.value.idMenu!,
+                            harga: MenuDetailController.to.menu.value.harga!,
+                            level: MenuDetailController
+                                    .to.selectedLevel.value?.idDetail ??
+                                0,
+                            catatan:
+                                MenuDetailController.to.catatan.value.isNotEmpty
+                                    ? MenuDetailController.to.catatan.value
+                                    : null,
+                            deskripsi:
+                                MenuDetailController.to.menu.value.deskripsi,
+                            foto: MenuDetailController.to.menu.value.foto ??
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png",
+                            topping: [
+                              MenuDetailController
+                                      .to.selectedTopping.value?.idDetail ??
+                                  0
+                            ],
+                            jumlah: MenuDetailController.to.qty.value,
+                            nama: MenuDetailController.to.menu.value.nama!));
+                      },
                       style: EvelatedButtonStyle.mainRounded.copyWith(
                         backgroundColor: MaterialStateProperty.all<Color>(
                           MainColor.primary,

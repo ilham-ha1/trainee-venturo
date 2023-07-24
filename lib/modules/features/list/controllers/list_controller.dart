@@ -23,6 +23,8 @@ class ListController extends GetxController {
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
+  final RxInt qty = 1.obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -43,6 +45,14 @@ class ListController extends GetxController {
   }
 
   final RxList<Promo> promo = <Promo>[].obs;
+
+  void addMoreQuantity() {
+    qty.value += 1;
+  }
+
+  void minMoreQuantity() {
+    if (qty > 1) qty.value -= 1;
+  }
 
   Future observePromos() async {
     try {
