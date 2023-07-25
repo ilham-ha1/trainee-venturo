@@ -19,8 +19,23 @@ class MenuDetailController extends GetxController {
   void onInit() async {
     super.onInit();
     catatanDetailTextController = TextEditingController();
-    itemIdMenu.value = Get.arguments;
-    catatan = catatanDetailTextController.text.obs;
+    
+     // Accessing the arguments passed to the controller
+    final arguments = Get.arguments as Map<String, dynamic>?;
+    // Checking if arguments is not null
+    if (arguments != null) {
+      // Accessing the 'idMenu' argument
+      itemIdMenu.value = arguments['idMenu'] ?? 0;
+      // Accessing the 'qty' argument
+      final int qty = arguments['qty'] == 0 ? 1 : arguments['qty'];
+      this.qty.value = qty;
+      // Accessing the 'catatan' argument
+      final String catatan = arguments['catatan'] ?? '';
+      catatanDetailTextController.text = catatan;
+      this.catatan = catatanDetailTextController.text.obs;
+      this.catatan.value = catatan;
+    }
+
     await observeMenu();
   }
 

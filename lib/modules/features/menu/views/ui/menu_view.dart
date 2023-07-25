@@ -15,10 +15,13 @@ import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MenuView extends StatelessWidget {
-  const MenuView({super.key});
+  const MenuView({super.key, this.qty, this.catatan});
+  final int? qty; // Nullable int
+  final String? catatan; // Nullable String
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
         child: Scaffold(
       appBar: const AppBarMenu(),
@@ -86,7 +89,7 @@ class MenuView extends StatelessWidget {
                               onPressed: () {
                                 MenuDetailController.to.addMoreQuantity();
                               },
-                              icon: const Icon(Icons.add_box_outlined),
+                              icon: const Icon(Icons.add_box_rounded),
                             ),
                           ),
                         ],

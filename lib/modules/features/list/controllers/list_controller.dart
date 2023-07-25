@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -23,8 +24,9 @@ class ListController extends GetxController {
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
-  final RxInt qty = 1.obs;
-
+  final RxInt qty = 0.obs;
+  late RxString catatan;
+  late TextEditingController catatanDetailTextController;
   @override
   void onInit() async {
     super.onInit();
@@ -32,6 +34,7 @@ class ListController extends GetxController {
     await observePromos();
     await getListOfData();
   }
+
 
   void onRefresh() async {
     page(0);
@@ -45,14 +48,6 @@ class ListController extends GetxController {
   }
 
   final RxList<Promo> promo = <Promo>[].obs;
-
-  void addMoreQuantity() {
-    qty.value += 1;
-  }
-
-  void minMoreQuantity() {
-    if (qty > 1) qty.value -= 1;
-  }
 
   Future observePromos() async {
     try {
@@ -69,15 +64,20 @@ class ListController extends GetxController {
     }
   }
 
-  List<Menu> get filteredList => items
-      .where((element) =>
-          element.nama
-              .toString()
-              .toLowerCase()
-              .contains(keyword.value.toLowerCase()) &&
-          (selectedCategory.value == 'semua menu' ||
-              element.kategori == selectedCategory.value))
-      .toList();
+  List<Menu> get filteredList {
+    if (selectedCategory.value == 'semua menu') {
+      final List<Menu> makanan = items.where((element) => element.kategori == 'makanan').toList();
+      final List<Menu> minuman = items.where((element) => element.kategori == 'minuman').toList();
+      return [...makanan, ...minuman];
+      
+    } else {
+      return items
+          .where((element) =>
+              element.nama.toString().toLowerCase().contains(keyword.value.toLowerCase()) &&
+              element.kategori == selectedCategory.value)
+          .toList();
+    }
+  }
 
   Future<bool> getListOfData() async {
     try {

@@ -19,7 +19,7 @@ class ToppingOption extends StatelessWidget {
                     Get.bottomSheet(
                       Container(
                         width: 1.sw,
-                        height: 120,
+                        height: 160,
                         padding: EdgeInsets.symmetric(
                           horizontal: 25.w,
                           vertical: 25.h,
@@ -55,7 +55,7 @@ class ToppingOption extends StatelessWidget {
                             ),
                             SizedBox(
                               width: 1.sw,
-                              height: 24,
+                              height: 60.h,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: MenuDetailController.to.topping.length,

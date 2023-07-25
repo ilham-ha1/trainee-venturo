@@ -2,19 +2,30 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:trainee/modules/features/list/controllers/list_controller.dart';
+import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/global_models/menu_response.dart';
+import 'package:trainee/shared/customs/text_form_field_custom.dart';
 
 class MenuCard extends StatelessWidget {
   final Menu menu;
   final bool isSelected;
   final void Function()? onTap;
+  final RxInt qty; // Add qty as a parameter
+  final RxString catatan; // Add catatan as a parameter
+  final void Function() add;
+  final void Function() min;
+  final TextEditingController catatanDetailTextController;
 
   const MenuCard({
     Key? key,
     required this.menu,
     this.onTap,
     this.isSelected = false,
+    required this.qty,
+    required this.catatan,
+    required this.add,
+    required this.min,
+    required this.catatanDetailTextController,
   }) : super(key: key);
 
   @override
@@ -38,8 +49,8 @@ class MenuCard extends StatelessWidget {
           children: [
             // menu image
             Container(
-              height: 90.h,
-              width: 90.w,
+              height: 80.h,
+              width: 80.w,
               margin: EdgeInsets.only(right: 12.r),
               padding: EdgeInsets.all(5.r),
               decoration: BoxDecoration(
@@ -66,7 +77,8 @@ class MenuCard extends StatelessWidget {
                 children: [
                   Text(
                     menu.nama ?? '',
-                    style: Get.textTheme.titleMedium,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -76,48 +88,125 @@ class MenuCard extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.edit_note),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        'Tambahkan Catatan',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
+                  InkWell(
+                    onTap: () => Get.bottomSheet(
+                      Container(
+                        width: double.infinity,
+                        height: 150.h,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 25.w,
+                          vertical: 25.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(30.r),
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color.fromARGB(111, 24, 24, 24),
+                              blurRadius: 15,
+                              spreadRadius: -1,
+                              offset: Offset(0, 1),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Buat Catatan",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.sp,
+                                    color: MainColor.black)),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: TextFormFieldCustoms(
+                                        controller: catatanDetailTextController,
+                                        label: "",
+                                        keyboardType: TextInputType.text,
+                                        initialValue: catatan.value,
+                                        hint: "Catatan")),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    catatan.value =
+                                        catatanDetailTextController.text;
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size(26, 26),
+                                    shape: const CircleBorder(),
+                                    backgroundColor: MainColor.primary,
+                                  ),
+                                  child: const Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                    size: 10,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                    ],
+                    ),
+                    child: Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Icon(Icons.edit_note),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: Text(
+                              catatan.toString() != ''
+                                  ? catatan.toString()
+                                  : "Tambahkan Catatan",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
 
-           Row(
-              children: [
-                Material(
-                  color: Colors.transparent,
-                  child: IconButton(
-                    onPressed: () {
-                      ListController.to.minMoreQuantity();
-                    },
-                    icon: const Icon(Icons.indeterminate_check_box_outlined),
+            Obx(
+              () => Row(
+                children: [
+                  if (qty.value != 0)
+                    Material(
+                      color: Colors.transparent,
+                      child: IconButton(
+                        onPressed: () {
+                          min();
+                        },
+                        icon:
+                            const Icon(Icons.indeterminate_check_box_outlined),
+                      ),
+                    ),
+                  if (qty.value != 0) Obx(() => Text(qty.value.toString())),
+                  Material(
+                    color: Colors.transparent,
+                    child: IconButton(
+                      onPressed: () {
+                        add();
+                      },
+                      icon: const Icon(Icons.add_box_rounded),
+                    ),
                   ),
-                ),
-                Text(ListController.to.qty.value.toString()),
-                Material(
-                  color: Colors.transparent,
-                  child: IconButton(
-                    onPressed: () {
-                      ListController.to.addMoreQuantity();
-                    },
-                    icon: const Icon(Icons.add_box_outlined),
-                  ),
-                ),
-              ],
+                ],
+              ),
             )
           ],
         ),

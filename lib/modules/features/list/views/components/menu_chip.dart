@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/themes/main_color.dart';
 
 class MenuChip extends StatelessWidget {
   final bool isSelected;
@@ -23,7 +24,7 @@ class MenuChip extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 14.r),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
-          color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+          color: isSelected ? MainColor.black : MainColor.primary,
           boxShadow: const [
             BoxShadow(
               offset: Offset(0, 2),
@@ -36,12 +37,23 @@ class MenuChip extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Center(
-            child: Text(
-              text,
-              style: Get.textTheme.bodyLarge!.copyWith(
-                color: Colors.white,
-              ),
-            ),
+            child: Row(
+              children:[ 
+                if(text.toLowerCase() == 'semua menu')
+                  const Icon(Icons.list, color: MainColor.white,)
+                else if(text.toLowerCase() == 'makanan')
+                  const Icon(Icons.food_bank, color: MainColor.white)
+                else
+                  const Icon(Icons.local_drink, color: MainColor.white)
+                ,
+                const SizedBox(width: 8),
+                Text(
+                  text,
+                  style: Get.textTheme.bodyLarge!.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+            ]),
           ),
         ),
       ),

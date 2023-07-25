@@ -94,9 +94,9 @@ class AddingNote extends StatelessWidget {
             width: 150,
             child: Obx(
               () => Text(
-                MenuDetailController.to.catatan.value,
+                MenuDetailController.to.catatan.value != '' ?  MenuDetailController.to.catatan.value:'Tambahkan Catatan',
                 style: GoogleFonts.montserrat(
-                    fontSize: 18, color: MainColor.black),
+                    fontSize: 14, color: MainColor.black),
                 textAlign: TextAlign.end,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
