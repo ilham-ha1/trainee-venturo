@@ -7,6 +7,8 @@ import 'package:trainee/modules/global_models/cart.dart';
 class LocalStorageService extends GetxService {
   LocalStorageService._();
   static final box = Hive.box("venturo");
+  static final boxCart = Hive.box("itemCart");
+
   static const String _isLoggedInKey = 'isLogin';
 
   /// Kode untuk setting localstorage sesuai dengan repository
@@ -29,6 +31,11 @@ class LocalStorageService extends GetxService {
     return box.get("token");
   }
 
+  //mendapatkan id user
+  static dynamic getId() {
+    return box.get("id");
+  }
+
   //mendapatkan status login
   static bool isLoggedIn() {
     return box.get(_isLoggedInKey, defaultValue: false) ?? false;
@@ -44,14 +51,18 @@ class LocalStorageService extends GetxService {
     }
   }
 
-  //mendapatkan data menu di cart
-  static Future<List<Cart>> getCart() async {
-    final data = box.get('cart');
-    return List<Cart>.from(data);
+   static Future<List<Cart>> getAllCarts() async {
+    List<Cart> cartList = boxCart.values.map((dynamic item) => item as Cart).toList();
+    return cartList;
   }
 
   //menyimpan data menu di cart
-  static Future<void> saveCart(List<Cart> cart) async {
-    await box.put('cart', cart);
+  static Future<void> saveCart(Cart dataToCart) async {
+    await boxCart.put(dataToCart.id,
+        dataToCart); // Gunakan kunci yang berbeda untuk data cart
+  }
+
+  static Future<void> deleteItemOnCart(int id) async {
+    boxCart.delete(id);
   }
 }

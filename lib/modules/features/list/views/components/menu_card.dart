@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/global_models/menu_response.dart';
 import 'package:trainee/shared/customs/text_form_field_custom.dart';
 
 class MenuCard extends StatelessWidget {
-  final Menu menu;
+  final dynamic menu;
   final bool isSelected;
   final void Function()? onTap;
   final RxInt qty; // Add qty as a parameter

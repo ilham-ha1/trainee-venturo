@@ -7,6 +7,7 @@ import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:trainee/modules/global_binddings/global_binding.dart';
+import 'package:trainee/modules/global_models/cart.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -17,7 +18,9 @@ void main() async {
 
   /// Localstorage init
   await Hive.initFlutter();
+  Hive.registerAdapter(CartAdapter());
   await Hive.openBox("venturo");
+  await Hive.openBox("itemCart");
 
   /// Firebase init
   await Firebase.initializeApp(

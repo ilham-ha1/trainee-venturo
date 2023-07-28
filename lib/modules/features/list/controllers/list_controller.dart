@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -11,8 +10,10 @@ class ListController extends GetxController {
   static ListController get to => Get.find<ListController>();
   late final ListRepository repository;
   final RxInt page = 0.obs;
+
   final RxList<Menu> items = <Menu>[].obs;
   final RxList<Menu> selectedItems = <Menu>[].obs;
+
   final RxBool canLoadMore = true.obs;
   final RxString selectedCategory = 'semua menu'.obs;
   final RxString keyword = ''.obs;
@@ -24,9 +25,6 @@ class ListController extends GetxController {
   final RefreshController refreshController =
       RefreshController(initialRefresh: false);
 
-  final RxInt qty = 0.obs;
-  late RxString catatan;
-  late TextEditingController catatanDetailTextController;
   @override
   void onInit() async {
     super.onInit();
@@ -34,7 +32,6 @@ class ListController extends GetxController {
     await observePromos();
     await getListOfData();
   }
-
 
   void onRefresh() async {
     page(0);
@@ -49,7 +46,8 @@ class ListController extends GetxController {
 
   final RxList<Promo> promo = <Promo>[].obs;
 
-  Future observePromos() async {
+  //mendapatkan data promo
+  Future<Promo> observePromos() async {
     try {
       final promoResponse = await HttpService.dioService.getAllUserPromo();
       promo.clear();
@@ -62,23 +60,42 @@ class ListController extends GetxController {
         stackTrace: stacktrace,
       );
     }
+    return Promo();
   }
 
+  //get food/drink based on category
   List<Menu> get filteredList {
-    if (selectedCategory.value == 'semua menu') {
-      final List<Menu> makanan = items.where((element) => element.kategori == 'makanan').toList();
-      final List<Menu> minuman = items.where((element) => element.kategori == 'minuman').toList();
-      return [...makanan, ...minuman];
-      
-    } else {
-      return items
-          .where((element) =>
-              element.nama.toString().toLowerCase().contains(keyword.value.toLowerCase()) &&
-              element.kategori == selectedCategory.value)
-          .toList();
-    }
+    return items
+        .where((element) =>
+            element.nama
+                .toString()
+                .toLowerCase()
+                .contains(keyword.value.toLowerCase()) &&
+            element.kategori == selectedCategory.value)
+        .toList();
   }
 
+  // Get food items semua menu
+  List<Menu> get foodItems => items
+      .where((element) =>
+          element.nama
+              .toString()
+              .toLowerCase()
+              .contains(keyword.value.toLowerCase()) &&
+          element.kategori?.toLowerCase() == 'makanan')
+      .toList();
+
+  /// Get drink items semua menu
+  List<Menu> get drinkItems => items
+      .where((element) =>
+          element.nama
+              .toString()
+              .toLowerCase()
+              .contains(keyword.value.toLowerCase()) &&
+          element.kategori?.toLowerCase() == 'minuman')
+      .toList();
+
+  //mendapatkan data menu
   Future<bool> getListOfData() async {
     try {
       final result = await repository.getListOfData(
@@ -108,6 +125,7 @@ class ListController extends GetxController {
     }
   }
 
+  //menghapus data menu
   Future<void> deleteItem(Menu item) async {
     try {
       repository.deleteItem(item.idMenu ?? 0);

@@ -8,4 +8,7 @@ abstract class MainRoute {
   static const String list = '/list';
   static const String menu = '/menu';
   static const String promo = '/promo';
+  static const String checkout = '/checkout';
+  static const String voucher = '/voucher';
+  static const String detailVoucher = '/detailVoucher';
 }

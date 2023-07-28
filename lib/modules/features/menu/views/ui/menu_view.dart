@@ -2,26 +2,31 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/menu/views/components/adding_note.dart';
 import 'package:trainee/modules/features/menu/views/components/app_bar.dart';
 import 'package:trainee/modules/features/menu/views/components/level_option.dart';
 import 'package:trainee/modules/features/menu/views/components/topping_option.dart';
-import 'package:trainee/modules/global_controllers/menu_cart_controller.dart';
 import 'package:trainee/modules/global_models/cart.dart';
 import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 import 'package:trainee/shared/styles/elevated_button_style.dart';
 import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key, this.qty, this.catatan});
   final int? qty; // Nullable int
   final String? catatan; // Nullable String
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
-
+    analytics.setCurrentScreen(
+      screenName: 'Detail Menu Screen',
+      screenClassOverride: 'Trainee',
+    );
     return SafeArea(
         child: Scaffold(
       appBar: const AppBarMenu(),
@@ -74,13 +79,13 @@ class MenuView extends StatelessWidget {
                           const Expanded(child: SizedBox()),
                           Material(
                             color: Colors.transparent,
-                            child:  IconButton(
-                                onPressed: () {
-                                  MenuDetailController.to.minMoreQuantity();
-                                },
-                                icon: const Icon(
-                                    Icons.indeterminate_check_box_outlined),
-                              ),
+                            child: IconButton(
+                              onPressed: () {
+                                MenuDetailController.to.minMoreQuantity();
+                              },
+                              icon: const Icon(
+                                  Icons.indeterminate_check_box_outlined),
+                            ),
                           ),
                           Text(MenuDetailController.to.qty.value.toString()),
                           Material(
@@ -159,29 +164,38 @@ class MenuView extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        Get.snackbar(
-                            "Menambahkan", "Menambahkan pesanan ke keranjang");
-                        await MenuCartControlller.to.saveToCart(Cart(
-                            id: MenuDetailController.to.menu.value.idMenu!,
-                            harga: MenuDetailController.to.menu.value.harga!,
-                            level: MenuDetailController
-                                    .to.selectedLevel.value?.idDetail ??
-                                0,
-                            catatan:
-                                MenuDetailController.to.catatan.value.isNotEmpty
-                                    ? MenuDetailController.to.catatan.value
-                                    : null,
-                            deskripsi:
-                                MenuDetailController.to.menu.value.deskripsi,
-                            foto: MenuDetailController.to.menu.value.foto ??
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png",
-                            topping: [
-                              MenuDetailController
-                                      .to.selectedTopping.value?.idDetail ??
-                                  0
-                            ],
-                            jumlah: MenuDetailController.to.qty.value,
-                            nama: MenuDetailController.to.menu.value.nama!));
+                        if (MenuDetailController.to.menu.value.harga != 0) {
+                          Get.snackbar("Menambahkan",
+                              "Menambahkan pesanan ke keranjang");
+                          await MenuDetailController.to.saveToCart(Cart(
+                              id: MenuDetailController.to.menu.value.idMenu ?? 0,
+                              harga: MenuDetailController.to.menu.value.harga ?? 0,
+                              level: MenuDetailController
+                                      .to.selectedLevel.value?.idDetail ??
+                                  0,
+                              catatan: MenuDetailController
+                                      .to.catatan.value.isNotEmpty
+                                  ? MenuDetailController.to.catatan.value
+                                  : null,
+                              deskripsi:
+                                  MenuDetailController.to.menu.value.deskripsi,
+                              foto: MenuDetailController.to.menu.value.foto ??
+                                  "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png",
+                              topping: [
+                                MenuDetailController
+                                        .to.selectedTopping.value?.idDetail ??
+                                    0
+                              ],
+                              jumlah: MenuDetailController.to.qty.value,
+                              nama: MenuDetailController.to.menu.value.nama?? '',
+                              kategori: MenuDetailController
+                                  .to.menu.value.kategori ?? ''));
+                        } else {
+                          Get.snackbar(
+                              "Tunggu", "Sedang mendapatkan data menu");
+                        }
+
+                        Get.toNamed(MainRoute.checkout);
                       },
                       style: EvelatedButtonStyle.mainRounded.copyWith(
                         backgroundColor: MaterialStateProperty.all<Color>(

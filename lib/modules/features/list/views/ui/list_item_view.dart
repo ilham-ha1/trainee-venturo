@@ -11,12 +11,18 @@ import 'package:trainee/modules/features/list/views/components/promo_card.dart';
 import 'package:trainee/modules/features/list/views/components/search_app_bar.dart';
 import 'package:trainee/modules/features/list/views/components/section_header.dart';
 import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class ListItemView extends StatelessWidget {
   const ListItemView({super.key});
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(
+      screenName: 'List Screen',
+      screenClassOverride: 'Trainee',
+    );
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey[100],
@@ -130,98 +136,283 @@ class ListItemView extends StatelessWidget {
                 }),
                 Expanded(
                   child: Obx(
-                    () => SmartRefresher(
-                      controller: ListController.to.refreshController,
-                      enablePullDown: true,
-                      onRefresh: ListController.to.onRefresh,
-                      enablePullUp:
-                          ListController.to.canLoadMore.isTrue ? true : false,
-                      onLoading: ListController.to.getListOfData,
-                      child: ListView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 25.w),
-                        itemBuilder: (context, index) {
-                          final item = ListController.to.filteredList[index];
-                          final RxInt qty = 0.obs;
-                          final RxString catatan = ''.obs;
-                          final TextEditingController
-                              catatanDetailTextController =
-                              TextEditingController();
-                          void addMoreQuantity() {
-                            qty.value += 1;
-                          }
-
-                          void minMoreQuantity() {
-                            if (qty.value > 0) qty.value -= 1;
-                          }
-
-                          // Check if the selected category is 'semua menu' and category changes
-                          if (ListController.to.selectedCategory.value ==
-                                  'semua menu' &&
-                              (index == 0 ||
-                                  item.kategori !=
-                                      ListController.to.filteredList[index - 1]
-                                          .kategori)) {
-                              return  SectionHeader(
-                                title: item.kategori == 'makanan'
-                                    ? 'Makanan'
-                                    : 'Minuman',
-                                icon: item.kategori == 'makanan'
-                                    ? Icons.food_bank
-                                    : Icons.local_drink,
-                              );
-
-                          }
-
-                          return Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.5.h),
-                              child: Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      onPressed: (context) {
-                                        ListController.to.deleteItem(item);
-                                      },
-                                      borderRadius: BorderRadius.horizontal(
-                                        right: Radius.circular(10.r),
-                                      ),
-                                      backgroundColor: const Color(0xFFFE4A49),
-                                      foregroundColor: Colors.white,
-                                      icon: Icons.delete,
-                                      label: 'Delete',
+                    () => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      child: SmartRefresher(
+                          controller: ListController.to.refreshController,
+                          enablePullDown: true,
+                          onRefresh: ListController.to.onRefresh,
+                          enablePullUp:
+                              ListController.to.canLoadMore.isTrue ? true : false,
+                          onLoading: ListController.to.getListOfData,
+                          child: CustomScrollView(
+                            slivers: [
+                              if (ListController.to.selectedCategory.value ==
+                                      'semua menu' &&
+                                  ListController.to.foodItems.isNotEmpty)
+                                SliverList(
+                                  delegate: SliverChildListDelegate([
+                                    SectionHeader(
+                                      icon: Icons.food_bank_outlined,
+                                      title: 'Makanan',
+                                      color: Theme.of(context).primaryColor,
                                     ),
-                                  ],
+                                  ]),
                                 ),
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  elevation: 2,
-                                  child: MenuCard(
-                                    menu: item,
-                                    onTap: () {
-                                      Get.toNamed(
-                                        MainRoute.menu,
-                                        arguments: {
-                                          'idMenu': item.idMenu,
-                                          'qty': qty
-                                              .value, // Pass the nullable qty value as an argument
-                                          'catatan': catatan
-                                              .value, // Pass the nullable catatan value as an argument
-                                        },
-                                      );
+                              if (ListController.to.selectedCategory.value ==
+                                      'semua menu' &&
+                                  ListController.to.foodItems.isNotEmpty)
+                                SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                    (context, index) {
+                                      final item =
+                                          ListController.to.foodItems[index];
+                                      final RxInt qty = 0.obs;
+                                      final RxString catatan = ''.obs;
+                                      final TextEditingController
+                                          catatanDetailTextController =
+                                          TextEditingController();
+                                      void addMoreQuantity() {
+                                        qty.value += 1;
+                                      }
+                    
+                                      void minMoreQuantity() {
+                                        if (qty.value > 0) qty.value -= 1;
+                                      }
+                    
+                                      // Return the CartListSliver here using item
+                                      return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.5.h),
+                                          child: Slidable(
+                                            endActionPane: ActionPane(
+                                              motion: const ScrollMotion(),
+                                              children: [
+                                                SlidableAction(
+                                                  onPressed: (context) {
+                                                    ListController.to
+                                                        .deleteItem(item);
+                                                  },
+                                                  borderRadius:
+                                                      BorderRadius.horizontal(
+                                                    right: Radius.circular(10.r),
+                                                  ),
+                                                  backgroundColor:
+                                                      const Color(0xFFFE4A49),
+                                                  foregroundColor: Colors.white,
+                                                  icon: Icons.delete,
+                                                  label: 'Delete',
+                                                ),
+                                              ],
+                                            ),
+                                            child: Material(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              elevation: 2,
+                                              child: MenuCard(
+                                                menu: item,
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                    MainRoute.menu,
+                                                    arguments: {
+                                                      'idMenu': item.idMenu,
+                                                      'qty': qty
+                                                          .value, // Pass the nullable qty value as an argument
+                                                      'catatan': catatan
+                                                          .value, // Pass the nullable catatan value as an argument
+                                                    },
+                                                  );
+                                                },
+                                                qty: qty,
+                                                catatan: catatan,
+                                                add: addMoreQuantity,
+                                                min: minMoreQuantity,
+                                                catatanDetailTextController:
+                                                    catatanDetailTextController,
+                                              ),
+                                            ),
+                                          ));
                                     },
-                                    qty: qty,
-                                    catatan: catatan,
-                                    add: addMoreQuantity,
-                                    min: minMoreQuantity,
-                                    catatanDetailTextController:
-                                        catatanDetailTextController,
+                                    childCount:
+                                        ListController.to.foodItems.length,
                                   ),
                                 ),
-                              ));
-                        },
-                        itemCount: ListController.to.filteredList.length,
-                        itemExtent: 112.h,
-                      ),
+                    
+                              // Sliver list for the SectionHeader with the title "Minuman" if applicable
+                              if (ListController.to.selectedCategory.value ==
+                                      'semua menu' &&
+                                  ListController.to.drinkItems.isNotEmpty)
+                                SliverList(
+                                  delegate: SliverChildListDelegate([
+                                    SectionHeader(
+                                      icon: Icons.local_drink_outlined,
+                                      title: 'Minuman',
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ]),
+                                ),
+                    
+                              // Sliver list for the CartListSliver with drinkItems if applicable
+                              if (ListController.to.selectedCategory.value ==
+                                      'semua menu' &&
+                                  ListController.to.drinkItems.isNotEmpty)
+                                SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                    (context, index) {
+                                      final item =
+                                          ListController.to.drinkItems[index];
+                    
+                                      final RxInt qty = 0.obs;
+                                      final RxString catatan = ''.obs;
+                                      final TextEditingController
+                                          catatanDetailTextController =
+                                          TextEditingController();
+                                      void addMoreQuantity() {
+                                        qty.value += 1;
+                                      }
+                    
+                                      void minMoreQuantity() {
+                                        if (qty.value > 0) qty.value -= 1;
+                                      }
+                    
+                                      // Return the CartListSliver here using item
+                                      return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.5.h),
+                                          child: Slidable(
+                                            endActionPane: ActionPane(
+                                              motion: const ScrollMotion(),
+                                              children: [
+                                                SlidableAction(
+                                                  onPressed: (context) {
+                                                    ListController.to
+                                                        .deleteItem(item);
+                                                  },
+                                                  borderRadius:
+                                                      BorderRadius.horizontal(
+                                                    right: Radius.circular(10.r),
+                                                  ),
+                                                  backgroundColor:
+                                                      const Color(0xFFFE4A49),
+                                                  foregroundColor: Colors.white,
+                                                  icon: Icons.delete,
+                                                  label: 'Delete',
+                                                ),
+                                              ],
+                                            ),
+                                            child: Material(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              elevation: 2,
+                                              child: MenuCard(
+                                                menu: item,
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                    MainRoute.menu,
+                                                    arguments: {
+                                                      'idMenu': item.idMenu,
+                                                      'qty': qty
+                                                          .value, // Pass the nullable qty value as an argument
+                                                      'catatan': catatan
+                                                          .value, // Pass the nullable catatan value as an argument
+                                                    },
+                                                  );
+                                                },
+                                                qty: qty,
+                                                catatan: catatan,
+                                                add: addMoreQuantity,
+                                                min: minMoreQuantity,
+                                                catatanDetailTextController:
+                                                    catatanDetailTextController,
+                                              ),
+                                            ),
+                                          ));
+                                    },
+                                    childCount:
+                                        ListController.to.drinkItems.length,
+                                  ),
+                                ),
+                    
+                              //Sliver for another semua menu
+                              if (ListController.to.selectedCategory.value != 'semua menu')
+                                SliverList(
+                                  delegate: SliverChildBuilderDelegate(
+                                    (context, index) {
+                                      final item =
+                                          ListController.to.filteredList[index];
+                    
+                                      final RxInt qty = 0.obs;
+                                      final RxString catatan = ''.obs;
+                                      final TextEditingController
+                                          catatanDetailTextController =
+                                          TextEditingController();
+                                      void addMoreQuantity() {
+                                        qty.value += 1;
+                                      }
+                    
+                                      void minMoreQuantity() {
+                                        if (qty.value > 0) qty.value -= 1;
+                                      }
+                    
+                                      // Return the CartListSliver here using item
+                                      return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 8.5.h),
+                                          child: Slidable(
+                                            endActionPane: ActionPane(
+                                              motion: const ScrollMotion(),
+                                              children: [
+                                                SlidableAction(
+                                                  onPressed: (context) {
+                                                    ListController.to
+                                                        .deleteItem(item);
+                                                  },
+                                                  borderRadius:
+                                                      BorderRadius.horizontal(
+                                                    right: Radius.circular(10.r),
+                                                  ),
+                                                  backgroundColor:
+                                                      const Color(0xFFFE4A49),
+                                                  foregroundColor: Colors.white,
+                                                  icon: Icons.delete,
+                                                  label: 'Delete',
+                                                ),
+                                              ],
+                                            ),
+                                            child: Material(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              elevation: 2,
+                                              child: MenuCard(
+                                                menu: item,
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                    MainRoute.menu,
+                                                    arguments: {
+                                                      'idMenu': item.idMenu,
+                                                      'qty': qty
+                                                          .value, // Pass the nullable qty value as an argument
+                                                      'catatan': catatan
+                                                          .value, // Pass the nullable catatan value as an argument
+                                                    },
+                                                  );
+                                                },
+                                                qty: qty,
+                                                catatan: catatan,
+                                                add: addMoreQuantity,
+                                                min: minMoreQuantity,
+                                                catatanDetailTextController:
+                                                    catatanDetailTextController,
+                                              ),
+                                            ),
+                                          ));
+                                    },
+                                    childCount:
+                                        ListController.to.filteredList.length,
+                                  ),
+                                ),
+                            ],
+                          )),
                     ),
                   ),
                 ),

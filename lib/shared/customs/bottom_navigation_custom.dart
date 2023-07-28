@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-class BottomNavigation extends StatelessWidget implements PreferredSizeWidget{
+
+class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
   const BottomNavigation({super.key});
 
   @override
@@ -30,7 +31,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget{
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-           Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -39,13 +40,11 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget{
                 size: 34,
                 color: MainColor.white,
               ),
-              Text(
-                "Home",
-                style: TextStyle(
-                  color: MainColor.white,
-                  fontSize: 12.sp,
-                )
-              ),
+              Text("Home",
+                  style: TextStyle(
+                    color: MainColor.white,
+                    fontSize: 12.sp,
+                  )),
             ],
           ),
           Column(
@@ -57,16 +56,14 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget{
                 size: 34,
                 color: MainColor.white,
               ),
-              Text(
-                "Pesanan",
-                style: TextStyle(
-                  color: MainColor.white,
-                  fontSize: 12.sp,
-                )
-              ),
+              Text("Pesanan",
+                  style: TextStyle(
+                    color: MainColor.white,
+                    fontSize: 12.sp,
+                  )),
             ],
           ),
-           Column(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -75,13 +72,11 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget{
                 size: 34,
                 color: MainColor.white,
               ),
-              Text(
-                "Profil",
-                style: TextStyle(
-                  color: MainColor.white,
-                  fontSize: 12.sp,
-                )
-              ),
+              Text("Profil",
+                  style: TextStyle(
+                    color: MainColor.white,
+                    fontSize: 12.sp,
+                  )),
             ],
           ),
         ],

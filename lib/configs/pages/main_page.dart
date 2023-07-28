@@ -1,5 +1,9 @@
 import 'package:get/route_manager.dart';
 import 'package:trainee/configs/routes/main_route.dart';
+import 'package:trainee/modules/features/checkout/binddings/checkout_binding.dart';
+import 'package:trainee/modules/features/checkout/views/ui/checkout_view.dart';
+import 'package:trainee/modules/features/checkout/views/ui/voucher/detail_voucher_view.dart';
+import 'package:trainee/modules/features/checkout/views/ui/voucher/voucher_view.dart';
 import 'package:trainee/modules/features/counter/binddings/conter_bindding.dart';
 import 'package:trainee/modules/features/counter/views/ui/conter_view.dart';
 import 'package:trainee/modules/features/promo/binddings/promo_binding.dart';
@@ -17,6 +21,7 @@ import 'package:trainee/modules/features/sign_in/views/ui/sign_in_view.dart';
 import 'package:trainee/modules/features/menu/views/ui/menu_view.dart';
 
 abstract class MainPage {
+  static final checkoutBinding = CheckoutBinding();
   static final main = [
     /// Setup
     GetPage(
@@ -45,14 +50,27 @@ abstract class MainPage {
       binding: ListBinding(),
     ),
     GetPage(
-      name: MainRoute.menu, 
-      page: () =>  const MenuView(),
+      name: MainRoute.menu,
+      page: () => const MenuView(),
       binding: MenuBinding(),
     ),
     GetPage(
-      name: MainRoute.promo, 
+      name: MainRoute.promo,
       page: () => const PromoView(),
       binding: PromoBinding(),
-    )
+    ),
+    GetPage(
+      name: MainRoute.checkout,
+      page: () => const CheckoutView(),
+      binding: checkoutBinding,
+    ),
+    GetPage(
+        name: MainRoute.voucher,
+        page: () => const VoucherView(),
+        binding: checkoutBinding),
+    GetPage(
+      name: MainRoute.detailVoucher,
+      page: () => const DetailVoucherView(),
+    ),
   ];
 }

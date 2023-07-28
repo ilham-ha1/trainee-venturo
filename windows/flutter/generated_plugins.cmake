@@ -5,7 +5,9 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
   geolocator_windows
+  local_auth_windows
   sentry_flutter
+  smart_auth
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

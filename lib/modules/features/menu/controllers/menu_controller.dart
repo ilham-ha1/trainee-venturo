@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:trainee/modules/global_models/cart.dart';
 import 'package:trainee/modules/global_models/detail_menu_response.dart';
 import 'package:trainee/utils/services/http_service.dart';
+import 'package:trainee/utils/services/local_storage_service.dart';
 
 class MenuDetailController extends GetxController {
   static MenuDetailController get to => Get.find();
@@ -13,14 +15,17 @@ class MenuDetailController extends GetxController {
   final Rx<Topping?> selectedTopping = Topping().obs;
   final RxInt qty = 1.obs;
   late RxString catatan;
+  final Rx<Menu> menu = Menu().obs;
+  final RxList<Topping> topping = <Topping>[].obs;
+  final RxList<Level> level = <Level>[].obs;
 
   late TextEditingController catatanDetailTextController;
   @override
   void onInit() async {
     super.onInit();
     catatanDetailTextController = TextEditingController();
-    
-     // Accessing the arguments passed to the controller
+
+    // Accessing the arguments passed to the controller
     final arguments = Get.arguments as Map<String, dynamic>?;
     // Checking if arguments is not null
     if (arguments != null) {
@@ -45,9 +50,11 @@ class MenuDetailController extends GetxController {
     catatanDetailTextController.dispose();
   }
 
-  final Rx<Menu> menu = Menu().obs;
-  final RxList<Topping> topping = <Topping>[].obs;
-  final RxList<Level> level = <Level>[].obs;
+  //untuk menyimpan ke keranjang
+  final RxList<Cart> itemsCart = <Cart>[].obs;
+  Future saveToCart(Cart dataMenu) async {
+    await LocalStorageService.saveCart(dataMenu);
+  }
 
   void addMoreQuantity() {
     qty.value += 1;
