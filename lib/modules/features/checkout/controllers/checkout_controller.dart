@@ -144,7 +144,7 @@ class CheckoutController extends GetxController {
 
         // if succeed, order cart
         if (authenticated) {
-          if(await postOrder() == true){
+          if (await postOrder() == true) {
             showOrderSuccessDialog();
           }
         }
@@ -203,10 +203,9 @@ class CheckoutController extends GetxController {
 
     if (authenticated == true) {
       // if succeed, order cart
-      if(await postOrder() == true){
+      if (await postOrder() == true) {
         showOrderSuccessDialog();
       }
-     
     } else if (authenticated != null) {
       // if failed 3 times, show order failed dialog
       Get.until(ModalRoute.withName(MainRoute.checkout));
@@ -288,7 +287,7 @@ class CheckoutController extends GetxController {
     await LocalStorageService.saveCart(cart);
     this.cart[id] = cart;
   }
-
+  
   Future<bool> postOrder() async {
     final idUser = LocalStorageService.getId();
     final orderData = Order(
@@ -310,10 +309,12 @@ class CheckoutController extends GetxController {
       );
       menuData.add(itemOrder);
     }
+
     final orderResponse =
         await HttpService.dioService.postOrder(orderData, menuData);
-        
+
     if (orderResponse?.statusCode == 200) {
+      LocalStorageService.boxCart.clear();
       return true;
     } else {
       return false;
