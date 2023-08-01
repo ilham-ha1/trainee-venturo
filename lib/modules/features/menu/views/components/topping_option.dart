@@ -58,7 +58,8 @@ class ToppingOption extends StatelessWidget {
                               height: 60.h,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: MenuDetailController.to.topping.length,
+                                itemCount:
+                                    MenuDetailController.to.topping.length,
                                 itemBuilder: ((context, index) {
                                   final topping =
                                       MenuDetailController.to.topping[index];
@@ -68,11 +69,27 @@ class ToppingOption extends StatelessWidget {
                                       padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
-                                          MenuDetailController.to
-                                              .selectedTopping(topping);
+                                          final MenuDetailController
+                                              menuDetailController =
+                                              MenuDetailController.to;
+                                          // Check if the currently selected level is the same as the level being tapped
+
+                                          // Check if the topping is already selected
+                                          if (menuDetailController
+                                              .selectedTopping
+                                              !.contains(topping)) {
+                                            // If it's selected, remove it from the list
+                                            menuDetailController.selectedTopping
+                                                !.remove(topping);
+                                          } else {
+                                            // If it's not selected, add it to the list
+                                            menuDetailController.selectedTopping
+                                                !.add(topping);
+                                          }
                                           Get.back(); // Close the bottom sheet
                                         },
-                                        borderRadius: BorderRadius.circular(25.r),
+                                        borderRadius:
+                                            BorderRadius.circular(25.r),
                                         child: Ink(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10.r),
@@ -81,10 +98,12 @@ class ToppingOption extends StatelessWidget {
                                               color: MainColor.primary,
                                               width: 1,
                                             ),
-                                            borderRadius: BorderRadius.circular(30.r),
-                                            color: MenuDetailController.to
-                                                            .selectedTopping.value?.idDetail ==
-                                                        topping.idDetail
+                                            borderRadius:
+                                                BorderRadius.circular(30.r),
+                                            color: MenuDetailController
+                                                        .to.selectedTopping
+                                                        !.contains(topping) ==
+                                                    true
                                                 ? MainColor.primary
                                                 : MainColor.white,
                                           ),
@@ -99,24 +118,29 @@ class ToppingOption extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                     topping.keterangan!,
-                                                    style: GoogleFonts.montserrat(
+                                                    style:
+                                                        GoogleFonts.montserrat(
                                                       color: MenuDetailController
-                                                                      .to
-                                                                      .selectedTopping.value?.idDetail ==
-                                                                  topping.idDetail
+                                                                  .to
+                                                                  .selectedTopping
+                                                                  !.contains(
+                                                                      topping) ==
+                                                              true
                                                           ? MainColor.white
                                                           : MainColor.black,
                                                       fontSize: 12.sp,
                                                     ),
                                                   ),
-                                                  MenuDetailController
-                                                                  .to
-                                                                  .selectedTopping.value?.idDetail ==
-                                                            topping.idDetail
+                                                  MenuDetailController.to
+                                                              .selectedTopping
+                                                              !.contains(
+                                                                  topping) ==
+                                                          true
                                                       ? const Icon(
                                                           Icons.check_rounded,
                                                           size: 14,
-                                                          color: MainColor.white,
+                                                          color:
+                                                              MainColor.white,
                                                         )
                                                       : const SizedBox()
                                                 ],
@@ -148,26 +172,31 @@ class ToppingOption extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Icon(Icons.cake_rounded),
-                const SizedBox(width: 10,),
+                const SizedBox(
+                  width: 10,
+                ),
                 Text(
                   "Topping",
                   style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.bold, fontSize: 16, color: MainColor.black
-                  ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: MainColor.black),
                 ),
                 const Expanded(
                   child: SizedBox(),
                 ),
                 Obx(() => Text(
-                  MenuDetailController.to.selectedTopping.value?.keterangan ?? "",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 18, color: MainColor.black
-                  ),
-                )),
-                const Icon(
-                  Icons.keyboard_arrow_right,
-                  color: MainColor.grey
-                )
+                      (MenuDetailController.to.selectedTopping!.isNotEmpty
+                          ? MenuDetailController.to.selectedTopping
+                              !.map((topping) => topping.keterangan ?? '')
+                              .join(', ')
+                          : "Pilih Topping"),
+                      style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        color: MainColor.black,
+                      ),
+                    )),
+                const Icon(Icons.keyboard_arrow_right, color: MainColor.grey)
               ],
             ),
           )),

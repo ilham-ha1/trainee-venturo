@@ -3,7 +3,7 @@ import 'package:trainee/utils/services/http_service.dart';
 
 class ListRepository {
   // Dummy list of data
-  final List<Menu> menu = [];
+  final List<MenuDataList> menu = [];
   // Get list of data
 
   Future<Map<String, dynamic>> getListOfData({int offset = 0}) async {

@@ -11,8 +11,8 @@ class ListController extends GetxController {
   late final ListRepository repository;
   final RxInt page = 0.obs;
 
-  final RxList<Menu> items = <Menu>[].obs;
-  final RxList<Menu> selectedItems = <Menu>[].obs;
+  final RxList<MenuDataList> items = <MenuDataList>[].obs;
+  final RxList<MenuDataList> selectedItems = <MenuDataList>[].obs;
 
   final RxBool canLoadMore = true.obs;
   final RxString selectedCategory = 'semua menu'.obs;
@@ -64,7 +64,7 @@ class ListController extends GetxController {
   }
 
   //get food/drink based on category
-  List<Menu> get filteredList {
+  List<MenuDataList> get filteredList {
     return items
         .where((element) =>
             element.nama
@@ -76,7 +76,7 @@ class ListController extends GetxController {
   }
 
   // Get food items semua menu
-  List<Menu> get foodItems => items
+  List<MenuDataList> get foodItems => items
       .where((element) =>
           element.nama
               .toString()
@@ -86,7 +86,7 @@ class ListController extends GetxController {
       .toList();
 
   /// Get drink items semua menu
-  List<Menu> get drinkItems => items
+  List<MenuDataList> get drinkItems => items
       .where((element) =>
           element.nama
               .toString()
@@ -126,7 +126,7 @@ class ListController extends GetxController {
   }
 
   //menghapus data menu
-  Future<void> deleteItem(Menu item) async {
+  Future<void> deleteItem(MenuDataList item) async {
     try {
       repository.deleteItem(item.idMenu ?? 0);
       items.remove(item);

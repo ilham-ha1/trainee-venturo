@@ -1,9 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/pages/main_page.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/global_models/cart.dart';
 
@@ -23,6 +22,9 @@ class CartListSliver extends StatelessWidget {
     return SliverFixedExtentList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
+          final catatanController = TextEditingController(
+            text: carts[index].catatan,
+          );
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 8.5.h),
             child: Slidable(
@@ -31,7 +33,7 @@ class CartListSliver extends StatelessWidget {
                 children: [
                   SlidableAction(
                     onPressed: (context) {
-                      CheckoutController.to.deleteItem(carts[index].id);
+                      CheckoutController.to.deleteItem(carts[index].id ?? 0);
                     },
                     borderRadius: BorderRadius.horizontal(
                       right: Radius.circular(10.r),
@@ -46,14 +48,18 @@ class CartListSliver extends StatelessWidget {
               child: MenuCard(
                 menu: carts[index],
                 onTap: () {
-                  Get.toNamed(MainRoute.menu);
+                  Get.put(MainPage.checkoutBinding);
+                  Get.toNamed(MainRoute.editMenu, arguments: {
+                    'carts': carts[index],
+                    'catatan': catatanController
+                        .text, // Use the TextEditingController's text property
+                  });
                 },
-                qty: RxInt(carts[index].jumlah),
+                qty: RxInt(carts[index].jumlah ?? 0),
                 catatan: RxString(carts[index].catatan ?? ''),
                 add: () => CheckoutController.to.increaseQty(carts[index]),
                 min: () => CheckoutController.to.decreaseQty(carts[index]),
-                catatanDetailTextController:
-                    CheckoutController.to.catatanDetailTextController,
+                catatanDetailTextController: catatanController,
               ),
             ),
           );

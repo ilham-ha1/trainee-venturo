@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
+import 'package:trainee/modules/features/edit_menu/controllers/edit_menu_controller.dart';
 import 'package:trainee/shared/customs/text_form_field_custom.dart';
 
-class AddingNote extends StatelessWidget {
-  const AddingNote({super.key});
+class AddingNoteEdit extends StatelessWidget {
+  const AddingNoteEdit({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class AddingNote extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: InkWell(
         onTap: () => Get.bottomSheet(
-          Container(
+            Container(
             width: double.infinity,
             height: 150.h,
             padding: EdgeInsets.symmetric(
@@ -42,26 +42,22 @@ class AddingNote extends StatelessWidget {
               children: [
                 Text("Buat Catatan",
                     style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                        color: MainColor.black)),
+                        fontWeight: FontWeight.bold, fontSize: 18.sp, color: MainColor.black)),
                 Row(
                   children: [
                     Expanded(
                         child: TextFormFieldCustoms(
-                            controller: MenuDetailController
+                            controller: EditMenuController
                                 .to.catatanDetailTextController,
                             label: "",
                             keyboardType: TextInputType.text,
-                            initialValue: MenuDetailController.to.catatan.value,
+                            initialValue: EditMenuController.to.catatan.value,
                             hint: "Catatan")),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-
-                        MenuDetailController.to.catatan.value =
-                            MenuDetailController
-                                .to.catatanDetailTextController.text;
+                        EditMenuController.to.catatan.value = 
+                          EditMenuController.to.catatanDetailTextController.text;
                       },
                       style: ElevatedButton.styleFrom(
                         fixedSize: const Size(26, 26),
@@ -87,10 +83,8 @@ class AddingNote extends StatelessWidget {
             width: 8,
           ),
           Text("Catatan",
-              style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: MainColor.black)),
+              style:
+                  GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 16, color: MainColor.black)),
           const Expanded(
             child: SizedBox(),
           ),
@@ -98,9 +92,7 @@ class AddingNote extends StatelessWidget {
             width: 150,
             child: Obx(
               () => Text(
-                MenuDetailController.to.catatan.value != ''
-                    ? MenuDetailController.to.catatan.value
-                    : 'Tambahkan Catatan',
+                EditMenuController.to.catatan.value != '' ?  EditMenuController.to.catatan.value :'Tambahkan Catatan',
                 style: GoogleFonts.montserrat(
                     fontSize: 14, color: MainColor.black),
                 textAlign: TextAlign.end,

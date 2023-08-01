@@ -6,42 +6,58 @@ import 'package:trainee/modules/global_models/detail_menu_response.dart';
 import 'package:trainee/utils/services/http_service.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
 
-class MenuDetailController extends GetxController {
-  static MenuDetailController get to => Get.find();
+class EditMenuController extends GetxController {
+  static EditMenuController get to => Get.find<EditMenuController>();
 
   final RxInt itemIdMenu = 0.obs;
 
-  final Rx<Level>? selectedLevel = Level().obs;
-  final RxList<Topping>? selectedTopping = <Topping>[].obs;
+  final Rx<Level?> selectedLevel = Level().obs;
+  final RxList<Topping?> selectedTopping = <Topping>[].obs;
+
+  final RxList<int> idToppingSelected = <int>[].obs;
+  final RxInt idLevelSelected = 0.obs;
+
   final RxInt qty = 1.obs;
   late RxString catatan;
+  final Rx<Cart> cart = Cart().obs;
   final Rx<DataMenu> menu = DataMenu().obs;
   final RxList<Topping> topping = <Topping>[].obs;
   final RxList<Level> level = <Level>[].obs;
 
   late TextEditingController catatanDetailTextController;
+
   @override
   void onInit() async {
     super.onInit();
-    catatanDetailTextController = TextEditingController();
-
+    catatanDetailTextController =
+          TextEditingController();
+    // Accessing the arguments passed to the controller
     // Accessing the arguments passed to the controller
     final arguments = Get.arguments as Map<String, dynamic>?;
-    // Checking if arguments is not null
-    if (arguments != null) {
-      // Accessing the 'idMenu' argument
-      itemIdMenu.value = arguments['idMenu'] ?? 0;
-      // Accessing the 'qty' argument
-      final int qty = arguments['qty'] == 0 ? 1 : arguments['qty'];
+    
+    // Checking if arguments is not null and contains the 'carts' key
+    if (arguments != null && arguments.containsKey('carts')) {
+      final Cart cart = arguments['carts'] as Cart;
+
+      // Accessing the 'Menu' argument and updating the 'menu' observable
+      this.cart.value = cart;
+      itemIdMenu.value = cart.id ?? 0;
+      
+      // You can access other properties from 'cart' and update other observables accordingly.
+      final int qty = (cart.jumlah ?? 0) == 0 ? 1 : (cart.jumlah ?? 0);
       this.qty.value = qty;
-      // Accessing the 'catatan' argument
+      idToppingSelected.value = cart.topping!;
+      idLevelSelected.value = cart.level ?? 0;
+      catatanDetailTextController.text = cart.catatan ?? ''; // Set the catatan text in the text field
+
       final String catatan = arguments['catatan'] ?? '';
       catatanDetailTextController.text = catatan;
       this.catatan = catatanDetailTextController.text.obs;
       this.catatan.value = catatan;
     }
 
-    await observeMenu();
+ 
+    await observeToppingAndLevel();
   }
 
   @override
@@ -50,8 +66,6 @@ class MenuDetailController extends GetxController {
     catatanDetailTextController.dispose();
   }
 
-  //untuk menyimpan ke keranjang
-  final RxList<Cart> itemsCart = <Cart>[].obs;
   Future saveToCart(Cart dataMenu) async {
     await LocalStorageService.saveCart(dataMenu);
   }
@@ -59,13 +73,13 @@ class MenuDetailController extends GetxController {
   int get totalPrice {
     // Calculate the total harga of selected toppings
     int selectedToppingHargaSum = 0;
-    for (var topping in selectedTopping!) {
-      selectedToppingHargaSum += topping.harga ?? 0;
+    for (var topping in selectedTopping) {
+      selectedToppingHargaSum += topping?.harga ?? 0;
     }
 
     // Calculate the total price
-    return ((menu.value.harga ?? 0) +
-            (selectedLevel?.value.harga ?? 0) +
+    return ((cart.value.harga ?? 0) +
+            (selectedLevel.value?.harga ?? 0) +
             selectedToppingHargaSum) *
         qty.value;
   }
@@ -81,7 +95,7 @@ class MenuDetailController extends GetxController {
   }
 
   //Mendapatkan Data Menu
-  Future observeMenu() async {
+  Future<void> observeToppingAndLevel() async {
     try {
       final detailMenuResponse =
           await HttpService.dioService.getDetailMenu(itemIdMenu.value);
@@ -89,6 +103,26 @@ class MenuDetailController extends GetxController {
         menu.value = detailMenuResponse!.data!.menu!;
         topping.value = detailMenuResponse.data!.topping!;
         level.value = detailMenuResponse.data!.level!;
+
+        selectedLevel.value = level.firstWhere(
+          (level) => level.idDetail == idLevelSelected.value,
+          orElse: () {
+            return Level();
+          },
+        );
+
+        for (var idTopping in idToppingSelected) {
+          Topping toppingSelected = topping.firstWhere(
+            (element) => element.idDetail == idTopping,
+            orElse: () {
+              return Topping();
+            },
+          );
+
+          if (toppingSelected.idDetail != null) {
+            selectedTopping.add(toppingSelected);
+          }
+        }
       }
     } catch (exception, stacktrace) {
       await Sentry.captureException(

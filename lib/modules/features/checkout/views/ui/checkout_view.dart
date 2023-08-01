@@ -14,10 +14,10 @@ import 'package:trainee/modules/features/list/views/components/section_header.da
 
 import '../../controllers/checkout_controller.dart';
 
-class CheckoutView extends StatelessWidget {
+class CheckoutView extends StatelessWidget{
   const CheckoutView({super.key});
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
+  
   @override
   Widget build(BuildContext context) {
     analytics.setCurrentScreen(

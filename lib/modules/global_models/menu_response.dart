@@ -10,7 +10,7 @@ String welcomeToJson(MenuResponse data) => json.encode(data.toJson());
 
 class MenuResponse {
     int? statusCode;
-    List<Menu>? data;
+    List<MenuDataList>? data;
 
     MenuResponse({
         this.statusCode,
@@ -19,7 +19,7 @@ class MenuResponse {
 
     factory MenuResponse.fromJson(Map<String, dynamic> json) => MenuResponse(
         statusCode: json["status_code"],
-        data: json["data"] == null ? [] : List<Menu>.from(json["data"]!.map((x) => Menu.fromJson(x))),
+        data: json["data"] == null ? [] : List<MenuDataList>.from(json["data"]!.map((x) => MenuDataList.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class MenuResponse {
     };
 }
 
-class Menu {
+class MenuDataList {
     int? idMenu;
     String? nama;
     String? kategori;
@@ -37,7 +37,7 @@ class Menu {
     String? foto;
     int? status;
 
-    Menu({
+    MenuDataList({
         this.idMenu,
         this.nama,
         this.kategori,
@@ -47,7 +47,7 @@ class Menu {
         this.status,
     });
 
-    factory Menu.fromJson(Map<String, dynamic> json) => Menu(
+    factory MenuDataList.fromJson(Map<String, dynamic> json) => MenuDataList(
         idMenu: json["id_menu"],
         nama: json["nama"],
         kategori: json["kategori"],

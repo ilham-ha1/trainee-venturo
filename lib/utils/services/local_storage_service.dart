@@ -6,8 +6,8 @@ import 'package:trainee/modules/global_models/cart.dart';
 
 class LocalStorageService extends GetxService {
   LocalStorageService._();
-  static final box = Hive.box("venturo");
-  static final boxCart = Hive.box("itemCart");
+  static final box = Hive.box("Venturo");
+  static final boxCart = Hive.box("itemCartMenus");
 
   static const String _isLoggedInKey = 'isLogin';
 

@@ -3,15 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
+import 'package:trainee/modules/features/edit_menu/controllers/edit_menu_controller.dart';
 import 'package:trainee/modules/global_models/detail_menu_response.dart';
 
-class LevelOption extends StatelessWidget {
-  const LevelOption({Key? key}) : super(key: key);
+class LevelOptionEdit extends StatelessWidget {
+  const LevelOptionEdit({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dataLevel = MenuDetailController.to.level;
+    final dataLevel = EditMenuController.to.level;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Obx(() => InkWell(
@@ -59,30 +59,30 @@ class LevelOption extends StatelessWidget {
                               height: 60.h,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: MenuDetailController.to.level.length,
+                                itemCount: EditMenuController.to.level.length,
                                 itemBuilder: ((context, index) {
                                   final level =
-                                      MenuDetailController.to.level[index];
+                                      EditMenuController.to.level[index];
                                   return Material(
                                     color: Colors.transparent,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
-                                          final MenuDetailController
-                                              menuDetailController =
-                                              MenuDetailController.to;
-
+                                          final EditMenuController
+                                              editMenuController =
+                                              EditMenuController.to;
                                           // Check if the currently selected level is the same as the level being tapped
-                                          if (menuDetailController
-                                                  .selectedLevel?.value ==
+                                          if (editMenuController
+                                                  .selectedLevel.value ==
                                               level) {
                                             // If they are the same, clear the selectedLevel by setting it to null
-                                            menuDetailController.selectedLevel?.value = Level();
+                                            editMenuController.selectedLevel.value = Level();
 
                                           } else {
                                             // If they are different, set the new level as the selectedLevel
-                                            menuDetailController.selectedLevel?.call(level);
+                                            editMenuController
+                                                .selectedLevel(level);
                                           }
                                           Get.back(); // Close the bottom sheet
                                         },
@@ -99,11 +99,11 @@ class LevelOption extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(30.r),
                                             color: level.idDetail ==
-                                                    MenuDetailController
+                                                    EditMenuController
                                                         .to
                                                         .selectedLevel
-                                                        ?.value
-                                                        .idDetail
+                                                        .value
+                                                        ?.idDetail
                                                 ? MainColor.primary
                                                 : MainColor.white,
                                           ),
@@ -121,22 +121,22 @@ class LevelOption extends StatelessWidget {
                                                     style:
                                                         GoogleFonts.montserrat(
                                                       color: level.idDetail ==
-                                                              MenuDetailController
+                                                              EditMenuController
                                                                   .to
                                                                   .selectedLevel
-                                                                  ?.value
-                                                                  .idDetail
+                                                                  .value
+                                                                  ?.idDetail
                                                           ? MainColor.white
                                                           : MainColor.black,
                                                       fontSize: 12.sp,
                                                     ),
                                                   ),
                                                   level.idDetail ==
-                                                          MenuDetailController
+                                                          EditMenuController
                                                               .to
                                                               .selectedLevel
-                                                              ?.value
-                                                              .idDetail
+                                                              .value
+                                                              ?.idDetail
                                                       ? const Padding(
                                                           padding:
                                                               EdgeInsets.only(
@@ -192,7 +192,7 @@ class LevelOption extends StatelessWidget {
                   child: SizedBox(),
                 ),
                 Obx(() => Text(
-                      MenuDetailController.to.selectedLevel?.value.keterangan ??
+                      EditMenuController.to.selectedLevel.value?.keterangan ??
                           "Pilih Level",
                       style: GoogleFonts.montserrat(
                           fontSize: 14, color: MainColor.black),

@@ -134,7 +134,7 @@ class MenuView extends StatelessWidget {
                                   child: SizedBox(),
                                 ),
                                 Text(
-                                  'Rp. ${detailMenu.harga ?? 0}',
+                                  'Rp. ${MenuDetailController.to.totalPrice}',
                                   style: GoogleFonts.montserrat(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -168,33 +168,28 @@ class MenuView extends StatelessWidget {
                           Get.snackbar("Menambahkan",
                               "Menambahkan pesanan ke keranjang");
                           await MenuDetailController.to.saveToCart(Cart(
-                              id: MenuDetailController.to.menu.value.idMenu ?? 0,
-                              harga: MenuDetailController.to.menu.value.harga ?? 0,
+                              id: MenuDetailController.to.menu.value.idMenu,
+                              harga: MenuDetailController.to.menu.value.harga,
                               level: MenuDetailController
-                                      .to.selectedLevel.value?.idDetail ??
-                                  0,
-                              catatan: MenuDetailController
-                                      .to.catatan.value.isNotEmpty
-                                  ? MenuDetailController.to.catatan.value
-                                  : null,
+                                      .to.selectedLevel?.value.idDetail,
+                              catatan: MenuDetailController.to.catatan.value,
                               deskripsi:
                                   MenuDetailController.to.menu.value.deskripsi,
                               foto: MenuDetailController.to.menu.value.foto ??
                                   "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/240px-No_image_available.svg.png",
-                              topping: [
-                                MenuDetailController
-                                        .to.selectedTopping.value?.idDetail ??
-                                    0
-                              ],
+                              topping: MenuDetailController.to.selectedTopping?.map((topping) => topping.idDetail ?? 0).toList(),
                               jumlah: MenuDetailController.to.qty.value,
-                              nama: MenuDetailController.to.menu.value.nama?? '',
+                              nama: MenuDetailController.to.menu.value.nama,
                               kategori: MenuDetailController
-                                  .to.menu.value.kategori ?? ''));
+                                  .to.menu.value.kategori,
+                              toppingPrice: MenuDetailController.to.selectedTopping?.map((topping) => topping.harga ?? 0).toList(),    
+                              levelPrice: MenuDetailController.to.selectedLevel?.value.harga 
+                                  ),);
+                                  
                         } else {
                           Get.snackbar(
                               "Tunggu", "Sedang mendapatkan data menu");
                         }
-
                         Get.toNamed(MainRoute.checkout);
                       },
                       style: EvelatedButtonStyle.mainRounded.copyWith(

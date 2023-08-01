@@ -25,6 +25,7 @@ class MenuCard extends StatelessWidget {
     required this.add,
     required this.min,
     required this.catatanDetailTextController,
+
   }) : super(key: key);
 
   @override
@@ -75,7 +76,7 @@ class MenuCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    menu.nama ?? '',
+                     menu.nama ?? '',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                     overflow: TextOverflow.ellipsis,
@@ -131,8 +132,7 @@ class MenuCard extends StatelessWidget {
                                 ElevatedButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    catatan.value =
-                                        catatanDetailTextController.text;
+                                    catatan.value = catatanDetailTextController.text;
                                   },
                                   style: ElevatedButton.styleFrom(
                                     fixedSize: const Size(26, 26),

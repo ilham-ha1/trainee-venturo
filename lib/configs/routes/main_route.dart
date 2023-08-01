@@ -11,4 +11,5 @@ abstract class MainRoute {
   static const String checkout = '/checkout';
   static const String voucher = '/voucher';
   static const String detailVoucher = '/detailVoucher';
+  static const String editMenu = '/editMenu';
 }

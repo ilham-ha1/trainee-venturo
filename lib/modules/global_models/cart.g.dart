@@ -17,23 +17,25 @@ class CartAdapter extends TypeAdapter<Cart> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Cart(
-      id: fields[0] as int,
-      harga: fields[8] as int,
-      level: fields[3] as int,
+      id: fields[0] as int?,
+      harga: fields[8] as int?,
+      level: fields[3] as int?,
       catatan: fields[6] as String?,
       deskripsi: fields[7] as String?,
       foto: fields[2] as String?,
-      topping: (fields[4] as List).cast<int>(),
-      jumlah: fields[5] as int,
-      nama: fields[1] as String,
-      kategori: fields[9] as String,
+      topping: (fields[4] as List?)?.cast<int>(),
+      jumlah: fields[5] as int?,
+      nama: fields[1] as String?,
+      kategori: fields[9] as String?,
+      toppingPrice: (fields[10] as List?)?.cast<int>(),
+      levelPrice: fields[11] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Cart obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,7 +55,11 @@ class CartAdapter extends TypeAdapter<Cart> {
       ..writeByte(8)
       ..write(obj.harga)
       ..writeByte(9)
-      ..write(obj.kategori);
+      ..write(obj.kategori)
+      ..writeByte(10)
+      ..write(obj.toppingPrice)
+      ..writeByte(11)
+      ..write(obj.levelPrice);
   }
 
   @override

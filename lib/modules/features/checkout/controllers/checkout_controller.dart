@@ -9,6 +9,7 @@ import 'package:trainee/modules/features/checkout/views/componenst/fingerprint_d
 import 'package:trainee/modules/features/checkout/views/componenst/order_success_dialog.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/pin_dialog.dart';
 import 'package:trainee/modules/global_models/cart.dart';
+import 'package:trainee/modules/global_models/order_body.dart';
 import 'package:trainee/modules/global_models/user_discount_response.dart';
 import 'package:trainee/modules/global_models/user_voucher_response.dart';
 import 'package:trainee/utils/services/http_service.dart';
@@ -23,69 +24,12 @@ class CheckoutController extends GetxController {
 
   final TextEditingController catatanDetailTextController =
       TextEditingController();
+  late RxString catatan;
 
-  final RxList<Voucher> voucher = <Voucher>[
-    Voucher(
-      idVoucher: 1,
-      nama: "Koordinator Program kekompakan",
-      idUser: 1,
-      nominal: 50000,
-      infoVoucher: "https://i.ibb.co/bJ10gcZ/Voucher-Java-Code-app-01.jpg",
-      periodeMulai: 1610038000,
-      periodeSelesai: 1613516400,
-      type: 1,
-      status: 1,
-      catatan:
-          "loreasfi sofnsaiosaogi sagsagsaogisaj gsaaiosgnasoigsa safsajfoais sagfsaoifjsa",
-      selected: false,
-    ),
-    Voucher(
-      idVoucher: 2,
-      nama: "Friend Referal Recrutiment",
-      idUser: 47,
-      nominal: 25000,
-      infoVoucher: "https://i.ibb.co/bJ10gcZ/Voucher-Java-Code-app-01.jpg",
-      periodeMulai: 1610038000,
-      periodeSelesai: 1613516400,
-      type: 0,
-      status: 1,
-      catatan:
-          "asifjsaifsajoi safosajfosaijfsag sag sag sagsag sag  asg saga sga s sag sag sa fewf e ",
-      selected: false,
-    ),
-    Voucher(
-      idVoucher: 3,
-      nama: "Weekend",
-      idUser: 47,
-      nominal: 25000,
-      infoVoucher: "https://i.ibb.co/bJ10gcZ/Voucher-Java-Code-app-01.jpg",
-      periodeMulai: 1610038000,
-      periodeSelesai: 1613516400,
-      type: 0,
-      status: 1,
-      catatan:
-          "asifjsaiafsasasfsajoi safosajfosaijfsag sag sag sagsag sag  asg saga sga s sag sag sa fewf e ",
-      selected: false,
-    ),
-  ].obs;
+  final RxList<Voucher> voucher = <Voucher>[].obs;
 
   final Rx<Voucher> selectedVoucher = Voucher().obs;
-  final RxList<Discount> discount = <Discount>[
-    Discount(
-      idDiskon: 1,
-      idUser: 1,
-      namaUser: "Super Admin",
-      nama: "Mengisi survey",
-      diskon: 10,
-    ),
-    Discount(
-      idDiskon: 1,
-      idUser: 1,
-      namaUser: "Super Admin",
-      nama: "Mengisi survey",
-      diskon: 10,
-    )
-  ].obs;
+  final RxList<Discount> discount = <Discount>[].obs;
   RxInt totalDiscount = 0.obs;
   RxBool isVoucherSelected = false.obs;
 
@@ -95,6 +39,7 @@ class CheckoutController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    catatan = catatanDetailTextController.text.obs;
     repository = CartRepository();
     await fetchData();
     await getVoucherData();
@@ -105,6 +50,7 @@ class CheckoutController extends GetxController {
     try {
       cartViewState('loading');
       final result = await LocalStorageService.getAllCarts();
+      cart.clear();
       cart.addAll(result);
       cartViewState('success');
     } catch (exception, stacktrace) {
@@ -116,15 +62,15 @@ class CheckoutController extends GetxController {
     }
   }
 
-  void increaseQty(Cart item) {
-    item.jumlah++;
+  void increaseQty(Cart item) async {
+    item.jumlah = (item.jumlah ?? 0) + 1;
     cart.refresh();
   }
 
   void decreaseQty(Cart item) async {
-    item.jumlah--;
+    item.jumlah = (item.jumlah ?? 0) - 1;
     if (item.jumlah == 0) {
-      deleteItem(item.id);
+      deleteItem(item.id ?? 0);
     }
     cart.refresh();
   }
@@ -137,9 +83,16 @@ class CheckoutController extends GetxController {
   List<Cart> get drinkItems =>
       cart.where((e) => e.kategori == 'minuman').toList();
 
-  // calculate total price of all item
-  int get totalPrice =>
-      cart.fold(0, (prevTotal, item) => prevTotal + (item.harga) * item.jumlah);
+  int get totalPrice => cart.fold(0, (prevTotal, item) {
+        int itemToppingPrice = 0;
+        if (item.toppingPrice != null && item.toppingPrice!.isNotEmpty) {
+          itemToppingPrice =
+              item.toppingPrice!.reduce((sum, price) => sum + price);
+        }
+        return prevTotal +
+            ((item.harga ?? 0) + (item.levelPrice ?? 0) + itemToppingPrice) *
+                (item.jumlah ?? 0);
+      });
 
   // calculate discount price
   void calculateDiscount() {
@@ -148,6 +101,7 @@ class CheckoutController extends GetxController {
     }
   }
 
+  //calculate discount price
   int get discountPrice {
     if (selectedVoucher.value.idVoucher != null) {
       // If a voucher is selected, return 0
@@ -168,6 +122,7 @@ class CheckoutController extends GetxController {
     return calculatedGrandTotal < 0 ? 0 : calculatedGrandTotal;
   }
 
+  //verify
   Future<void> verify() async {
     // check supported auth type in device
     final LocalAuthentication localAuth = LocalAuthentication();
@@ -189,7 +144,9 @@ class CheckoutController extends GetxController {
 
         // if succeed, order cart
         if (authenticated) {
-          showOrderSuccessDialog();
+          if(await postOrder() == true){
+            showOrderSuccessDialog();
+          }
         }
       } else if (authType == 'pin') {
         // pin auth flow
@@ -200,6 +157,7 @@ class CheckoutController extends GetxController {
     }
   }
 
+  //menampilkan fingerprint dialog
   Future<String?> showFingerprintDialog() async {
     // ensure all modal is closed before show fingerprint dialog
     Get.until(ModalRoute.withName(MainRoute.checkout));
@@ -212,6 +170,7 @@ class CheckoutController extends GetxController {
     return result;
   }
 
+  //menampilkan dialog discount
   Future<void> showDiscountDialog() async {
     Get.until(ModalRoute.withName(MainRoute.checkout));
     try {
@@ -229,6 +188,7 @@ class CheckoutController extends GetxController {
     }
   }
 
+  //menampilkan pin Dialog
   Future<void> showPinDialog() async {
     // ensure all modal is closed before show pin dialog
     Get.until(ModalRoute.withName(MainRoute.checkout));
@@ -243,13 +203,17 @@ class CheckoutController extends GetxController {
 
     if (authenticated == true) {
       // if succeed, order cart
-      showOrderSuccessDialog();
+      if(await postOrder() == true){
+        showOrderSuccessDialog();
+      }
+     
     } else if (authenticated != null) {
       // if failed 3 times, show order failed dialog
       Get.until(ModalRoute.withName(MainRoute.checkout));
     }
   }
 
+  //menampilkan dialog success ketika order
   Future<void> showOrderSuccessDialog() async {
     Get.toNamed(MainRoute.checkout);
     await Get.defaultDialog(
@@ -261,11 +225,7 @@ class CheckoutController extends GetxController {
     Get.back();
   }
 
-  void deleteItem(int id) {
-    LocalStorageService.deleteItemOnCart(id);
-    cart.removeWhere((e) => e.id == id);
-  }
-
+  //mendapatkan data voucher
   Future<void> getVoucherData() async {
     final dataVoucher = await HttpService.dioService.getUserVoucher();
 
@@ -275,6 +235,7 @@ class CheckoutController extends GetxController {
     }
   }
 
+  //mendapatkan data discount
   Future<void> getDiscountData() async {
     final dataDiscount = await HttpService.dioService.getUserDiscount();
 
@@ -286,6 +247,7 @@ class CheckoutController extends GetxController {
     calculateDiscount();
   }
 
+  //memanage voucher checkbox
   void manageVoucherCheckBox(int index, bool isSelected) {
     isVoucherSelected.value = false;
 
@@ -310,8 +272,51 @@ class CheckoutController extends GetxController {
     }
   }
 
+  //menambahkan data voucher
   void addDataVoucher() {
     totalVoucher.value = selectedVoucher.value.nominal!;
     voucherName.value = selectedVoucher.value.nama!;
+  }
+
+  //mengahapus item
+  void deleteItem(int id) async {
+    await LocalStorageService.deleteItemOnCart(id);
+    cart.removeWhere((e) => e.id == id);
+  }
+
+  void editDataCart(int id, Cart cart) async {
+    await LocalStorageService.saveCart(cart);
+    this.cart[id] = cart;
+  }
+
+  Future<bool> postOrder() async {
+    final idUser = LocalStorageService.getId();
+    final orderData = Order(
+      idUser: idUser,
+      idVoucher: selectedVoucher.value.idVoucher,
+      potongan: discountPrice + totalVoucher.value,
+      totalBayar: grandTotalPrice,
+    );
+
+    var menuData = <Menu>[];
+    for (var item in cart) {
+      final itemOrder = Menu(
+        idMenu: item.id,
+        harga: item.harga,
+        level: item.level,
+        topping: item.topping,
+        jumlah: item.jumlah,
+        catatan: item.catatan,
+      );
+      menuData.add(itemOrder);
+    }
+    final orderResponse =
+        await HttpService.dioService.postOrder(orderData, menuData);
+        
+    if (orderResponse?.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -7,6 +7,8 @@ import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/modules/global_models/detail_menu_response.dart';
 import 'package:trainee/modules/global_models/login_response.dart';
 import 'package:trainee/modules/global_models/menu_response.dart';
+import 'package:trainee/modules/global_models/order_body.dart';
+import 'package:trainee/modules/global_models/order_response.dart';
 import 'package:trainee/modules/global_models/promo_response.dart';
 import 'package:trainee/modules/global_models/user_discount_response.dart';
 import 'package:trainee/modules/global_models/user_voucher_response.dart';
@@ -169,7 +171,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<DetailMenu?> getDetailMenu(int id) async {
+  Future<DetailMenuResponse?> getDetailMenu(int id) async {
     final url = '$baseUrl/menu/detail/$id';
     final authToken = LocalStorageService.getToken();
 
@@ -180,7 +182,8 @@ class HttpService extends GetxService {
           headers: {'token': '$authToken'},
         ),
       );
-      final DetailMenu detailMenu = DetailMenu.fromJson(response.data);
+      final DetailMenuResponse detailMenu =
+          DetailMenuResponse.fromJson(response.data);
       return detailMenu;
     } catch (exception, stackTrace) {
       await Sentry.captureException(
@@ -276,5 +279,34 @@ class HttpService extends GetxService {
       return null;
     }
   }
-  
+
+  Future<OrderResponse?> postOrder(Order orderData, List<Menu> menuData) async {
+    const url = '$baseUrl/order/add';
+    final authToken = LocalStorageService.getToken();
+
+    final orderBody = orderData;
+    final listMenuBody = menuData;
+    try {
+      final response = await dioCall().post(
+        url,
+        data: OrderBody(
+          order: orderBody,
+          menu: listMenuBody
+        ),
+        options: Options(
+          headers: {
+            'token': '$authToken',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+      return OrderResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
 }

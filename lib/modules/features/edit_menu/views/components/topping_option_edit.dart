@@ -3,19 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
-import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
-import 'package:trainee/modules/global_models/detail_menu_response.dart';
+import 'package:trainee/modules/features/edit_menu/controllers/edit_menu_controller.dart';
 
-class LevelOption extends StatelessWidget {
-  const LevelOption({Key? key}) : super(key: key);
+class ToppingOptionEdit extends StatelessWidget {
+  const ToppingOptionEdit({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dataLevel = MenuDetailController.to.level;
+    final dataTopping = EditMenuController.to.topping;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Obx(() => InkWell(
-            onTap: dataLevel.isNotEmpty
+            onTap: dataTopping.isNotEmpty
                 ? () {
                     Get.bottomSheet(
                       Container(
@@ -33,7 +32,7 @@ class LevelOption extends StatelessWidget {
                           boxShadow: const [
                             BoxShadow(
                               color: Color.fromARGB(111, 24, 24, 24),
-                              blurRadius: 10,
+                              blurRadius: 15,
                               spreadRadius: -1,
                               offset: Offset(0, 1),
                             ),
@@ -46,7 +45,7 @@ class LevelOption extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: Text(
-                                "Pilih level",
+                                "Pilih topping",
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.sp,
@@ -59,30 +58,33 @@ class LevelOption extends StatelessWidget {
                               height: 60.h,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: MenuDetailController.to.level.length,
+                                itemCount:
+                                    EditMenuController.to.topping.length,
                                 itemBuilder: ((context, index) {
-                                  final level =
-                                      MenuDetailController.to.level[index];
+                                  final topping =
+                                      EditMenuController.to.topping[index];
                                   return Material(
                                     color: Colors.transparent,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
-                                          final MenuDetailController
-                                              menuDetailController =
-                                              MenuDetailController.to;
-
+                                          final EditMenuController
+                                              editMenuController =
+                                              EditMenuController.to;
                                           // Check if the currently selected level is the same as the level being tapped
-                                          if (menuDetailController
-                                                  .selectedLevel?.value ==
-                                              level) {
-                                            // If they are the same, clear the selectedLevel by setting it to null
-                                            menuDetailController.selectedLevel?.value = Level();
 
+                                          // Check if the topping is already selected
+                                          if (editMenuController
+                                              .selectedTopping
+                                              .contains(topping)) {
+                                            // If it's selected, remove it from the list
+                                            editMenuController.selectedTopping
+                                                .remove(topping);
                                           } else {
-                                            // If they are different, set the new level as the selectedLevel
-                                            menuDetailController.selectedLevel?.call(level);
+                                            // If it's not selected, add it to the list
+                                            editMenuController.selectedTopping
+                                                .add(topping);
                                           }
                                           Get.back(); // Close the bottom sheet
                                         },
@@ -98,12 +100,10 @@ class LevelOption extends StatelessWidget {
                                             ),
                                             borderRadius:
                                                 BorderRadius.circular(30.r),
-                                            color: level.idDetail ==
-                                                    MenuDetailController
-                                                        .to
-                                                        .selectedLevel
-                                                        ?.value
-                                                        .idDetail
+                                            color: EditMenuController
+                                                        .to.selectedTopping
+                                                        .contains(topping) ==
+                                                    true
                                                 ? MainColor.primary
                                                 : MainColor.white,
                                           ),
@@ -117,36 +117,30 @@ class LevelOption extends StatelessWidget {
                                                     CrossAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    level.keterangan!,
+                                                    topping.keterangan!,
                                                     style:
                                                         GoogleFonts.montserrat(
-                                                      color: level.idDetail ==
-                                                              MenuDetailController
+                                                      color: EditMenuController
                                                                   .to
-                                                                  .selectedLevel
-                                                                  ?.value
-                                                                  .idDetail
+                                                                  .selectedTopping
+                                                                  .contains(
+                                                                      topping) ==
+                                                              true
                                                           ? MainColor.white
                                                           : MainColor.black,
                                                       fontSize: 12.sp,
                                                     ),
                                                   ),
-                                                  level.idDetail ==
-                                                          MenuDetailController
-                                                              .to
-                                                              .selectedLevel
-                                                              ?.value
-                                                              .idDetail
-                                                      ? const Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  left: 2.0),
-                                                          child: Icon(
-                                                            Icons.check_rounded,
-                                                            size: 12,
-                                                            color:
-                                                                MainColor.white,
-                                                          ),
+                                                  EditMenuController.to
+                                                              .selectedTopping
+                                                              .contains(
+                                                                  topping) ==
+                                                          true
+                                                      ? const Icon(
+                                                          Icons.check_rounded,
+                                                          size: 14,
+                                                          color:
+                                                              MainColor.white,
                                                         )
                                                       : const SizedBox()
                                                 ],
@@ -167,7 +161,7 @@ class LevelOption extends StatelessWidget {
                   }
                 : () {
                     Get.snackbar(
-                      "Level",
+                      "Topping",
                       "Tidak ada pilihan lain",
                       duration: const Duration(milliseconds: 1000),
                       backgroundColor: MainColor.white,
@@ -177,12 +171,12 @@ class LevelOption extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Icon(Icons.local_fire_department),
+                const Icon(Icons.cake_rounded),
                 const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  "Level",
+                  "Topping",
                   style: GoogleFonts.montserrat(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -192,10 +186,15 @@ class LevelOption extends StatelessWidget {
                   child: SizedBox(),
                 ),
                 Obx(() => Text(
-                      MenuDetailController.to.selectedLevel?.value.keterangan ??
-                          "Pilih Level",
+                      (EditMenuController.to.selectedTopping.isNotEmpty
+                          ? EditMenuController.to.selectedTopping
+                              .map((topping) => topping?.keterangan ?? '')
+                              .join(', ')
+                          : "Pilih Topping"),
                       style: GoogleFonts.montserrat(
-                          fontSize: 14, color: MainColor.black),
+                        fontSize: 14,
+                        color: MainColor.black,
+                      ),
                     )),
                 const Icon(Icons.keyboard_arrow_right, color: MainColor.grey)
               ],

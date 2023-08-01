@@ -19,8 +19,8 @@ void main() async {
   /// Localstorage init
   await Hive.initFlutter();
   Hive.registerAdapter(CartAdapter());
-  await Hive.openBox("venturo");
-  await Hive.openBox("itemCart");
+  await Hive.openBox("Venturo");
+  await Hive.openBox("itemCartMenus");
 
   /// Firebase init
   await Firebase.initializeApp(

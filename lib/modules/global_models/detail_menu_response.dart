@@ -4,20 +4,20 @@
 
 import 'dart:convert';
 
-DetailMenu welcomeFromJson(String str) => DetailMenu.fromJson(json.decode(str));
+DetailMenuResponse welcomeFromJson(String str) => DetailMenuResponse.fromJson(json.decode(str));
 
-String welcomeToJson(DetailMenu data) => json.encode(data.toJson());
+String welcomeToJson(DetailMenuResponse data) => json.encode(data.toJson());
 
-class DetailMenu {
+class DetailMenuResponse {
     int? statusCode;
     DataDetailMenu? data;
 
-    DetailMenu({
+    DetailMenuResponse({
         this.statusCode,
         this.data,
     });
 
-    factory DetailMenu.fromJson(Map<String, dynamic> json) => DetailMenu(
+    factory DetailMenuResponse.fromJson(Map<String, dynamic> json) => DetailMenuResponse(
         statusCode: json["status_code"],
         data: json["data"] == null ? null : DataDetailMenu.fromJson(json["data"]),
     );
@@ -29,7 +29,7 @@ class DetailMenu {
 }
 
 class DataDetailMenu {
-    Menu? menu;
+    DataMenu? menu;
     List<Topping>? topping;
     List<Level>? level;
 
@@ -40,7 +40,7 @@ class DataDetailMenu {
     });
 
     factory DataDetailMenu.fromJson(Map<String, dynamic> json) => DataDetailMenu(
-        menu: json["menu"] == null ? null : Menu.fromJson(json["menu"]),
+        menu: json["menu"] == null ? null : DataMenu.fromJson(json["menu"]),
         topping: json["topping"] == null ? [] : List<Topping>.from(json["topping"]!.map((x) => Topping.fromJson(x))),
         level: json["level"] == null ? [] : List<Level>.from(json["level"]!.map((x) => Level.fromJson(x))),
     );
@@ -115,7 +115,7 @@ class Topping {
         "harga": harga,
     };
 }
-class Menu {
+class DataMenu {
     int? idMenu;
     String? nama;
     String? kategori;
@@ -124,7 +124,7 @@ class Menu {
     String? foto;
     int? status;
 
-    Menu({
+    DataMenu({
         this.idMenu,
         this.nama,
         this.kategori,
@@ -134,7 +134,7 @@ class Menu {
         this.status,
     });
 
-    factory Menu.fromJson(Map<String, dynamic> json) => Menu(
+    factory DataMenu.fromJson(Map<String, dynamic> json) => DataMenu(
         idMenu: json["id_menu"],
         nama: json["nama"],
         kategori: json["kategori"],
