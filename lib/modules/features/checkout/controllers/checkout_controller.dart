@@ -221,7 +221,7 @@ class CheckoutController extends GetxController {
       content: const OrderSuccessDialog(),
     );
 
-    Get.back();
+    Get.offAndToNamed(MainRoute.order);
   }
 
   //mendapatkan data voucher

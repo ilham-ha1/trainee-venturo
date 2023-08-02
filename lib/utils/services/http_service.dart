@@ -11,6 +11,10 @@ import 'package:trainee/modules/global_models/order_body.dart';
 import 'package:trainee/modules/global_models/order_response.dart';
 import 'package:trainee/modules/global_models/promo_response.dart';
 import 'package:trainee/modules/global_models/user_discount_response.dart';
+import 'package:trainee/modules/global_models/user_order_cancel_response.dart';
+import 'package:trainee/modules/global_models/user_order_detail_response.dart';
+import 'package:trainee/modules/global_models/user_order_history_response.dart';
+import 'package:trainee/modules/global_models/user_order_list_response.dart';
 import 'package:trainee/modules/global_models/user_voucher_response.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
 import 'package:trainee/modules/global_models/detail_promo_response.dart';
@@ -301,6 +305,95 @@ class HttpService extends GetxService {
         ),
       );
       return OrderResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserOrderListResponse?> getUserOrderList() async{
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/order/user/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return UserOrderListResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserOrderHistoryResponse?> getUserOrderHistory() async{
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/order/history/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return UserOrderHistoryResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserOrderDetailResponse?> getUserOrderDetail(int idOrder) async{
+    final url = '$baseUrl/order/detail/$idOrder';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {'token': '$authToken'},
+        ),
+      );
+      return UserOrderDetailResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserOrderCancelResponse?> postCancelOrder(int idOrder) async {
+    final url = '$baseUrl/order/batal/$idOrder';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        options: Options(
+          headers: {
+            'id_order': idOrder,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserOrderCancelResponse.fromJson(response.data);
     } catch (exception, stackTrace) {
       await Sentry.captureException(
         exception,

@@ -7,4 +7,5 @@ class ImageConstant {
   static const String location = 'assets/images/map.png';
   static const String icApple = 'assets/icons/ic-apple.png';
   static const String orderPrepared = 'assets/images/order_prepared.png';
+  static const String icOrderPage = 'assets/icons/ic-order-page.png';
 }

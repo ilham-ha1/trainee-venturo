@@ -65,4 +65,5 @@ class LocalStorageService extends GetxService {
   static Future<void> deleteItemOnCart(int id) async {
     boxCart.delete(id);
   }
+  
 }

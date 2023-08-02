@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 
 class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
@@ -7,6 +9,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    int tabScreen = 0;
     return Container(
       width: double.infinity,
       height: 68.h,
@@ -35,12 +38,25 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.home,
-                size: 34,
+              IconButton(
                 color: MainColor.white,
+                onPressed: () {
+                  tabScreen = 0;
+                  Get.toNamed(MainRoute.list);
+                },
+                icon: tabScreen == 0
+                    ? const Icon(
+                        Icons.home,
+                        color: Colors.white,
+                        size: 34,
+                      )
+                    : const Icon(
+                        Icons.home,
+                        color: Color.fromARGB(105, 255, 255, 255),
+                        size: 34,
+                      ),
               ),
-              Text("Home",
+              Text("Beranda",
                   style: TextStyle(
                     color: MainColor.white,
                     fontSize: 12.sp,
@@ -51,11 +67,23 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.food_bank_rounded,
-                size: 34,
-                color: MainColor.white,
-              ),
+              IconButton(
+                  color: MainColor.white,
+                  onPressed: () {
+                    tabScreen = 1;
+                    Get.toNamed(MainRoute.order);
+                  },
+                  icon: tabScreen == 1
+                      ? const Icon(
+                          Icons.food_bank_rounded,
+                          size: 34,
+                          color: MainColor.white,
+                        )
+                      : const Icon(
+                          Icons.food_bank_rounded,
+                          color: Color.fromARGB(105, 255, 255, 255),
+                          size: 34,
+                        )),
               Text("Pesanan",
                   style: TextStyle(
                     color: MainColor.white,
@@ -67,11 +95,21 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(
-                Icons.account_circle_outlined,
-                size: 34,
-                color: MainColor.white,
-              ),
+              IconButton(
+                  onPressed: () {
+                    // tabScreen = 2;
+                  },
+                  icon: tabScreen == 2
+                      ? const Icon(
+                          Icons.account_circle_outlined,
+                          size: 34,
+                          color: MainColor.white,
+                        )
+                      : const Icon(
+                          Icons.account_circle_outlined,
+                          color: Color.fromARGB(105, 255, 255, 255),
+                          size: 34,
+                        )),
               Text("Profil",
                   style: TextStyle(
                     color: MainColor.white,

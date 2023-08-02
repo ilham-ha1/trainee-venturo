@@ -8,6 +8,8 @@ import 'package:trainee/modules/features/checkout/views/ui/voucher/detail_vouche
 import 'package:trainee/modules/features/checkout/views/ui/voucher/voucher_view.dart';
 import 'package:trainee/modules/features/counter/binddings/conter_bindding.dart';
 import 'package:trainee/modules/features/counter/views/ui/conter_view.dart';
+import 'package:trainee/modules/features/order/views/ui/detail_order_view.dart';
+import 'package:trainee/modules/features/order/views/ui/order_view.dart';
 import 'package:trainee/modules/features/promo/binddings/promo_binding.dart';
 import 'package:trainee/modules/features/promo/views/ui/promo_view.dart';
 import 'package:trainee/modules/features/initial/binddings/initial_binding.dart';
@@ -21,9 +23,12 @@ import 'package:trainee/modules/features/splash/views/ui/splash_view.dart';
 import 'package:trainee/modules/features/sign_in/binddings/sing_in_binding.dart';
 import 'package:trainee/modules/features/sign_in/views/ui/sign_in_view.dart';
 import 'package:trainee/modules/features/menu/views/ui/menu_view.dart';
+import 'package:trainee/modules/features/order/binddings/detail_order_binding.dart';
+import 'package:trainee/modules/features/order/binddings/order_binding.dart';
 
 abstract class MainPage {
   static final checkoutBinding = CheckoutBinding();
+  static final orderBinding = OrderBinding();
   static final main = [
     /// Setup
     GetPage(
@@ -69,7 +74,8 @@ abstract class MainPage {
     GetPage(
         name: MainRoute.voucher,
         page: () => const VoucherView(),
-        binding: checkoutBinding),
+        binding: checkoutBinding
+    ),
     GetPage(
       name: MainRoute.detailVoucher,
       page: () => const DetailVoucherView(),
@@ -78,6 +84,16 @@ abstract class MainPage {
       name: MainRoute.editMenu,
       page: () => const EditMenuView(),
       binding: EditMenuBinding(),
+    ),
+    GetPage(
+      name: MainRoute.order,
+      page: () => const OrderView(),
+      binding: orderBinding,
+    ),
+    GetPage(
+      name: MainRoute.orderDetail,
+      page: () => const DetailOrderView(),
+      binding: DetailOrderBinding(),
     ),
   ];
 }
