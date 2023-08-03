@@ -4,6 +4,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:trainee/configs/pages/main_page.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 
@@ -24,81 +25,89 @@ class OrderHistoryTabView extends StatelessWidget {
     );
 
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: OrderController.to.getOrderHistories,
-        child: Obx(
-          () => ConditionalSwitch.single(
-            context: context,
-            valueBuilder: (context) =>
-                OrderController.to.orderHistoryState.value,
-            caseBuilders: {},
-            fallbackBuilder: (context) => CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: DropdownStatus(
-                            items: OrderController.to.dateFilterStatus,
-                            selectedItem:
-                                OrderController.to.selectedCategory.value,
-                            onChanged: (value) => OrderController.to
-                                .setDateFilter(category: value),
+      body: Obx(
+          () => 
+          SmartRefresher(
+            controller: OrderController.to.refreshControllerHistory,
+            enablePullDown: true,
+            onRefresh: OrderController.to.onRefreshHistory,
+            enablePullUp: OrderController.to.canLoadMoreHistory.isTrue ? true : false,
+            onLoading: OrderController.to.getOrderHistories,
+            child: ConditionalSwitch.single(
+              context: context,
+              valueBuilder: (context) =>
+                  OrderController.to.orderHistoryState.value,
+              caseBuilders: {},
+              fallbackBuilder: (context) => CustomScrollView(
+                slivers: [
+                  //Date
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: DropdownStatus(
+                              items: OrderController.to.dateFilterStatus,
+                              selectedItem:
+                                  OrderController.to.selectedCategory.value,
+                              onChanged: (value) => OrderController.to
+                                  .setDateFilter(category: value),
+                            ),
                           ),
-                        ),
-                        22.horizontalSpaceRadius,
-                        Expanded(
-                          child: DatePicker(
-                            selectedDate:
-                                OrderController.to.selectedDateRange.value,
-                            onChanged: (value) =>
-                                OrderController.to.setDateFilter(range: value),
+                          22.horizontalSpaceRadius,
+                          Expanded(
+                            child: DatePicker(
+                              selectedDate:
+                                  OrderController.to.selectedDateRange.value,
+                              onChanged: (value) =>
+                                  OrderController.to.setDateFilter(range: value),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Conditional.single(
-                  context: context,
-                  conditionBuilder: (context) =>
-                      OrderController.to.filteredHistoryOrder.isNotEmpty,
-                  widgetBuilder: (context) => SliverPadding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) => Padding(
-                          padding: EdgeInsets.only(bottom: 16.r),
-                          child: OrderItemCard(
-                            order:
-                                OrderController.to.filteredHistoryOrder[index],
-                            onOrderAgain: () {},
-                            onTap: () {
-                              Get.put(MainPage.orderBinding);
-                              Get.toNamed(
-                                '${MainRoute.order}/${OrderController.to.filteredHistoryOrder[index].idOrder}',
-                              );
-                            },
-                          ),
-                        ),
-                        childCount:
-                            OrderController.to.filteredHistoryOrder.length,
+                        ],
                       ),
                     ),
                   ),
-                  fallbackBuilder: (context) => const SliverToBoxAdapter(
-                    child: SizedBox(),
-                  ),
-                )
-              ],
+                  
+                  //List
+                  Conditional.single(
+                    context: context,
+                    conditionBuilder: (context) =>
+                        OrderController.to.filteredHistoryOrder.isNotEmpty,
+                    widgetBuilder: (context) => SliverPadding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) => Padding(
+                            padding: EdgeInsets.only(bottom: 16.r),
+                            child: OrderItemCard(
+                              order:
+                                  OrderController.to.filteredHistoryOrder[index],
+                              onOrderAgain: () {},
+                              onTap: () {
+                                Get.put(MainPage.orderBinding);
+                                Get.toNamed(
+                                  '${MainRoute.order}/${OrderController.to.filteredHistoryOrder[index].idOrder}',
+                                );
+                              },
+                            ),
+                          ),
+                          childCount:
+                              OrderController.to.filteredHistoryOrder.length,
+                        ),
+                      ),
+                    ),
+                    fallbackBuilder: (context) => const SliverToBoxAdapter(
+                      child: SizedBox(),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
-      ),
       bottomNavigationBar: Container(
         width: 1.sw,
         height: 60.h,

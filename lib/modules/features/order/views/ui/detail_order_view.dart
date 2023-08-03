@@ -5,6 +5,7 @@ import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/rounded_app_bar.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/tile_option.dart';
@@ -138,11 +139,16 @@ class DetailOrderView extends StatelessWidget {
                             subtitle:
                                 '(${DetailOrderController.to.order.value?.detail?.length} Menu):',
                             message:
-                                'Rp ${DetailOrderController.to.order.value?.order?.totalBayar ?? '0'}',
-                            titleStyle: Get.textTheme.titleMedium,
-                            messageStyle: Get.textTheme.titleMedium!.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.w600),
+                                'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.totalBayar ?? '0')}',
+                            titleStyle: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
+                            subtitleStyle: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
+                            messageStyle: GoogleFonts.montserrat(
+                             color: MainColor.primary, fontWeight: FontWeight.normal, fontSize: 17.sp
+                            ),
                           ),
                           Divider(color: Colors.black45, height: 2.h),
 
@@ -165,11 +171,13 @@ class DetailOrderView extends StatelessWidget {
                                   iconSize: 24.r,
                                   title: 'Discount',
                                   message:
-                                      'Rp ${DetailOrderController.to.order.value?.order?.potongan ?? '0'}',
-                                  titleStyle: Get.textTheme.titleMedium,
-                                  messageStyle: Get.textTheme.titleMedium?.copyWith(
-                                      color: const Color(0xFFD81D1D),
-                                      fontWeight: FontWeight.w600),
+                                      'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.potongan ?? '0')}',
+                                  titleStyle:GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
+                                  messageStyle:GoogleFonts.montserrat(
+                             color:  const Color(0xFFD81D1D), fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
                                 ),
                                 Divider(color: Colors.black54, height: 2.h),
                               ],
@@ -193,13 +201,15 @@ class DetailOrderView extends StatelessWidget {
                                   iconSize: 24.r,
                                   title: 'voucher'.tr,
                                   message:
-                                      'Rp ${DetailOrderController.to.order.value?.order?.potongan ?? '0'}',
+                                      'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.potongan ?? '0')}',
                                   messageSubtitle: DetailOrderController
                                       .to.order.value?.order?.namaVoucher,
-                                  titleStyle: Get.textTheme.titleMedium,
-                                  messageStyle: Get.textTheme.titleMedium?.copyWith(
-                                      color: const Color(0xFFD81D1D),
-                                      fontWeight: FontWeight.w600),
+                                  titleStyle: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
+                                  messageStyle: GoogleFonts.montserrat(
+                             color:  const Color(0xFFD81D1D), fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
                                 ),
                                 Divider(color: const Color(0xFFD81D1D), height: 2.h),
                               ],
@@ -214,8 +224,12 @@ class DetailOrderView extends StatelessWidget {
                             iconSize: 24.r,
                             title: 'Pembayaran'.tr,
                             message: 'Pay Later',
-                            titleStyle: Get.textTheme.titleMedium,
-                            messageStyle: Get.textTheme.titleMedium,
+                            titleStyle: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
+                            messageStyle: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 17.sp
+                            ),
                           ),
 
                           Divider(color: Colors.black54, height: 2.h),
@@ -225,11 +239,13 @@ class DetailOrderView extends StatelessWidget {
                             iconSize: 24.r,
                             title: 'Total Pembayaran'.tr,
                             message:
-                                'Rp ${DetailOrderController.to.order.value?.order?.totalBayar ?? '0'}',
-                            titleStyle: Get.textTheme.titleMedium,
-                            messageStyle: Get.textTheme.titleMedium!.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.w600),
+                                'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.totalBayar ?? '0')}',
+                            titleStyle: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
+                            ),
+                            messageStyle: GoogleFonts.montserrat(
+                             color: MainColor.primary, fontWeight: FontWeight.normal, fontSize: 17.sp
+                            ),
                           ),
                           Divider(color: Colors.black54, height: 2.h),
                           24.verticalSpace,

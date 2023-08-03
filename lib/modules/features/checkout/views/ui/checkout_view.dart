@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:trainee/configs/pages/main_page.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
@@ -92,7 +93,7 @@ class CheckoutView extends StatelessWidget{
                       subtitle: '(${CheckoutController.to.cart.length} Menu):',
                       icon: Icons.payments_outlined,
                       message:
-                          'Rp ${CheckoutController.to.totalPrice.toString()}',
+                          'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalPrice.toString()) }',
                       titleStyle: Get.textTheme.bodyLarge,
                       messageStyle: Get.textTheme.labelLarge!
                           .copyWith(color: Theme.of(context).primaryColor),
@@ -104,8 +105,8 @@ class CheckoutView extends StatelessWidget{
                       TileOption(
                         icon: Icons.discount_outlined,
                         iconSize: 24.r,
-                        title: 'Diskon ${CheckoutController.to.totalDiscount}%',
-                        message: 'Rp ${CheckoutController.to.discountPrice}',
+                        title: 'Diskon ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalDiscount)}%',
+                        message: 'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.discountPrice) }',
                         titleStyle: Get.textTheme.bodyLarge,
                         messageStyle: Get.textTheme.labelLarge!
                             .copyWith(color: Theme.of(context).colorScheme.error),
@@ -120,7 +121,7 @@ class CheckoutView extends StatelessWidget{
                       icon: Icons.card_giftcard,
                       iconSize: 24.r,
                       title: 'Voucher',
-                      message: CheckoutController.to.totalVoucher.toInt() == 0 ? 'Pilih Voucher': 'Rp ${CheckoutController.to.totalVoucher}',
+                      message: CheckoutController.to.totalVoucher.toInt() == 0 ? 'Pilih Voucher': 'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalVoucher)}',
                       messageSubtitle: CheckoutController.to.totalVoucher.toInt() == 0 ? null : '${CheckoutController.to.voucherName}',
                       titleStyle: Get.textTheme.bodyLarge,
                       messageStyle: CheckoutController.to.totalVoucher.toInt() == 0 ? Get.textTheme.labelLarge!
@@ -146,7 +147,7 @@ class CheckoutView extends StatelessWidget{
                 ),
               ),
               CartOrderBottomBar(
-                totalPrice: 'Rp ${CheckoutController.to.grandTotalPrice}',
+                totalPrice: 'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.grandTotalPrice)}',
                 onOrderButtonPressed: CheckoutController.to.verify,
               ),
             ],

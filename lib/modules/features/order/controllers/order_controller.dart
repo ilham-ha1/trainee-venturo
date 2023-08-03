@@ -105,7 +105,7 @@ class OrderController extends GetxController {
   Future<bool> getOrderHistories() async {
     orderHistoryState('loading');
     try {
-      final result = await _orderRepository.getOrderHistory();
+      final result = await _orderRepository.getOrderHistory(offset: pageHistory.value * 5);
 
       if (result['previous'] == null) {
         historyOrders.clear();

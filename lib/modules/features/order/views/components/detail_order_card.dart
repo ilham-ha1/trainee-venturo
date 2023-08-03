@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/quantity_counter.dart';
 import 'package:trainee/modules/global_models/user_order_detail_response.dart';
 
@@ -56,15 +58,15 @@ class DetailOrderCard extends StatelessWidget {
               children: [
                 Text(
                   detailOrder.nama ?? '',
-                  style: Get.textTheme.titleMedium,
+                  style: GoogleFonts.montserrat(
+                      color: MainColor.black, fontWeight: FontWeight.normal),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
                 Text(
-                  'Rp ${int.parse(detailOrder.harga ?? '')}',
-                  style: Get.textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold),
+                  'Rp ${NumberFormat('#,##0', 'id_ID').format(int.parse(detailOrder.harga ?? ''))}',
+                  style: GoogleFonts.montserrat(
+                      color: MainColor.primary, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

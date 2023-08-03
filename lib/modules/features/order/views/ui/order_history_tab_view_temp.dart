@@ -12,8 +12,8 @@ import '../components/date_picker.dart';
 import '../components/dropdown_status.dart';
 import '../components/order_item_card.dart';
 
-class TempOrderHistoryTabView extends StatelessWidget {
-  const TempOrderHistoryTabView({super.key});
+class OrderHistoryTabViewTemp extends StatelessWidget {
+  const OrderHistoryTabViewTemp({super.key});
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
@@ -27,15 +27,13 @@ class TempOrderHistoryTabView extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: OrderController.to.getOrderHistories,
         child: Obx(
-          () => 
-          ConditionalSwitch.single(
+          () => ConditionalSwitch.single(
             context: context,
             valueBuilder: (context) =>
                 OrderController.to.orderHistoryState.value,
             caseBuilders: {},
             fallbackBuilder: (context) => CustomScrollView(
               slivers: [
-                //Date
                 SliverToBoxAdapter(
                   child: Padding(
                     padding:
@@ -65,8 +63,6 @@ class TempOrderHistoryTabView extends StatelessWidget {
                     ),
                   ),
                 ),
-                
-                //List
                 Conditional.single(
                   context: context,
                   conditionBuilder: (context) =>

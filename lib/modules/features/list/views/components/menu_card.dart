@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/shared/customs/text_form_field_custom.dart';
 
@@ -83,7 +84,7 @@ class MenuCard extends StatelessWidget {
                     maxLines: 1,
                   ),
                   Text(
-                    "Rp. ${menu.harga}",
+                    "Rp. ${NumberFormat('#,##0', 'id_ID').format(menu.harga)}",
                     style: Get.textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),

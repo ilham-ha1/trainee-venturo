@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/order/controllers/detail_order_controller.dart';
 
 import 'checked_step.dart';
@@ -17,7 +19,9 @@ class OrderTracker extends StatelessWidget {
       children: [
         Text(
           'Pesanan kamu sedang disiapkan'.tr,
-          style: Get.textTheme.titleSmall,
+          style: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 16.sp
+                            ),
           textAlign: TextAlign.left,
         ),
         18.verticalSpace,
@@ -84,7 +88,9 @@ class OrderTracker extends StatelessWidget {
             Expanded(
               child: Text(
                 'Pesanan diterima'.tr,
-                style: Get.textTheme.labelMedium,
+                style: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 11.sp
+                            ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -92,7 +98,9 @@ class OrderTracker extends StatelessWidget {
             Expanded(
               child: Text(
                 'Silahkan Diambil'.tr,
-                style: Get.textTheme.labelMedium,
+                style: GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 11.sp
+                            ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -100,7 +108,9 @@ class OrderTracker extends StatelessWidget {
             Expanded(
               child: Text(
                 'Pesanan Selesai'.tr,
-                style: Get.textTheme.labelMedium,
+                style:GoogleFonts.montserrat(
+                             color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 11.sp
+                            ),
                 textAlign: TextAlign.center,
               ),
             ),

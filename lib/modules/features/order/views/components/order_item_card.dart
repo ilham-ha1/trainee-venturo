@@ -186,7 +186,7 @@ class OrderItemCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Rp ${order.totalBayar}',
+                          'Rp ${NumberFormat('#,##0', 'id_ID').format(order.totalBayar)}',
                           style: Get.textTheme.labelLarge!
                               .copyWith(color: Theme.of(context).primaryColor),
                         ),

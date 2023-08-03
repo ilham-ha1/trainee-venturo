@@ -44,13 +44,14 @@ class TileOption extends StatelessWidget {
           child: Row(
             children: [
               // Icon
-              Container(
-                constraints: BoxConstraints(minWidth: (iconSize ?? 20.r) * 2),
-                child: Icon(
-                  icon,
-                  size: iconSize ?? 20.r,
+              if(icon != null)
+                Container(
+                  constraints: BoxConstraints(minWidth: (iconSize ?? 20.r) * 2),
+                  child: Icon(
+                    icon,
+                    size: iconSize ?? 20.r,
+                  ),
                 ),
-              ),
 
               // title text
               Text(

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/checkout/controllers/checkout_controller.dart';
@@ -134,7 +135,7 @@ class EditMenuView extends StatelessWidget {
                                         child: SizedBox(),
                                       ),
                                       Text(
-                                        'Rp. ${EditMenuController.to.totalPrice}',
+                                        'Rp. ${NumberFormat('#,##0', 'id_ID').format(EditMenuController.to.totalPrice)}',
                                         style: GoogleFonts.montserrat(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
