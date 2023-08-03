@@ -43,7 +43,74 @@ class DetailOrderView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
                 child: TextButton(
                   onPressed: () {
-                    DetailOrderController.to.cancelOrder();
+                    Get.dialog(
+                      AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        backgroundColor: Colors.white,
+                        titlePadding: EdgeInsets.zero,
+                        title: Container(), // Empty container to hide the title
+                        content: Row(
+                          children: [
+                            const Icon(
+                              Icons.warning_amber_outlined,
+                              color: MainColor.primary,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Apakah Anda yakin ingin membatalkan pesanan ini ?',
+                                style: GoogleFonts.montserrat(
+                                  color: MainColor.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          ButtonBar(
+                            alignment: MainAxisAlignment.center,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  side: const BorderSide(
+                                      color: MainColor.primary, width: 1.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  minimumSize: const Size(100, 40), 
+                                ),
+                                
+                                child: const Text(
+                                  'Batal',
+                                  style: TextStyle(color: MainColor.primary),
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  Get.back();
+                                  await DetailOrderController.to.cancelOrder();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: MainColor.primary,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  minimumSize: const Size(100, 40), 
+                                ),
+                                child: const Text('Yakin'),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    );
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
@@ -51,8 +118,9 @@ class DetailOrderView extends StatelessWidget {
                   ),
                   child: Text(
                     'Batalkan'.tr,
-                    style: Get.textTheme.labelLarge
-                        ?.copyWith(color: const Color(0xFFD81D1D)),
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xFFD81D1D),
+                    ),
                   ),
                 ),
               ),
@@ -141,14 +209,17 @@ class DetailOrderView extends StatelessWidget {
                             message:
                                 'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.totalBayar ?? '0')}',
                             titleStyle: GoogleFonts.montserrat(
-                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
+                                color: MainColor.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17.sp),
                             subtitleStyle: GoogleFonts.montserrat(
-                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
+                                color: MainColor.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17.sp),
                             messageStyle: GoogleFonts.montserrat(
-                             color: MainColor.primary, fontWeight: FontWeight.normal, fontSize: 17.sp
-                            ),
+                                color: MainColor.primary,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17.sp),
                           ),
                           Divider(color: Colors.black45, height: 2.h),
 
@@ -172,19 +243,20 @@ class DetailOrderView extends StatelessWidget {
                                   title: 'Discount',
                                   message:
                                       'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.potongan ?? '0')}',
-                                  titleStyle:GoogleFonts.montserrat(
-                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
-                                  messageStyle:GoogleFonts.montserrat(
-                             color:  const Color(0xFFD81D1D), fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
+                                  titleStyle: GoogleFonts.montserrat(
+                                      color: MainColor.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.sp),
+                                  messageStyle: GoogleFonts.montserrat(
+                                      color: const Color(0xFFD81D1D),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.sp),
                                 ),
                                 Divider(color: Colors.black54, height: 2.h),
                               ],
                             ),
                             fallbackBuilder: (context) => const SizedBox(),
                           ),
-                          
 
                           // Vouchers tile
                           Conditional.single(
@@ -205,18 +277,21 @@ class DetailOrderView extends StatelessWidget {
                                   messageSubtitle: DetailOrderController
                                       .to.order.value?.order?.namaVoucher,
                                   titleStyle: GoogleFonts.montserrat(
-                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
+                                      color: MainColor.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.sp),
                                   messageStyle: GoogleFonts.montserrat(
-                             color:  const Color(0xFFD81D1D), fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
+                                      color: const Color(0xFFD81D1D),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.sp),
                                 ),
-                                Divider(color: const Color(0xFFD81D1D), height: 2.h),
+                                Divider(
+                                    color: const Color(0xFFD81D1D),
+                                    height: 2.h),
                               ],
                             ),
                             fallbackBuilder: (context) => const SizedBox(),
                           ),
-                          
 
                           // Payment options tile
                           TileOption(
@@ -225,11 +300,13 @@ class DetailOrderView extends StatelessWidget {
                             title: 'Pembayaran'.tr,
                             message: 'Pay Later',
                             titleStyle: GoogleFonts.montserrat(
-                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
+                                color: MainColor.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17.sp),
                             messageStyle: GoogleFonts.montserrat(
-                             color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 17.sp
-                            ),
+                                color: MainColor.black,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17.sp),
                           ),
 
                           Divider(color: Colors.black54, height: 2.h),
@@ -241,11 +318,13 @@ class DetailOrderView extends StatelessWidget {
                             message:
                                 'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.totalBayar ?? '0')}',
                             titleStyle: GoogleFonts.montserrat(
-                             color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 17.sp
-                            ),
+                                color: MainColor.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17.sp),
                             messageStyle: GoogleFonts.montserrat(
-                             color: MainColor.primary, fontWeight: FontWeight.normal, fontSize: 17.sp
-                            ),
+                                color: MainColor.primary,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 17.sp),
                           ),
                           Divider(color: Colors.black54, height: 2.h),
                           24.verticalSpace,

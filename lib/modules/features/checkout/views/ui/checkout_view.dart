@@ -93,7 +93,7 @@ class CheckoutView extends StatelessWidget{
                       subtitle: '(${CheckoutController.to.cart.length} Menu):',
                       icon: Icons.payments_outlined,
                       message:
-                          'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalPrice.toString()) }',
+                          'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalPrice) }',
                       titleStyle: Get.textTheme.bodyLarge,
                       messageStyle: Get.textTheme.labelLarge!
                           .copyWith(color: Theme.of(context).primaryColor),
@@ -105,7 +105,7 @@ class CheckoutView extends StatelessWidget{
                       TileOption(
                         icon: Icons.discount_outlined,
                         iconSize: 24.r,
-                        title: 'Diskon ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalDiscount)}%',
+                        title: 'Diskon ${CheckoutController.to.totalDiscount}%',
                         message: 'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.discountPrice) }',
                         titleStyle: Get.textTheme.bodyLarge,
                         messageStyle: Get.textTheme.labelLarge!

@@ -14,8 +14,8 @@ class OrderController extends GetxController {
     super.onInit();
     _orderRepository = OrderRepository();
     await _orderRepository.getOrderData();
-    getOngoingOrders();
-    getOrderHistories();
+    await getOngoingOrders();
+    await getOrderHistories();
   }
 
   RxList<UserOrderListData> onGoingOrders = RxList();

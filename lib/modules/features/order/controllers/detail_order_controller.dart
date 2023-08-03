@@ -70,12 +70,12 @@ class DetailOrderController extends GetxController {
     final response = await HttpService.dioService
         .postCancelOrder(int.parse(Get.parameters['orderId'] as String));
     if (response?.statusCode == 200) {
-      await _orderRepository.getOrderData();
-      OrderController.to.getOngoingOrders();
-      OrderController.to.getOrderHistories();
+      OrderController.to.onRefreshOnGoing();
+      OrderController.to.onRefreshHistory();
       Get.back();
+      Get.snackbar("Pesanan", "Berhasil membatalkan pesanan");
     } else {
-      Get.snackbar('Pesanan', 'Gagal Membatalkan Pesanan');
+      Get.snackbar('Pesanan', 'Gagal membatalkan pesanan');
     }
   }
 }
