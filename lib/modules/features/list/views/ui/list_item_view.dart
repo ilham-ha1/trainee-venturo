@@ -10,8 +10,6 @@ import 'package:trainee/modules/features/list/views/components/menu_chip.dart';
 import 'package:trainee/modules/features/list/views/components/promo_card.dart';
 import 'package:trainee/modules/features/list/views/components/search_app_bar.dart';
 import 'package:trainee/modules/features/list/views/components/section_header.dart';
-import 'package:trainee/modules/global_controllers/navigation_controller.dart';
-import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class ListItemView extends StatelessWidget {

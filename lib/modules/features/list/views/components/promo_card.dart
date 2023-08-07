@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/routes/main_route.dart';
-import 'package:trainee/modules/global_controllers/navigation_controller.dart';
 
 class PromoCard extends StatelessWidget {
   const PromoCard({

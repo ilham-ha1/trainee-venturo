@@ -8,7 +8,6 @@ import 'package:trainee/modules/features/checkout/views/componenst/discount_dial
 import 'package:trainee/modules/features/checkout/views/componenst/fingerprint_dialog.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/order_success_dialog.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/pin_dialog.dart';
-import 'package:trainee/modules/global_controllers/navigation_controller.dart';
 import 'package:trainee/modules/global_models/cart.dart';
 import 'package:trainee/modules/global_models/order_body.dart';
 import 'package:trainee/modules/global_models/user_discount_response.dart';
