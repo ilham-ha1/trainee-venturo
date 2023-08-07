@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/configs/routes/main_route.dart';
+import 'package:trainee/modules/global_controllers/navigation_controller.dart';
 
 class PromoCard extends StatelessWidget {
   const PromoCard({
@@ -30,7 +31,6 @@ class PromoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final voucherTemplate = [
       Text(
         'Voucher',
@@ -97,64 +97,68 @@ class PromoCard extends StatelessWidget {
         Get.toNamed(MainRoute.promo, arguments: id);
       },
       borderRadius: BorderRadius.circular(15.r),
-      child: thumbnailUrl!='' ? Container(
-        width: width ?? 282.w,
-        height: 188.h,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(15.r),
-          image: DecorationImage(
-              image: 
-              CachedNetworkImageProvider(
-                thumbnailUrl,
+      child: thumbnailUrl != ''
+          ? Container(
+              width: width ?? 282.w,
+              height: 188.h,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(15.r),
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(
+                      thumbnailUrl,
+                    ),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).primaryColor.withAlpha(150),
+                      BlendMode.srcATop,
+                    )),
+                boxShadow: [
+                  if (enableShadow == true)
+                    const BoxShadow(
+                      color: Color.fromARGB(115, 71, 70, 70),
+                      offset: Offset(0, 2),
+                      blurRadius: 8,
+                    ),
+                ],
               ),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).primaryColor.withAlpha(150),
-                BlendMode.srcATop,
-              )),
-          boxShadow: [
-            if (enableShadow == true)
-              const BoxShadow(
-                color: Color.fromARGB(115, 71, 70, 70),
-                offset: Offset(0, 2),
-                blurRadius: 8,
+              child: Padding(
+                padding: EdgeInsets.all(16.w),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: type.toLowerCase() == 'diskon'
+                      ? discountTemplate
+                      : voucherTemplate,
+                ),
               ),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: type.toLowerCase() == 'diskon' ? discountTemplate: voucherTemplate,
-          ),
-        ),
-      ): 
-      Container(
-        width: width ?? 282.w,
-        height: 188.h,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(15.r),
-          boxShadow: [
-            if (enableShadow == true)
-              const BoxShadow(
-                color: Color.fromARGB(115, 71, 70, 70),
-                offset: Offset(0, 2),
-                blurRadius: 8,
+            )
+          : Container(
+              width: width ?? 282.w,
+              height: 188.h,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(15.r),
+                boxShadow: [
+                  if (enableShadow == true)
+                    const BoxShadow(
+                      color: Color.fromARGB(115, 71, 70, 70),
+                      offset: Offset(0, 2),
+                      blurRadius: 8,
+                    ),
+                ],
               ),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: type.toLowerCase().toString() == 'discount' ? voucherTemplate: discountTemplate,
-          ),
-        ),
-      ),
+              child: Padding(
+                padding: EdgeInsets.all(16.w),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: type.toLowerCase().toString() == 'discount'
+                      ? voucherTemplate
+                      : discountTemplate,
+                ),
+              ),
+            ),
     );
   }
 }

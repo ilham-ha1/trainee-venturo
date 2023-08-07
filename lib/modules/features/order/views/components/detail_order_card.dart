@@ -64,7 +64,7 @@ class DetailOrderCard extends StatelessWidget {
                   maxLines: 1,
                 ),
                 Text(
-                  'Rp ${NumberFormat('#,##0', 'id_ID').format(int.parse(detailOrder.harga ?? ''))}',
+                  'Rp ${NumberFormat('#,##0', 'id_ID').format(int.parse(detailOrder.total.toString()))}',
                   style: GoogleFonts.montserrat(
                       color: MainColor.primary, fontWeight: FontWeight.bold),
                 ),

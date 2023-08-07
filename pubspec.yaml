@@ -61,6 +61,7 @@ dependencies:
   build_runner: ^2.1.4
   intl: ^0.18.1 
   dropdown_button2: ^2.1.4
+  flutter_rating_bar: ^4.0.1
 
 
 

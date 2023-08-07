@@ -14,4 +14,6 @@ abstract class MainRoute {
   static const String editMenu = '/editMenu';
   static const String order = '/order';
   static const String orderDetail = '/order/:orderId';
+  static const String dashboard = '/dashboard';
+  static const String review = '/review';
 }

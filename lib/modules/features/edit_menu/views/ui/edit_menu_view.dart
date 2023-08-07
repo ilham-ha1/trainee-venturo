@@ -102,7 +102,7 @@ class EditMenuView extends StatelessWidget {
                           const SizedBox(
                             height: 16,
                           ),
-                          Text(EditMenuController.to.cart.value.deskripsi ?? '',
+                          Text(EditMenuController.to.menu.value.deskripsi ?? '',
                               style: GoogleFonts.montserrat(
                                 fontSize: 12.sp,
                                 color: MainColor.black,

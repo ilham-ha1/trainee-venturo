@@ -51,19 +51,26 @@ class LocalStorageService extends GetxService {
     }
   }
 
-   static Future<List<Cart>> getAllCarts() async {
-    List<Cart> cartList = boxCart.values.map((dynamic item) => item as Cart).toList();
+  static Future<List<Cart>> getAllCarts() async {
+    List<Cart> cartList =
+        boxCart.values.map((dynamic item) => item as Cart).toList();
     return cartList;
   }
 
   //menyimpan data menu di cart
   static Future<void> saveCart(Cart dataToCart) async {
-    await boxCart.put(dataToCart.id,
-        dataToCart); // Gunakan kunci yang berbeda untuk data cart
+  final key = dataToCart.id;
+
+  if (key is String || key is int) {
+    await boxCart.put(key, dataToCart);
+    Get.snackbar('Menambahkan Pesanan', 'Berhasil menambahkan Pesanan');
+  } else {
+    // Handle the case where the key is not a valid type
+    Get.snackbar('Menambahkan Pesanan', 'Gagal menambahkan Pesanan');
   }
+}
 
   static Future<void> deleteItemOnCart(int id) async {
     boxCart.delete(id);
   }
-  
 }

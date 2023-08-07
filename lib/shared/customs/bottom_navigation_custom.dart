@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
+import 'package:trainee/modules/global_controllers/navigation_controller.dart';
 
 class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
   const BottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
-    int tabScreen = 0;
     return Container(
       width: double.infinity,
       height: 68.h,
-      padding: EdgeInsets.symmetric(
-        horizontal: 55.w,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 55.w),
       decoration: BoxDecoration(
         color: MainColor.black,
         borderRadius: BorderRadius.vertical(
@@ -41,54 +38,23 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
               IconButton(
                 color: MainColor.white,
                 onPressed: () {
-                  tabScreen = 0;
-                  Get.toNamed(MainRoute.list);
+                  NavigationController.to.tabIndex(0);
                 },
-                icon: tabScreen == 0
-                    ? const Icon(
-                        Icons.home,
-                        color: Colors.white,
-                        size: 34,
-                      )
-                    : const Icon(
-                        Icons.home,
-                        color: Color.fromARGB(105, 255, 255, 255),
-                        size: 34,
-                      ),
+                icon: Obx(() => Icon(
+                      Icons.home,
+                      color: NavigationController.to.tabIndex.value == 0  
+                          ? Colors.white
+                          : const Color.fromARGB(105, 255, 255, 255),
+                      size: 34,
+                    )),
               ),
-              Text("Beranda",
-                  style: TextStyle(
-                    color: MainColor.white,
-                    fontSize: 12.sp,
-                  )),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
+              Text(
+                "Beranda",
+                style: TextStyle(
                   color: MainColor.white,
-                  onPressed: () {
-                    tabScreen = 1;
-                    Get.toNamed(MainRoute.order);
-                  },
-                  icon: tabScreen == 1
-                      ? const Icon(
-                          Icons.food_bank_rounded,
-                          size: 34,
-                          color: MainColor.white,
-                        )
-                      : const Icon(
-                          Icons.food_bank_rounded,
-                          color: Color.fromARGB(105, 255, 255, 255),
-                          size: 34,
-                        )),
-              Text("Pesanan",
-                  style: TextStyle(
-                    color: MainColor.white,
-                    fontSize: 12.sp,
-                  )),
+                  fontSize: 12.sp,
+                ),
+              ),
             ],
           ),
           Column(
@@ -96,25 +62,50 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
-                  onPressed: () {
-                    // tabScreen = 2;
-                  },
-                  icon: tabScreen == 2
-                      ? const Icon(
-                          Icons.account_circle_outlined,
-                          size: 34,
-                          color: MainColor.white,
-                        )
-                      : const Icon(
-                          Icons.account_circle_outlined,
-                          color: Color.fromARGB(105, 255, 255, 255),
-                          size: 34,
-                        )),
-              Text("Profil",
-                  style: TextStyle(
-                    color: MainColor.white,
-                    fontSize: 12.sp,
-                  )),
+                color: MainColor.white,
+                onPressed: () {
+                  NavigationController.to.tabIndex(1);
+                },
+                icon: Obx(() => Icon(
+                      Icons.food_bank_rounded,
+                      size: 34,
+                      color: NavigationController.to.tabIndex.value == 1
+                          ? MainColor.white
+                          : const Color.fromARGB(105, 255, 255, 255),
+                    )),
+              ),
+              Text(
+                "Pesanan",
+                style: TextStyle(
+                  color: MainColor.white,
+                  fontSize: 12.sp,
+                ),
+              ),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                   NavigationController.to.tabIndex(2);
+                },
+                icon: Obx(() => Icon(
+                      Icons.account_circle_outlined,
+                      size: 34,
+                      color: NavigationController.to.tabIndex.value == 2
+                          ? MainColor.white
+                          : const Color.fromARGB(105, 255, 255, 255),
+                    )),
+              ),
+              Text(
+                "Profil",
+                style: TextStyle(
+                  color: MainColor.white,
+                  fontSize: 12.sp,
+                ),
+              ),
             ],
           ),
         ],

@@ -5,7 +5,6 @@ import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/promo/controllers/promo_controller.dart';
 import 'package:trainee/modules/features/promo/views/components/promo_app_bar.dart';
 import 'package:trainee/modules/features/promo/views/components/promo_card.dart';
-import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 
 
 class PromoView extends StatelessWidget {
@@ -15,7 +14,7 @@ class PromoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(40, 158, 158, 158),
+        backgroundColor: const Color.fromARGB(40, 158, 158, 158),
         appBar: const PromoAppBar(),
         body: Obx(() {
           final detailPromo = PromoController.to.detailPromo.value;
@@ -106,7 +105,6 @@ class PromoView extends StatelessWidget {
             ],
           );
         }),
-        bottomNavigationBar: const BottomNavigation(),
       ),
     );
   }

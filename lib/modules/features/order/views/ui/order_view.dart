@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trainee/modules/features/order/views/ui/ongoing_order_tab.dart';
 import 'package:trainee/modules/features/order/views/ui/order_history_tab_view.dart';
-import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 
 import '../components/order_top_bar.dart';
 
@@ -22,7 +21,6 @@ class OrderView extends StatelessWidget {
               OrderHistoryTabView(),
             ],
           ),
-          bottomNavigationBar: BottomNavigation(),
         ),
       ),
     );

@@ -91,7 +91,6 @@ class CheckoutView extends StatelessWidget{
                     TileOption(
                       title: 'Total Pesanan',
                       subtitle: '(${CheckoutController.to.cart.length} Menu):',
-                      icon: Icons.payments_outlined,
                       message:
                           'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalPrice) }',
                       titleStyle: Get.textTheme.bodyLarge,

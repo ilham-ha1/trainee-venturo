@@ -69,6 +69,7 @@ class UserOrderDetailData {
 class Detail {
     int? idMenu;
     String? kategori;
+    String? topping;
     String? nama;
     String? foto;
     int? jumlah;
@@ -79,6 +80,7 @@ class Detail {
     Detail({
         this.idMenu,
         this.kategori,
+        this.topping,
         this.nama,
         this.foto,
         this.jumlah,
@@ -90,6 +92,7 @@ class Detail {
     Detail copyWith({
         int? idMenu,
         String? kategori,
+        String? topping,
         String? nama,
         String? foto,
         int? jumlah,
@@ -100,6 +103,7 @@ class Detail {
         Detail(
             idMenu: idMenu ?? this.idMenu,
             kategori: kategori ?? this.kategori,
+            topping: topping ?? this.topping,
             nama: nama ?? this.nama,
             foto: foto ?? this.foto,
             jumlah: jumlah ?? this.jumlah,
@@ -111,6 +115,7 @@ class Detail {
     factory Detail.fromJson(Map<String, dynamic> json) => Detail(
         idMenu: json["id_menu"],
         kategori: json["kategori"],
+        topping: json["topping"],
         nama: json["nama"],
         foto: json["foto"],
         jumlah: json["jumlah"],
@@ -122,6 +127,7 @@ class Detail {
     Map<String, dynamic> toJson() => {
         "id_menu": idMenu,
         "kategori": kategori,
+        "topping": topping,
         "nama": nama,
         "foto": foto,
         "jumlah": jumlah,

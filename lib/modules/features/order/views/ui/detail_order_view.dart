@@ -56,14 +56,14 @@ class DetailOrderView extends StatelessWidget {
                             const Icon(
                               Icons.warning_amber_outlined,
                               color: MainColor.primary,
-                              size: 20,
+                              size: 48,
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 'Apakah Anda yakin ingin membatalkan pesanan ini ?',
                                 style: GoogleFonts.montserrat(
-                                  color: MainColor.black,
+                                  color: MainColor.black, fontSize: 17.sp
                                 ),
                               ),
                             ),
@@ -84,7 +84,7 @@ class DetailOrderView extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                  minimumSize: const Size(100, 40), 
+                                  minimumSize: const Size(120, 40), 
                                 ),
                                 
                                 child: const Text(
@@ -102,7 +102,7 @@ class DetailOrderView extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                  minimumSize: const Size(100, 40), 
+                                  minimumSize: const Size(120, 40), 
                                 ),
                                 child: const Text('Yakin'),
                               ),

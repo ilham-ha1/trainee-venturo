@@ -10,7 +10,6 @@ import 'package:trainee/modules/features/menu/views/components/app_bar.dart';
 import 'package:trainee/modules/features/menu/views/components/level_option.dart';
 import 'package:trainee/modules/features/menu/views/components/topping_option.dart';
 import 'package:trainee/modules/global_models/cart.dart';
-import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 import 'package:trainee/shared/styles/elevated_button_style.dart';
 import 'package:trainee/modules/features/menu/controllers/menu_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -166,8 +165,6 @@ class MenuView extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () async {
                         if (MenuDetailController.to.menu.value.harga != 0) {
-                          Get.snackbar("Menambahkan",
-                              "Menambahkan pesanan ke keranjang");
                           await MenuDetailController.to.saveToCart(Cart(
                               id: MenuDetailController.to.menu.value.idMenu,
                               harga: MenuDetailController.to.menu.value.harga,
@@ -187,11 +184,8 @@ class MenuView extends StatelessWidget {
                               levelPrice: MenuDetailController.to.selectedLevel?.value.harga 
                                   ),);
                                   
-                        } else {
-                          Get.snackbar(
-                              "Tunggu", "Sedang mendapatkan data menu");
-                        }
-                        Get.toNamed(MainRoute.checkout);
+                        } 
+                        Get.offAndToNamed(MainRoute.checkout);
                       },
                       style: EvelatedButtonStyle.mainRounded.copyWith(
                         backgroundColor: MaterialStateProperty.all<Color>(
@@ -209,7 +203,7 @@ class MenuView extends StatelessWidget {
           ],
         );
       }),
-      bottomNavigationBar: const BottomNavigation(),
+    
     ));
   }
 }

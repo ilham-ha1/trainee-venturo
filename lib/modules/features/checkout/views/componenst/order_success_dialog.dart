@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:trainee/constants/cores/assets/image_constant.dart';
+import 'package:trainee/modules/global_controllers/navigation_controller.dart';
 
 class OrderSuccessDialog extends StatelessWidget {
   const OrderSuccessDialog({Key? key}) : super(key: key);
@@ -47,7 +48,10 @@ class OrderSuccessDialog extends StatelessWidget {
           SizedBox(
             width: 168.w,
             child: ElevatedButton(
-              onPressed: () => Get.back(),
+              onPressed: () {
+                Get.back();
+                NavigationController.to.changeTabIndex(1);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
                 maximumSize: Size(

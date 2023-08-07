@@ -8,6 +8,7 @@ import 'package:trainee/modules/features/checkout/views/componenst/discount_dial
 import 'package:trainee/modules/features/checkout/views/componenst/fingerprint_dialog.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/order_success_dialog.dart';
 import 'package:trainee/modules/features/checkout/views/componenst/pin_dialog.dart';
+import 'package:trainee/modules/global_controllers/navigation_controller.dart';
 import 'package:trainee/modules/global_models/cart.dart';
 import 'package:trainee/modules/global_models/order_body.dart';
 import 'package:trainee/modules/global_models/user_discount_response.dart';
@@ -214,14 +215,13 @@ class CheckoutController extends GetxController {
 
   //menampilkan dialog success ketika order
   Future<void> showOrderSuccessDialog() async {
-    Get.toNamed(MainRoute.checkout);
+    Get.until(ModalRoute.withName(MainRoute.checkout));
     await Get.defaultDialog(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
       content: const OrderSuccessDialog(),
     );
-
-    Get.offAndToNamed(MainRoute.order);
+    Get.back();
   }
 
   //mendapatkan data voucher
@@ -287,7 +287,7 @@ class CheckoutController extends GetxController {
     await LocalStorageService.saveCart(cart);
     this.cart[id] = cart;
   }
-  
+
   Future<bool> postOrder() async {
     final idUser = LocalStorageService.getId();
     final orderData = Order(

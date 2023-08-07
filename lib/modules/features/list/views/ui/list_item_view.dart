@@ -10,6 +10,7 @@ import 'package:trainee/modules/features/list/views/components/menu_chip.dart';
 import 'package:trainee/modules/features/list/views/components/promo_card.dart';
 import 'package:trainee/modules/features/list/views/components/search_app_bar.dart';
 import 'package:trainee/modules/features/list/views/components/section_header.dart';
+import 'package:trainee/modules/global_controllers/navigation_controller.dart';
 import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -142,8 +143,9 @@ class ListItemView extends StatelessWidget {
                           controller: ListController.to.refreshController,
                           enablePullDown: true,
                           onRefresh: ListController.to.onRefresh,
-                          enablePullUp:
-                              ListController.to.canLoadMore.isTrue ? true : false,
+                          enablePullUp: ListController.to.canLoadMore.isTrue
+                              ? true
+                              : false,
                           onLoading: ListController.to.getListOfData,
                           child: CustomScrollView(
                             slivers: [
@@ -175,11 +177,11 @@ class ListItemView extends StatelessWidget {
                                       void addMoreQuantity() {
                                         qty.value += 1;
                                       }
-                    
+
                                       void minMoreQuantity() {
                                         if (qty.value > 0) qty.value -= 1;
                                       }
-                    
+
                                       // Return the CartListSliver here using item
                                       return Padding(
                                           padding: EdgeInsets.symmetric(
@@ -195,7 +197,8 @@ class ListItemView extends StatelessWidget {
                                                   },
                                                   borderRadius:
                                                       BorderRadius.horizontal(
-                                                    right: Radius.circular(10.r),
+                                                    right:
+                                                        Radius.circular(10.r),
                                                   ),
                                                   backgroundColor:
                                                       const Color(0xFFFE4A49),
@@ -237,7 +240,7 @@ class ListItemView extends StatelessWidget {
                                         ListController.to.foodItems.length,
                                   ),
                                 ),
-                    
+
                               // Sliver list for the SectionHeader with the title "Minuman" if applicable
                               if (ListController.to.selectedCategory.value ==
                                       'semua menu' &&
@@ -251,7 +254,7 @@ class ListItemView extends StatelessWidget {
                                     ),
                                   ]),
                                 ),
-                    
+
                               // Sliver list for the CartListSliver with drinkItems if applicable
                               if (ListController.to.selectedCategory.value ==
                                       'semua menu' &&
@@ -261,7 +264,7 @@ class ListItemView extends StatelessWidget {
                                     (context, index) {
                                       final item =
                                           ListController.to.drinkItems[index];
-                    
+
                                       final RxInt qty = 0.obs;
                                       final RxString catatan = ''.obs;
                                       final TextEditingController
@@ -270,11 +273,11 @@ class ListItemView extends StatelessWidget {
                                       void addMoreQuantity() {
                                         qty.value += 1;
                                       }
-                    
+
                                       void minMoreQuantity() {
                                         if (qty.value > 0) qty.value -= 1;
                                       }
-                    
+
                                       // Return the CartListSliver here using item
                                       return Padding(
                                           padding: EdgeInsets.symmetric(
@@ -290,7 +293,8 @@ class ListItemView extends StatelessWidget {
                                                   },
                                                   borderRadius:
                                                       BorderRadius.horizontal(
-                                                    right: Radius.circular(10.r),
+                                                    right:
+                                                        Radius.circular(10.r),
                                                   ),
                                                   backgroundColor:
                                                       const Color(0xFFFE4A49),
@@ -307,6 +311,7 @@ class ListItemView extends StatelessWidget {
                                               child: MenuCard(
                                                 menu: item,
                                                 onTap: () {
+                                             
                                                   Get.toNamed(
                                                     MainRoute.menu,
                                                     arguments: {
@@ -332,15 +337,16 @@ class ListItemView extends StatelessWidget {
                                         ListController.to.drinkItems.length,
                                   ),
                                 ),
-                    
+
                               //Sliver for another semua menu
-                              if (ListController.to.selectedCategory.value != 'semua menu')
+                              if (ListController.to.selectedCategory.value !=
+                                  'semua menu')
                                 SliverList(
                                   delegate: SliverChildBuilderDelegate(
                                     (context, index) {
                                       final item =
                                           ListController.to.filteredList[index];
-                    
+
                                       final RxInt qty = 0.obs;
                                       final RxString catatan = ''.obs;
                                       final TextEditingController
@@ -349,11 +355,11 @@ class ListItemView extends StatelessWidget {
                                       void addMoreQuantity() {
                                         qty.value += 1;
                                       }
-                    
+
                                       void minMoreQuantity() {
                                         if (qty.value > 0) qty.value -= 1;
                                       }
-                    
+
                                       // Return the CartListSliver here using item
                                       return Padding(
                                           padding: EdgeInsets.symmetric(
@@ -369,7 +375,8 @@ class ListItemView extends StatelessWidget {
                                                   },
                                                   borderRadius:
                                                       BorderRadius.horizontal(
-                                                    right: Radius.circular(10.r),
+                                                    right:
+                                                        Radius.circular(10.r),
                                                   ),
                                                   backgroundColor:
                                                       const Color(0xFFFE4A49),
@@ -386,6 +393,7 @@ class ListItemView extends StatelessWidget {
                                               child: MenuCard(
                                                 menu: item,
                                                 onTap: () {
+                                                 
                                                   Get.toNamed(
                                                     MainRoute.menu,
                                                     arguments: {
@@ -418,7 +426,6 @@ class ListItemView extends StatelessWidget {
                 ),
               ],
             )),
-        bottomNavigationBar: const BottomNavigation(),
       ),
     );
   }

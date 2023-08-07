@@ -3,14 +3,16 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:trainee/modules/features/order/repositories/order_repository.dart';
+import 'package:trainee/modules/global_models/cart.dart';
 import 'package:trainee/modules/global_models/user_order_list_response.dart';
+import 'package:trainee/utils/services/local_storage_service.dart';
 
 class OrderController extends GetxController {
   static OrderController get to => Get.find<OrderController>();
   late final OrderRepository _orderRepository;
 
   @override
-  void onInit() async{
+  void onInit() async {
     super.onInit();
     _orderRepository = OrderRepository();
     await _orderRepository.getOrderData();
@@ -48,7 +50,7 @@ class OrderController extends GetxController {
     }
   }
 
-   void onRefreshHistory() async {
+  void onRefreshHistory() async {
     pageHistory(0);
     canLoadMoreHistory(true);
     final result = await getOrderHistories();
@@ -73,7 +75,8 @@ class OrderController extends GetxController {
   Future<bool> getOngoingOrders() async {
     onGoingOrderState('loading');
     try {
-      final result = await _orderRepository.getOngoingOrder(offset: pageOnGoing.value * 5);
+      final result =
+          await _orderRepository.getOngoingOrder(offset: pageOnGoing.value * 5);
 
       if (result['previous'] == null) {
         onGoingOrders.clear();
@@ -84,7 +87,8 @@ class OrderController extends GetxController {
         refreshControllerOnGoing.loadNoData();
       }
 
-      final data = result['data'].where((element) => element.status != 4).toList();
+      final data =
+          result['data'].where((element) => element.status != 4).toList();
       onGoingOrders.addAll(data.toList());
 
       pageOnGoing.value++;
@@ -105,7 +109,8 @@ class OrderController extends GetxController {
   Future<bool> getOrderHistories() async {
     orderHistoryState('loading');
     try {
-      final result = await _orderRepository.getOrderHistory(offset: pageHistory.value * 5);
+      final result =
+          await _orderRepository.getOrderHistory(offset: pageHistory.value * 5);
 
       if (result['previous'] == null) {
         historyOrders.clear();
@@ -115,21 +120,21 @@ class OrderController extends GetxController {
         canLoadMoreHistory(false);
         refreshControllerHistory.loadNoData();
       }
-    
+
       historyOrders.addAll(result['data'].toList());
 
       pageHistory.value++;
       refreshControllerHistory.loadComplete();
       orderHistoryState('success');
-       return true;
+      return true;
     } catch (exception, stacktrace) {
       await Sentry.captureException(
         exception,
         stackTrace: stacktrace,
       );
-       refreshControllerHistory.loadFailed();
+      refreshControllerHistory.loadFailed();
       orderHistoryState('error');
-         return false;
+      return false;
     }
   }
 
@@ -147,20 +152,27 @@ class OrderController extends GetxController {
       historyOrderList.removeWhere((element) => element.status != 3);
     }
 
-     historyOrderList.removeWhere((element) =>
-      element.tanggal!.isBefore(selectedDateRange.value.start) ||
-      element.tanggal!.isAfter(selectedDateRange.value.end));
+    historyOrderList.removeWhere((element) =>
+        element.tanggal!.isBefore(selectedDateRange.value.start) ||
+        element.tanggal!.isAfter(selectedDateRange.value.end));
 
-    historyOrderList.sort((a, b) => b.tanggal 
-        !.compareTo(a.tanggal!));
+    historyOrderList.sort((a, b) => b.tanggal!.compareTo(a.tanggal!));
 
     return historyOrderList;
   }
 
   String get totalHistoryOrder {
-    final total = filteredHistoryOrder.where((e) => e.status == 3).fold(0,
-        (previousValue, element) => previousValue + (element.totalBayar ?? 0));
-
+    int total = 0;
+    for (var order in filteredHistoryOrder) {
+      if (order.status == 3) {
+        total += (order.totalBayar ?? 0);
+      }
+    }
     return total.toString();
   }
+  
+  Future saveToCart(Cart dataMenu) async {
+    await LocalStorageService.saveCart(dataMenu);
+  }
+
 }

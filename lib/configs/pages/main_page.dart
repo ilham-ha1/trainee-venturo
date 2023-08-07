@@ -2,6 +2,9 @@ import 'package:get/route_manager.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/checkout/binddings/checkout_binding.dart';
 import 'package:trainee/modules/features/checkout/views/ui/checkout_view.dart';
+import 'package:trainee/modules/features/dashboard/binddings/dashboard_binding.dart';
+
+import 'package:trainee/modules/features/dashboard/views/ui/dashboard_view.dart';
 import 'package:trainee/modules/features/edit_menu/binddings/edit_menu_binding.dart';
 import 'package:trainee/modules/features/edit_menu/views/ui/edit_menu_view.dart';
 import 'package:trainee/modules/features/checkout/views/ui/voucher/detail_voucher_view.dart';
@@ -18,6 +21,8 @@ import 'package:trainee/modules/features/list/binddings/list_binding.dart';
 import 'package:trainee/modules/features/list/views/ui/list_item_view.dart';
 import 'package:trainee/modules/features/menu/binddings/menu_binding.dart';
 import 'package:trainee/modules/features/no_connection/view/ui/no_connection_view.dart';
+import 'package:trainee/modules/features/review/binddings/review_binding.dart';
+import 'package:trainee/modules/features/review/views/ui/review_view.dart';
 import 'package:trainee/modules/features/splash/binddings/splash_binding.dart';
 import 'package:trainee/modules/features/splash/views/ui/splash_view.dart';
 import 'package:trainee/modules/features/sign_in/binddings/sing_in_binding.dart';
@@ -94,6 +99,21 @@ abstract class MainPage {
       name: MainRoute.orderDetail,
       page: () => const DetailOrderView(),
       binding: DetailOrderBinding(),
+    ),
+    GetPage(
+      name: MainRoute.dashboard,
+      page: () => const DashboardView(),
+      binding: DashboardBinding()
+    ),
+    GetPage(
+      name: MainRoute.dashboard,
+      page: () => const DashboardView(),
+      binding: DashboardBinding()
+    ),
+    GetPage(
+      name: MainRoute.review,
+      page: () => const ReviewView(),
+      binding: ReviewBinding()
     ),
   ];
 }
