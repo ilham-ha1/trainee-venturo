@@ -13,6 +13,8 @@ import 'package:trainee/modules/features/counter/binddings/conter_bindding.dart'
 import 'package:trainee/modules/features/counter/views/ui/conter_view.dart';
 import 'package:trainee/modules/features/order/views/ui/detail_order_view.dart';
 import 'package:trainee/modules/features/order/views/ui/order_view.dart';
+import 'package:trainee/modules/features/profile/binddings/profile_binding.dart';
+import 'package:trainee/modules/features/profile/views/ui/profile_view.dart';
 import 'package:trainee/modules/features/promo/binddings/promo_binding.dart';
 import 'package:trainee/modules/features/promo/views/ui/promo_view.dart';
 import 'package:trainee/modules/features/initial/binddings/initial_binding.dart';
@@ -114,6 +116,11 @@ abstract class MainPage {
       name: MainRoute.review,
       page: () => const ReviewView(),
       binding: ReviewBinding()
+    ),
+    GetPage(
+      name: MainRoute.profile,
+      page: () => const ProfileView(),
+      binding: ProfileBinding()
     ),
   ];
 }
