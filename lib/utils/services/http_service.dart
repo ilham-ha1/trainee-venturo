@@ -10,14 +10,21 @@ import 'package:trainee/modules/global_models/menu_response.dart';
 import 'package:trainee/modules/global_models/order_body.dart';
 import 'package:trainee/modules/global_models/order_response.dart';
 import 'package:trainee/modules/global_models/promo_response.dart';
+import 'package:trainee/modules/global_models/user_detail_profile.dart';
 import 'package:trainee/modules/global_models/user_discount_response.dart';
 import 'package:trainee/modules/global_models/user_order_cancel_response.dart';
 import 'package:trainee/modules/global_models/user_order_detail_response.dart';
 import 'package:trainee/modules/global_models/user_order_history_response.dart';
 import 'package:trainee/modules/global_models/user_order_list_response.dart';
+import 'package:trainee/modules/global_models/user_update_photo_profile.dart';
+import 'package:trainee/modules/global_models/user_updated_ktp_response.dart';
+import 'package:trainee/modules/global_models/user_updated_profile_response.dart';
 import 'package:trainee/modules/global_models/user_voucher_response.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
 import 'package:trainee/modules/global_models/detail_promo_response.dart';
+import 'package:trainee/modules/global_models/user_edit_body.dart';
+import 'package:trainee/modules/global_models/logout_response.dart';
+import 'package:intl/intl.dart';
 
 class HttpService extends GetxService {
   HttpService._();
@@ -293,10 +300,7 @@ class HttpService extends GetxService {
     try {
       final response = await dioCall().post(
         url,
-        data: OrderBody(
-          order: orderBody,
-          menu: listMenuBody
-        ),
+        data: OrderBody(order: orderBody, menu: listMenuBody),
         options: Options(
           headers: {
             'token': '$authToken',
@@ -314,7 +318,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<UserOrderListResponse?> getUserOrderList() async{
+  Future<UserOrderListResponse?> getUserOrderList() async {
     final idUser = LocalStorageService.getId();
     final url = '$baseUrl/order/user/$idUser';
     final authToken = LocalStorageService.getToken();
@@ -336,7 +340,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<UserOrderHistoryResponse?> getUserOrderHistory() async{
+  Future<UserOrderHistoryResponse?> getUserOrderHistory() async {
     final idUser = LocalStorageService.getId();
     final url = '$baseUrl/order/history/$idUser';
     final authToken = LocalStorageService.getToken();
@@ -358,7 +362,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<UserOrderDetailResponse?> getUserOrderDetail(int idOrder) async{
+  Future<UserOrderDetailResponse?> getUserOrderDetail(int idOrder) async {
     final url = '$baseUrl/order/detail/$idOrder';
     final authToken = LocalStorageService.getToken();
 
@@ -402,4 +406,144 @@ class HttpService extends GetxService {
       return null;
     }
   }
+
+  //post data photo profile
+  Future<UserUpdatePhotoProfileResponse?> postPhotoProfile(
+      String base64ImageData) async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/profil/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          "image": base64ImageData,
+        },
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserUpdatePhotoProfileResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  //mendapatkan data user detail
+  Future<UserDetailProfileResponse?> getUserDetail() async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/detail/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserDetailProfileResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserUpdatedProfileResponse?> postProfile(
+      UserProfile userProfile) async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/update/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          "nama": userProfile.nama,
+          "tanggal_lahir": userProfile.tanggalLahir != null
+              ? DateFormat('dd/MM/yyyy').format(userProfile.tanggalLahir!)
+              : null,
+          "nomor_telepon": userProfile.nomorTelepon,
+          "email": userProfile.email,
+          "pin": userProfile.pin,
+        },
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserUpdatedProfileResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  //post data ktp profile
+  Future<UserUpdatedKtpResponse?> postKtp(
+      String base64ImageData) async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/ktp/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          "image": base64ImageData,
+        },
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserUpdatedKtpResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<LogoutResponse?> logout() async {
+    const url = '$baseUrl/auth/logout';
+
+    try {
+      final response = await dioCall().get(
+        url,
+      );
+
+      return LogoutResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
 }
