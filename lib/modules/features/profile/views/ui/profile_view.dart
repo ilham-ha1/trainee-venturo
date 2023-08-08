@@ -113,9 +113,11 @@ class ProfileView extends StatelessWidget {
                     ),
                     7.horizontalSpaceRadius,
                     Text(
-                      ' Your have verified your ID card'.tr,
-                      style: Get.textTheme.labelMedium!
-                          .copyWith(color: MainColor.primary),
+                      ' Kamu sudah verifikasi KTP'.tr,
+                      style: GoogleFonts.montserrat(
+                        color: MainColor.primary,
+                        fontSize: 14.sp,
+                      ),
                     )
                   ],
                 ),
@@ -129,9 +131,11 @@ class ProfileView extends StatelessWidget {
                       ),
                       7.horizontalSpaceRadius,
                       Text(
-                        'Verify your ID card now!'.tr,
-                        style: Get.textTheme.labelMedium!
-                            .copyWith(color: MainColor.primary),
+                        'Verifikasi KTP mu sekarang!'.tr,
+                        style: GoogleFonts.montserrat(
+                          color: MainColor.primary,
+                          fontSize: 14.sp,
+                        ),
                       )
                     ],
                   ),
