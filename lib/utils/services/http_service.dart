@@ -530,7 +530,7 @@ class HttpService extends GetxService {
 
   Future<LogoutResponse?> logout() async {
     const url = '$baseUrl/auth/logout';
-
+    
     try {
       final response = await dioCall().get(
         url,
