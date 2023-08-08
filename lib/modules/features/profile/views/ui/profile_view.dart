@@ -6,13 +6,20 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/commons/asset_const.dart';
+import '../components/tile_option.dart';
 import 'package:trainee/modules/features/profile/controllers/profile_controller.dart';
-
+import 'package:firebase_analytics/firebase_analytics.dart';
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
+    analytics.setCurrentScreen(
+      screenName: 'Profile Screen',
+      screenClassOverride: 'Trainee',
+    );
+
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
@@ -142,6 +149,75 @@ class ProfileView extends StatelessWidget {
                 ),
               ),
             ),
+
+            22.verticalSpacingRadius,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: Text(
+                      'Account info'.tr,
+                      style: Get.textTheme.titleMedium!
+                          .copyWith(color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                  14.verticalSpacingRadius,
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.r),
+                      color: Colors.grey[100],
+                    ),
+                    child: Column(
+                      children: [
+                        TileOption(
+                          title: 'Name'.tr,
+                          message: 'User',
+                          onTap: () {},
+                        ),
+                        Divider(color: Colors.black45, height: 0.5.h),
+                        TileOption(
+                          title: 'Birth date'.tr,
+                          message: '-',
+                          onTap: () {},
+                        ),
+                        Divider(color: Colors.black45, height: 0.5.h),
+                        TileOption(
+                          title: 'Phone number'.tr,
+                          message: '-',
+                          onTap: () {},
+                        ),
+                        Divider(color: Colors.black45, height: 0.5.h),
+                        TileOption(
+                          title: 'Email'.tr,
+                          message: 'user@email.com',
+                          onTap: () {},
+                        ),
+                        Divider(color: Colors.black45, height: 0.5.h),
+                        TileOption(
+                          title: 'Change PIN'.tr,
+                          message: '******',
+                          onTap: () {},
+                        ),
+                        Divider(color: Colors.black45, height: 0.5.h),
+                        Obx(
+                          () => TileOption(
+                            title: 'Change language'.tr,
+                            message: ProfileController.to.currentLang.value,
+                            onTap: ProfileController.to.updateLanguage,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

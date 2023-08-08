@@ -159,10 +159,7 @@ class OrderItemCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          DateFormat(
-                            'dd MMMM yyyy',
-                            Get.locale?.countryCode,
-                          ).format(DateTime.parse(order.tanggal.toString())),
+                          DateFormat('dd MMMM yyyy', Get.locale?.toLanguageTag()).format(DateTime.parse(order.tanggal.toString())),
                           style: Get.textTheme.labelMedium!
                               .copyWith(color: Colors.grey[400]),
                         ),

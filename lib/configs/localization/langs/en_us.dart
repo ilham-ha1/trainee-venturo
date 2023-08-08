@@ -1,0 +1,15 @@
+const Map<String, String> translationsEnUs = {
+  'Profile': 'Profile',
+  'Change': 'Change',
+  'Change language': 'Change language',
+  'Change PIN': 'Change PIN',
+  'Email': 'Email',
+  'Name': 'Name',
+  'Phone number': 'Phone number',
+  'Birth date': 'Birth date',
+  'English': 'English',
+  'Indonesia': 'Indonesia',
+  ' Your have verified your ID card': ' Your have verified your ID card',
+  'Verify your ID card now!': 'Verify your ID card now!',
+  'Account info': 'Account info',
+};
