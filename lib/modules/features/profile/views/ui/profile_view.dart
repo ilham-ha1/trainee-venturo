@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trainee/configs/themes/main_color.dart';
@@ -20,8 +21,10 @@ class ProfileView extends StatelessWidget {
         title: Text(
           'Profil'.tr,
           style: GoogleFonts.montserrat(
-            fontWeight: FontWeight.bold, fontSize: 20.sp, color: MainColor.black, decoration: TextDecoration.underline
-          ),
+              fontWeight: FontWeight.bold,
+              fontSize: 20.sp,
+              color: MainColor.black,
+              decoration: TextDecoration.underline),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -30,7 +33,7 @@ class ProfileView extends StatelessWidget {
         ),
       ),
       body: Container(
-        decoration:  const BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(AssetConst.bgPattern2),
               fit: BoxFit.fitHeight,
@@ -52,7 +55,8 @@ class ProfileView extends StatelessWidget {
                       () => Conditional.single(
                         context: context,
                         conditionBuilder: (context) =>
-                          ProfileController.to.userDetailData.value.foto != null,
+                            ProfileController.to.userDetailData.value.foto !=
+                            null,
                         widgetBuilder: (context) => Image.network(
                           ProfileController.to.userDetailData.value.foto,
                           width: 170.r,
@@ -79,15 +83,58 @@ class ProfileView extends StatelessWidget {
                             child: Text(
                               "Ubah".tr,
                               style: GoogleFonts.montserrat(
-                                color: MainColor.white, fontSize: 14.sp, 
+                                color: MainColor.white,
+                                fontSize: 14.sp,
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            21.verticalSpacingRadius,
+            // Info KTP
+            Obx(
+              () => Conditional.single(
+                context: context,
+                conditionBuilder: (context) =>
+                    ProfileController.to.isVerif.value != false,
+                widgetBuilder: (context) => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                      size: 20.r,
+                    ),
+                    7.horizontalSpaceRadius,
+                    Text(
+                      ' Your have verified your ID card'.tr,
+                      style: Get.textTheme.labelMedium!
+                          .copyWith(color: MainColor.primary),
                     )
                   ],
+                ),
+                fallbackBuilder: (context) => InkWell(
+                  onTap: ProfileController.to.pickFile,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        AssetConst.icKTP,
+                      ),
+                      7.horizontalSpaceRadius,
+                      Text(
+                        'Verify your ID card now!'.tr,
+                        style: Get.textTheme.labelMedium!
+                            .copyWith(color: MainColor.primary),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
