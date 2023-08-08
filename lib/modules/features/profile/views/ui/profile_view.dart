@@ -52,9 +52,9 @@ class ProfileView extends StatelessWidget {
                       () => Conditional.single(
                         context: context,
                         conditionBuilder: (context) =>
-                          ProfileController.to.imageFile != null,
-                        widgetBuilder: (context) => Image.file(
-                          ProfileController.to.imageFile!,
+                          ProfileController.to.userDetailData.value.foto != null,
+                        widgetBuilder: (context) => Image.network(
+                          ProfileController.to.userDetailData.value.foto,
                           width: 170.r,
                           height: 170.r,
                           fit: BoxFit.cover,
