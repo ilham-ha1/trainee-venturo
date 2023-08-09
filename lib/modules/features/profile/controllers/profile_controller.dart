@@ -7,11 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:trainee/configs/localization/localization.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/profile/repositories/profile_repository.dart';
+import 'package:trainee/modules/features/profile/views/components/email_bottom_sheet.dart';
 import 'package:trainee/modules/features/profile/views/components/language_bottom_sheet.dart';
+import 'package:trainee/modules/features/profile/views/components/name_bottom_sheet.dart';
+import 'package:trainee/modules/features/profile/views/components/pin_bottom_sheet.dart';
+import 'package:trainee/modules/features/profile/views/components/telephone_bottom_sheet.dart';
 import 'package:trainee/modules/global_models/user_detail_profile.dart';
+import 'package:trainee/modules/global_models/user_edit_body.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
 import 'package:trainee/utils/services/http_service.dart';
 import 'package:trainee/modules/global_models/user_update_photo_profile.dart';
@@ -29,8 +35,9 @@ class ProfileController extends GetxController {
   RxBool isVerif = false.obs;
   RxString currentLang = Localization.currentLanguage.obs;
 
-  final Rx<UserProfileData> userProfileData = UserProfileData().obs;
   final Rx<UserDetailData> userDetailData = UserDetailData().obs;
+
+  // Rx<Map<String, dynamic>> user = Rx<Map<String, dynamic>>({});
 
   late final ProfileRepository repository;
 
@@ -96,8 +103,6 @@ class ProfileController extends GetxController {
     final postUpdatePhotoResponse =
         await HttpService.dioService.postPhotoProfile(base64);
     if (postUpdatePhotoResponse?.statusCode == 200) {
-      userProfileData.value =
-          postUpdatePhotoResponse?.profileData ?? UserProfileData();
       await getDetailProfile();
       Get.snackbar("Profile Photo".tr, "Success change profile photo".tr);
     } else {
@@ -109,9 +114,9 @@ class ProfileController extends GetxController {
     final getUserDetailResponse = await repository.getUserDetail();
     if (getUserDetailResponse.idUser != null) {
       userDetailData.value = getUserDetailResponse;
-      if(userDetailData.value.ktp == null){
+      if (userDetailData.value.ktp == null) {
         isVerif.value = false;
-      }else{
+      } else {
         isVerif.value = true;
       }
     }
@@ -164,6 +169,142 @@ class ProfileController extends GetxController {
     if (language != null) {
       Localization.changeLocale(language);
       currentLang(language);
+    }
+  }
+
+  Future<void> postNameProfile(String name) async {
+    final postProfileResponse =
+        await HttpService.dioService.postNameProfile(name);
+    if (postProfileResponse?.statusCode == 200) {
+      await getDetailProfile();
+      Get.snackbar("Update Profile".tr, "Success change profile".tr);
+    } else {
+      Get.snackbar("Update Profile".tr, "Failed change profile".tr);
+    }
+  }
+
+  Future<void> updateProfileName() async {
+    String? nameInput = await Get.bottomSheet(
+      NameBottomSheet(nama: userDetailData.value.nama ?? '-'),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.r),
+        ),
+      ),
+      isScrollControlled: true,
+    );
+
+    if (nameInput != null && nameInput.isNotEmpty) {
+      await postNameProfile(nameInput);
+    }
+  }
+
+  Future<void> postBirtdayProfile(DateTime birthday) async {
+    final postProfileResponse =
+        await HttpService.dioService.postBirtdayProfile(birthday);
+    if (postProfileResponse?.statusCode == 200) {
+      await getDetailProfile();
+      Get.snackbar("Update Profile".tr, "Success change profile".tr);
+    } else {
+      Get.snackbar("Update Profile".tr, "Failed change profile".tr);
+    }
+  }
+
+  Future<void> updateBirthDate() async {
+    DateTime? birthDate = await showDatePicker(
+      context: Get.context!,
+      initialDate: DateTime(DateTime.now().year - 21),
+      firstDate: DateTime(DateTime.now().year - 100),
+      lastDate: DateTime.now(),
+    );
+
+    if (birthDate != null) {
+      await postBirtdayProfile(birthDate);
+    }
+  }
+
+   Future<void> updateProfileNumberPhone() async {
+    String? phoneInput = await Get.bottomSheet(
+      TelephoneBottomSheet(phoneNumber: userDetailData.value.telepon ?? '-'),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.r),
+        ),
+      ),
+      isScrollControlled: true,
+    );
+
+    if (phoneInput != null && phoneInput.isNotEmpty) {
+      await postNumberPhoneProfile(phoneInput);
+    }
+  }
+
+  Future<void> postNumberPhoneProfile(String numberPhone) async {
+    final postProfileResponse =
+        await HttpService.dioService.postNumberPhoneProfile(numberPhone);
+    if (postProfileResponse?.statusCode == 200) {
+      await getDetailProfile();
+      Get.snackbar("Update Profile".tr, "Success change profile".tr);
+    } else {
+      Get.snackbar("Update Profile".tr, "Failed change profile".tr);
+    }
+  }
+
+  Future<void> updateProfileEmail() async {
+    String? emailInput = await Get.bottomSheet(
+      EmailBottomSheet(email: userDetailData.value.email ?? '-'),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.r),
+        ),
+      ),
+      isScrollControlled: true,
+    );
+
+    if (emailInput != null && emailInput.isNotEmpty) {
+      await postEmailProfile(emailInput);
+    }
+  }
+  
+  Future<void> postEmailProfile(String email) async {
+    final postProfileResponse =
+        await HttpService.dioService.postEmailProfile(email);
+    if (postProfileResponse?.statusCode == 200) {
+      await getDetailProfile();
+      Get.snackbar("Update Profile".tr, "Success change profile".tr);
+    } else {
+      Get.snackbar("Update Profile".tr, "Failed change profile".tr);
+    }
+  }
+
+  Future<void> updateProfilePin() async {
+    String? pinInput = await Get.bottomSheet(
+      PinBottomSheet(pin: userDetailData.value.pin ?? '-'),
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.r),
+        ),
+      ),
+      isScrollControlled: true,
+    );
+
+    if (pinInput != null && pinInput.isNotEmpty) {
+      await postPinProfile(pinInput);
+    }
+  }
+
+  Future<void> postPinProfile(String pin) async {
+    final postProfileResponse =
+        await HttpService.dioService.postPinProfile(pin);
+    if (postProfileResponse?.statusCode == 200) {
+      await getDetailProfile();
+      Get.snackbar("Update Profile".tr, "Success change profile".tr);
+    } else {
+      Get.snackbar("Update Profile".tr, "Failed change profile".tr);
     }
   }
 }

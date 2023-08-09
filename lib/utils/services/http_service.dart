@@ -463,8 +463,24 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<UserUpdatedProfileResponse?> postProfile(
-      UserProfile userProfile) async {
+// class UserProfile {
+//   String? nama;
+//   DateTime? tanggalLahir;
+//   String? nomorTelepon;
+//   String? email;
+//   String? pin;
+
+//   UserProfile({
+//     this.nama,
+//     this.tanggalLahir,
+//     this.nomorTelepon,
+//     this.email,
+//     this.pin,
+//   });
+// }
+
+  Future<UserUpdatedProfileResponse?> postNameProfile(
+      String name) async {
     final idUser = LocalStorageService.getId();
     final url = '$baseUrl/user/update/$idUser';
     final authToken = LocalStorageService.getToken();
@@ -473,13 +489,123 @@ class HttpService extends GetxService {
       final response = await dioCall().post(
         url,
         data: {
-          "nama": userProfile.nama,
-          "tanggal_lahir": userProfile.tanggalLahir != null
-              ? DateFormat('dd/MM/yyyy').format(userProfile.tanggalLahir!)
-              : null,
-          "nomor_telepon": userProfile.nomorTelepon,
-          "email": userProfile.email,
-          "pin": userProfile.pin,
+          "nama": name,
+        },
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserUpdatedProfileResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserUpdatedProfileResponse?> postBirtdayProfile(
+      DateTime birthday) async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/update/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          "tanggal_lahir": DateFormat('dd/MM/yyyy').format(birthday)
+        },
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserUpdatedProfileResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserUpdatedProfileResponse?> postNumberPhoneProfile(
+      String numberPhone) async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/update/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          "nomor_telepon": numberPhone
+        },
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserUpdatedProfileResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserUpdatedProfileResponse?> postEmailProfile(
+      String email) async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/update/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          "email": email,
+        },
+        options: Options(
+          headers: {
+            'id_order': idUser,
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserUpdatedProfileResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserUpdatedProfileResponse?> postPinProfile(
+      String pin) async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/user/update/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: {
+          "pin": pin,
         },
         options: Options(
           headers: {

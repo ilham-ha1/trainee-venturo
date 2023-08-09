@@ -23,7 +23,7 @@ class UserDetailProfileResponse {
     }) => 
         UserDetailProfileResponse(
             statusCode: statusCode ?? this.statusCode,
-            userDetailData: data ?? this.userDetailData,
+            userDetailData: data ?? userDetailData,
         );
 
     factory UserDetailProfileResponse.fromJson(Map<String, dynamic> json) => UserDetailProfileResponse(
@@ -41,75 +41,93 @@ class UserDetailData {
     int? idUser;
     String? nama;
     String? email;
+    String? tglLahir;
     String? alamat;
     String? telepon;
-    dynamic tglLahir;
     dynamic foto;
-    dynamic ktp;
+    String? ktp;
+    String? pin;
     int? status;
-    int? mRolesId;
+    int? isCustomer;
+    int? rolesId;
+    String? roles;
 
     UserDetailData({
         this.idUser,
         this.nama,
         this.email,
+        this.tglLahir,
         this.alamat,
         this.telepon,
-        this.tglLahir,
         this.foto,
         this.ktp,
+        this.pin,
         this.status,
-        this.mRolesId,
+        this.isCustomer,
+        this.rolesId,
+        this.roles,
     });
 
     UserDetailData copyWith({
         int? idUser,
         String? nama,
         String? email,
+        String? tglLahir,
         String? alamat,
         String? telepon,
-        dynamic tglLahir,
         dynamic foto,
-        dynamic ktp,
+        String? ktp,
+        String? pin,
         int? status,
-        int? mRolesId,
+        int? isCustomer,
+        int? rolesId,
+        String? roles,
     }) => 
         UserDetailData(
             idUser: idUser ?? this.idUser,
             nama: nama ?? this.nama,
             email: email ?? this.email,
+            tglLahir: tglLahir ?? this.tglLahir,
             alamat: alamat ?? this.alamat,
             telepon: telepon ?? this.telepon,
-            tglLahir: tglLahir ?? this.tglLahir,
             foto: foto ?? this.foto,
             ktp: ktp ?? this.ktp,
+            pin: pin ?? this.pin,
             status: status ?? this.status,
-            mRolesId: mRolesId ?? this.mRolesId,
+            isCustomer: isCustomer ?? this.isCustomer,
+            rolesId: rolesId ?? this.rolesId,
+            roles: roles ?? this.roles,
         );
 
     factory UserDetailData.fromJson(Map<String, dynamic> json) => UserDetailData(
         idUser: json["id_user"],
         nama: json["nama"],
         email: json["email"],
+        tglLahir: json["tgl_lahir"],
         alamat: json["alamat"],
         telepon: json["telepon"],
-        tglLahir: json["tgl_lahir"],
         foto: json["foto"],
         ktp: json["ktp"],
+        pin: json["pin"],
         status: json["status"],
-        mRolesId: json["m_roles_id"],
+        isCustomer: json["is_customer"],
+        rolesId: json["roles_id"],
+        roles: json["roles"],
     );
 
     Map<String, dynamic> toJson() => {
         "id_user": idUser,
         "nama": nama,
         "email": email,
+        "tgl_lahir": tglLahir,
         "alamat": alamat,
         "telepon": telepon,
-        "tgl_lahir": tglLahir,
         "foto": foto,
         "ktp": ktp,
+        "pin": pin,
         "status": status,
-        "m_roles_id": mRolesId,
+        "is_customer": isCustomer,
+        "roles_id": rolesId,
+        "roles": roles,
     };
 }

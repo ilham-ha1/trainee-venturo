@@ -11,7 +11,6 @@ import 'package:trainee/modules/features/checkout/views/componenst/rounded_app_b
 import 'package:trainee/modules/features/checkout/views/componenst/tile_option.dart';
 import 'package:trainee/modules/features/list/views/components/section_header.dart';
 import 'package:trainee/modules/features/order/controllers/detail_order_controller.dart';
-import 'package:trainee/shared/customs/bottom_navigation_custom.dart';
 
 import '../components/order_list_sliver.dart';
 import '../components/order_tracker.dart';

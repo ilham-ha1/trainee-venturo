@@ -9,6 +9,7 @@ import 'package:trainee/constants/commons/asset_const.dart';
 import '../components/tile_option.dart';
 import 'package:trainee/modules/features/profile/controllers/profile_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -175,34 +176,56 @@ class ProfileView extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        TileOption(
-                          title: 'Name'.tr,
-                          message: 'User',
-                          onTap: () {},
+                        Obx(() => TileOption(
+                              title: 'Name'.tr,
+                              message:
+                                  ProfileController.to.userDetailData.value.nama ??
+                                      '-',
+                              onTap: () {
+                                ProfileController.to.updateProfileName();
+                              },
+                            )),
+                        Divider(color: Colors.black45, height: 0.5.h),
+                        Obx(() => TileOption(
+                              title: 'Birth date'.tr,
+                              message: ProfileController.to.userDetailData.value.tglLahir ??
+                                  '-',
+                              onTap: () {
+                                ProfileController.to.updateBirthDate();
+                              },
+                            )),
+                        Divider(color: Colors.black45, height: 0.5.h),
+                        Obx( () =>
+                          TileOption(
+                            title: 'Phone number'.tr,
+                            message: ProfileController.to.userDetailData.value.telepon ??
+                                    '-',
+                            onTap: () {
+                               ProfileController.to.updateProfileNumberPhone();
+                            },
+                          ),
                         ),
                         Divider(color: Colors.black45, height: 0.5.h),
-                        TileOption(
-                          title: 'Birth date'.tr,
-                          message: '-',
-                          onTap: () {},
+                        Obx( () =>
+                          TileOption(
+                            title: 'Email'.tr,
+                            message: ProfileController.to.userDetailData.value.email ??
+                                    '-',
+                            onTap: () {
+                              ProfileController.to.updateProfileEmail();
+                            },
+                          ),
                         ),
                         Divider(color: Colors.black45, height: 0.5.h),
-                        TileOption(
-                          title: 'Phone number'.tr,
-                          message: '-',
-                          onTap: () {},
-                        ),
-                        Divider(color: Colors.black45, height: 0.5.h),
-                        TileOption(
-                          title: 'Email'.tr,
-                          message: 'user@email.com',
-                          onTap: () {},
-                        ),
-                        Divider(color: Colors.black45, height: 0.5.h),
-                        TileOption(
-                          title: 'Change PIN'.tr,
-                          message: '******',
-                          onTap: () {},
+                        Obx( () =>
+                          TileOption(
+                            title: 'Change PIN'.tr,
+                            message: ProfileController.to.userDetailData.value.pin ??
+                                    '-',
+                            onTap: () {
+                              ProfileController.to.updateProfilePin();
+                            },
+                          ),
                         ),
                         Divider(color: Colors.black45, height: 0.5.h),
                         Obx(

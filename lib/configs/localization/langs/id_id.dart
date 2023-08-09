@@ -120,5 +120,9 @@ const Map<String, String> translationsIdId = {
   'minuman': 'minuman',
   'Adding Order': 'Menambahkan Pesanan',
   'Success to add order': 'Berhasil Menambahkan Pesanan',
-  'Failed to add order': 'Gagal Menambahkan Pesanan'
+  'Failed to add order': 'Gagal Menambahkan Pesanan',
+  'Name is required': 'Nama diperlukan',
+  'Email is required': 'Email harus diisi',
+  'Phone Number is required': 'Nomor telephone harus diisi',
+  'Pin is required': 'Pin harus diisi'
 };

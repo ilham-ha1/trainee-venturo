@@ -116,5 +116,9 @@ const Map<String, String> translationsEnUs = {
   'minuman': 'Beverage',
   'Adding Order': 'Adding Order',
   'Success to add order': 'Success to add order',
-  'Failed to add order': 'Failed to add order'
+  'Failed to add order': 'Failed to add order',
+  'Name is required': 'Name is required',
+  'Email is required': 'Email is required',
+  'Phone Number is required': 'Phone Number is required',
+  'Pin is required': 'Pin is required',
 };
