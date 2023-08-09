@@ -70,10 +70,10 @@ class LocalStorageService extends GetxService {
 
     if (key is String || key is int) {
       await boxCart.put(key, dataToCart);
-      Get.snackbar('Menambahkan Pesanan', 'Berhasil menambahkan Pesanan');
+      Get.snackbar('Adding Order'.tr, 'Success to add order'.tr);
     } else {
       // Handle the case where the key is not a valid type
-      Get.snackbar('Menambahkan Pesanan', 'Gagal menambahkan Pesanan');
+      Get.snackbar('Adding Order'.tr, 'Failed to add order'.tr);
     }
   }
 
