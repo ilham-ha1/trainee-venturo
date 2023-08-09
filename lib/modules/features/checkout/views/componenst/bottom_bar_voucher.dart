@@ -45,11 +45,11 @@ class BottomBarVoucher extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                     Text(
-                      'Penggunaan voucher tidak dapat digabung dengan ',
+                      'The use of vouchers cannot be combined with '.tr,
                       style: GoogleFonts.montserrat(color: Colors.black, fontSize: 13.sp)
                     ),
                     Text(
-                      'discount employee reward program',
+                      'discount employee reward program'.tr,
                       style: GoogleFonts.montserrat(color: MainColor.primary, fontSize: 13.sp, fontWeight: FontWeight.bold)
                     ),
                 ],
@@ -71,7 +71,7 @@ class BottomBarVoucher extends StatelessWidget {
                minimumSize: Size(double.infinity, 40.h),
             ),
             child: Text(
-              "Oke",
+              "Oke".tr,
               textAlign: TextAlign.center,
               style: Get.textTheme.labelLarge?.copyWith(
                 fontWeight: FontWeight.w800,

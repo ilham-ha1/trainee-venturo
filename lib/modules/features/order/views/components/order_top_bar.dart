@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OrderTopBar extends StatelessWidget implements PreferredSizeWidget {
@@ -26,9 +27,9 @@ class OrderTopBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: TabBar(
-        tabs: const [
-          Tab(text: 'Sedang Berjalan',),
-          Tab(text: 'Riwayat'),
+        tabs:  [
+          Tab(text: 'On Going'.tr,),
+          Tab(text: 'History'.tr),
         ],
         indicatorColor: Theme.of(context).primaryColor,
         indicatorWeight: 3.h,

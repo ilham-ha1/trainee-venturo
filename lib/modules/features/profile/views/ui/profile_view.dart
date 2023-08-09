@@ -26,7 +26,7 @@ class ProfileView extends StatelessWidget {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-          'Profil'.tr,
+          'Profile'.tr,
           style: GoogleFonts.montserrat(
               fontWeight: FontWeight.bold,
               fontSize: 20.sp,
@@ -88,7 +88,7 @@ class ProfileView extends StatelessWidget {
                             width: double.infinity,
                             padding: EdgeInsets.only(top: 10.r, bottom: 15.r),
                             child: Text(
-                              "Ubah".tr,
+                              'Change'.tr,
                               style: GoogleFonts.montserrat(
                                 color: MainColor.white,
                                 fontSize: 14.sp,
@@ -120,7 +120,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     7.horizontalSpaceRadius,
                     Text(
-                      ' Kamu sudah verifikasi KTP'.tr,
+                      ' Your have verified your ID card'.tr,
                       style: GoogleFonts.montserrat(
                         color: MainColor.primary,
                         fontSize: 14.sp,
@@ -138,7 +138,7 @@ class ProfileView extends StatelessWidget {
                       ),
                       7.horizontalSpaceRadius,
                       Text(
-                        'Verifikasi KTP mu sekarang!'.tr,
+                        'Verify your ID card now!'.tr,
                         style: GoogleFonts.montserrat(
                           color: MainColor.primary,
                           fontSize: 14.sp,

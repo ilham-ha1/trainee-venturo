@@ -28,7 +28,7 @@ class EditMenuView extends StatelessWidget {
     );
     return SafeArea(
         child: Scaffold(
-            appBar: const RoundedAppBar(title: 'Edit Menu'),
+            appBar: RoundedAppBar(title: 'Menu Edit'.tr),
             body: Obx(() {
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -126,7 +126,7 @@ class EditMenuView extends StatelessWidget {
                                       const SizedBox(
                                         width: 8,
                                       ),
-                                      Text("Harga",
+                                      Text("Price".tr,
                                           style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
@@ -194,7 +194,7 @@ class EditMenuView extends StatelessWidget {
                 onPressed: () async {
                   if (EditMenuController.to.cart.value.harga != 0) {
                     Get.snackbar(
-                        "Memperbarui", "Memperbarui pesanan ke keranjang");
+                        "Updating".tr, "Updating order on cart".tr);
                     await EditMenuController.to.saveToCart(
                       Cart(
                           id: EditMenuController.to.cart.value.id,
@@ -220,7 +220,7 @@ class EditMenuView extends StatelessWidget {
                     );
                     CheckoutController.to.fetchData();
                   } else {
-                    Get.snackbar("Tunggu", "Sedang mendapatkan data menu");
+                    Get.snackbar("Please Wait".tr, "Getting menu data".tr);
                   }
 
                   Get.offAndToNamed(MainRoute.checkout);
@@ -230,7 +230,7 @@ class EditMenuView extends StatelessWidget {
                     MainColor.primary,
                   ),
                 ),
-                child: Text("Simpan",
+                child: Text("Save".tr,
                     style: GoogleFonts.montserrat(
                         fontSize: 16.sp, color: MainColor.white, fontWeight: FontWeight.bold)),
               ),

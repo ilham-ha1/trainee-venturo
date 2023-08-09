@@ -45,7 +45,7 @@ class ToppingOptionEdit extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: Text(
-                                "Pilih topping",
+                                "Choose Topping".tr,
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.sp,
@@ -162,7 +162,7 @@ class ToppingOptionEdit extends StatelessWidget {
                 : () {
                     Get.snackbar(
                       "Topping",
-                      "Tidak ada pilihan lain",
+                      "No Option Available".tr,
                       duration: const Duration(milliseconds: 1000),
                       backgroundColor: MainColor.white,
                       snackPosition: SnackPosition.TOP,
@@ -190,7 +190,7 @@ class ToppingOptionEdit extends StatelessWidget {
                           ? EditMenuController.to.selectedTopping
                               .map((topping) => topping?.keterangan ?? '')
                               .join(', ')
-                          : "Pilih Topping"),
+                          : "Choose Topping".tr),
                       style: GoogleFonts.montserrat(
                         fontSize: 14,
                         color: MainColor.black,

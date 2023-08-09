@@ -18,7 +18,7 @@ class VoucherView extends StatelessWidget {
       child: Scaffold(
           backgroundColor: MainColor.white,
           appBar: RoundedAppBar(
-            title: 'Pilih Voucher',
+            title: 'Choose Voucher'.tr,
             icon: Icons.card_giftcard,
             titleStyle: GoogleFonts.montserrat(fontWeight: FontWeight.bold, color: Colors.black),
           ),

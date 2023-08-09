@@ -53,7 +53,7 @@ class PromoView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Nama Promo",
+                        Text("Promo Name".tr,
                             style: TextStyle(
                                  fontWeight: FontWeight.bold, fontSize: 16.sp, color: MainColor.black)),
                         Padding(
@@ -86,7 +86,7 @@ class PromoView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Syarat Dan Ketentuan",
+                                Text("Terms and Conditions".tr,
                                     style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,

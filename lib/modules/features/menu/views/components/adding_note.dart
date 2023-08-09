@@ -40,7 +40,7 @@ class AddingNote extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Buat Catatan",
+                Text("Create Note".tr,
                     style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.sp,
@@ -54,7 +54,7 @@ class AddingNote extends StatelessWidget {
                             label: "",
                             keyboardType: TextInputType.text,
                             initialValue: MenuDetailController.to.catatan.value,
-                            hint: "Catatan")),
+                            hint: "Note".tr)),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -86,7 +86,7 @@ class AddingNote extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          Text("Catatan",
+          Text("Note".tr,
               style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -100,7 +100,7 @@ class AddingNote extends StatelessWidget {
               () => Text(
                 MenuDetailController.to.catatan.value != ''
                     ? MenuDetailController.to.catatan.value
-                    : 'Tambahkan Catatan',
+                    : 'Add Note'.tr,
                 style: GoogleFonts.montserrat(
                     fontSize: 14, color: MainColor.black),
                 textAlign: TextAlign.end,

@@ -29,7 +29,7 @@ class GetLocationScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Mencari Lokasimu...'.tr,
+                'Finding Location...'.tr,
                 style: Get.textTheme.titleLarge!
                     .copyWith(color: Colors.black.withOpacity(0.5)),
                 textAlign: TextAlign.center,

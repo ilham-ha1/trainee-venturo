@@ -46,7 +46,7 @@ class LevelOptionEdit extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8.0),
                               child: Text(
-                                "Pilih level",
+                                "Choose Level".tr,
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.sp,
@@ -168,7 +168,7 @@ class LevelOptionEdit extends StatelessWidget {
                 : () {
                     Get.snackbar(
                       "Level",
-                      "Tidak ada pilihan lain",
+                      "No Option Available".tr,
                       duration: const Duration(milliseconds: 1000),
                       backgroundColor: MainColor.white,
                       snackPosition: SnackPosition.TOP,
@@ -193,7 +193,7 @@ class LevelOptionEdit extends StatelessWidget {
                 ),
                 Obx(() => Text(
                       EditMenuController.to.selectedLevel.value?.keterangan ??
-                          "Pilih Level",
+                          "Choose Level".tr,
                       style: GoogleFonts.montserrat(
                           fontSize: 14, color: MainColor.black),
                     )),

@@ -28,7 +28,7 @@ class CheckoutView extends StatelessWidget{
 
     return Scaffold(
       appBar: RoundedAppBar(
-        title: 'Pesanan',
+        title: 'Pesanan'.tr,
         icon: Icons.shopping_cart_checkout,
          titleStyle: GoogleFonts.montserrat(fontWeight: FontWeight.bold, color: Colors.black),
       ),
@@ -40,7 +40,7 @@ class CheckoutView extends StatelessWidget{
                 SliverToBoxAdapter(
                   child: SectionHeader(
                     icon: Icons.food_bank_outlined,
-                    title: 'Makanan',
+                    title: 'Food'.tr,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -57,7 +57,7 @@ class CheckoutView extends StatelessWidget{
                 SliverToBoxAdapter(
                   child: SectionHeader(
                     icon: Icons.local_drink_outlined,
-                    title: 'Minuman',
+                    title: 'Minuman'.tr,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -89,7 +89,7 @@ class CheckoutView extends StatelessWidget{
                   children: [
                     // Total order tile
                     TileOption(
-                      title: 'Total Pesanan',
+                      title: 'Total Order'.tr,
                       subtitle: '(${CheckoutController.to.cart.length} Menu):',
                       message:
                           'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.totalPrice) }',
@@ -104,7 +104,7 @@ class CheckoutView extends StatelessWidget{
                       TileOption(
                         icon: Icons.discount_outlined,
                         iconSize: 24.r,
-                        title: 'Diskon ${CheckoutController.to.totalDiscount}%',
+                        title: '${'Discount'.tr} ${CheckoutController.to.totalDiscount}%',
                         message: 'Rp ${NumberFormat('#,##0', 'id_ID').format(CheckoutController.to.discountPrice) }',
                         titleStyle: Get.textTheme.bodyLarge,
                         messageStyle: Get.textTheme.labelLarge!
@@ -137,8 +137,8 @@ class CheckoutView extends StatelessWidget{
                     TileOption(
                       icon: Icons.payment_outlined,
                       iconSize: 24.r,
-                      title: 'Pembayaran',
-                      message: 'Pay Later',
+                      title: 'Payment'.tr,
+                      message: 'Pay Later'.tr,
                       titleStyle: Get.textTheme.bodyLarge,
                       messageStyle: Get.textTheme.bodyLarge,
                     ),

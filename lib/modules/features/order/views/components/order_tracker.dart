@@ -18,7 +18,7 @@ class OrderTracker extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Pesanan kamu sedang disiapkan'.tr,
+          'Your order is being prepared'.tr,
           style: GoogleFonts.montserrat(
                              color: MainColor.black, fontWeight: FontWeight.bold, fontSize: 16.sp
                             ),
@@ -87,7 +87,7 @@ class OrderTracker extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Pesanan diterima'.tr,
+                'Order Received'.tr,
                 style: GoogleFonts.montserrat(
                              color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 11.sp
                             ),
@@ -97,7 +97,7 @@ class OrderTracker extends StatelessWidget {
             const Spacer(),
             Expanded(
               child: Text(
-                'Silahkan Diambil'.tr,
+                'Take it'.tr,
                 style: GoogleFonts.montserrat(
                              color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 11.sp
                             ),
@@ -107,7 +107,7 @@ class OrderTracker extends StatelessWidget {
             const Spacer(),
             Expanded(
               child: Text(
-                'Pesanan Selesai'.tr,
+                'Order Finished'.tr,
                 style:GoogleFonts.montserrat(
                              color: MainColor.black, fontWeight: FontWeight.normal, fontSize: 11.sp
                             ),

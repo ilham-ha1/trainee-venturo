@@ -130,27 +130,27 @@ class OrderItemCard extends StatelessWidget {
                             valueBuilder: (context) => order.status ?? 0,
                             caseBuilders: {
                               0: (context) => Text(
-                                    'Dalam antrian'.tr,
+                                    'On Queue'.tr,
                                     style: Get.textTheme.labelMedium!.copyWith(
                                         color: const Color(0xFFFFAC01)),
                                   ),
                               1: (context) => Text(
-                                    'Sedang disiapkan'.tr,
+                                    'Prepared'.tr,
                                     style: Get.textTheme.labelMedium!.copyWith(
                                         color: const Color(0xFFFFAC01)),
                                   ),
                               2: (context) => Text(
-                                    'Siap'.tr,
+                                    'Ready'.tr,
                                     style: Get.textTheme.labelMedium!.copyWith(
                                         color: const Color(0xFFFFAC01)),
                                   ),
                               3: (context) => Text(
-                                    'Selesai'.tr,
+                                    'Finished'.tr,
                                     style: Get.textTheme.labelMedium!.copyWith(
                                         color: const Color(0xFF009C48)),
                                   ),
                               4: (context) => Text(
-                                    'Dibatalkan'.tr,
+                                    'Canceled'.tr,
                                     style: Get.textTheme.labelMedium!.copyWith(
                                         color: const Color(0xFFD81D1D)),
                                   ),
@@ -208,7 +208,7 @@ class OrderItemCard extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(top: 10.r, bottom: 5.r),
                               child: OutlinedTitleButton.compact(
-                                text: 'Beri Penilaian'.tr,
+                                text: 'Give Rating'.tr,
                                 onPressed: () =>
                                     onGiveReview?.call(order.idOrder ?? 0),
                               ),
@@ -219,7 +219,7 @@ class OrderItemCard extends StatelessWidget {
                                 bottom: 5.r,
                                 right: order.status == 3 ? 0.r : 0.3.sw),
                             child: PrimaryButtonWithTitle.compact(
-                              title: 'Pesan Lagi'.tr,
+                              title: 'Order Again'.tr,
                               onPressed: onOrderAgain,
                             ),
                           ),

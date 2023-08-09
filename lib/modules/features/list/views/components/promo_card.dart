@@ -63,7 +63,7 @@ class PromoCard extends StatelessWidget {
         softWrap: true,
         textAlign: TextAlign.center,
         TextSpan(
-          text: 'Diskon',
+          text: 'Discount'.tr,
           style: Get.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w800,
             color: Colors.white,
@@ -126,7 +126,7 @@ class PromoCard extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: type.toLowerCase() == 'diskon'
+                  children: type.toLowerCase() == 'diskon'.tr
                       ? discountTemplate
                       : voucherTemplate,
                 ),
@@ -152,7 +152,7 @@ class PromoCard extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: type.toLowerCase().toString() == 'discount'
+                  children: type.toLowerCase() == 'discount'.tr
                       ? voucherTemplate
                       : discountTemplate,
                 ),

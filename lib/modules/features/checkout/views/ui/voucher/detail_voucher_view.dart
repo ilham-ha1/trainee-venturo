@@ -23,7 +23,7 @@ class DetailVoucherView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: RoundedAppBar(
-          title: "Detail Voucher",
+          title: "Detail Voucher".tr,
           titleStyle: GoogleFonts.montserrat(
               fontWeight: FontWeight.w600, color: Colors.black),
         ),
@@ -102,7 +102,7 @@ class DetailVoucherView extends StatelessWidget {
                             SizedBox(
                               width: 110,
                               child: Text(
-                                "Valid Date",
+                                "Valid Date".tr,
                                 style: GoogleFonts.montserrat(
                                     fontSize: 18.sp,
                                     color: MainColor.black,

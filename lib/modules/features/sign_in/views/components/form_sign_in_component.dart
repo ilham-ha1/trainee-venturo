@@ -20,10 +20,10 @@ class FormSignInCompoent extends StatelessWidget {
             controller: SignInController.to.emailCtrl,
             keyboardType: TextInputType.emailAddress,
             initialValue: SignInController.to.emailValue.value,
-            label: "Email Address",
-            hint: "Input Email Address",
+            label: "Email Address".tr,
+            hint: "Input Email Address".tr,
             isRequired: true,
-            requiredText: "Email address cannot be empty",
+            requiredText: "Email address cannot be empty".tr,
           ),
           SizedBox(
             height: 40.h,
@@ -33,11 +33,11 @@ class FormSignInCompoent extends StatelessWidget {
               controller: SignInController.to.passwordCtrl,
               keyboardType: TextInputType.visiblePassword,
               initialValue: SignInController.to.passwordValue.value,
-              label: "Password",
-              hint: "Input Password",
+              label: "Password".tr,
+              hint: "Input Password".tr,
               isRequired: true,
               isPassword: SignInController.to.isPassword.value,
-              requiredText: "Password cannot be empty",
+              requiredText: "Password cannot be empty".tr,
               suffixIcon: GestureDetector(
                 onTap: () => SignInController.to.showPassword(),
                 child: Align(

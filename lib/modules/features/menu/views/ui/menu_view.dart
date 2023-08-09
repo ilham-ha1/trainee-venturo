@@ -125,7 +125,7 @@ class MenuView extends StatelessWidget {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                Text("Harga",
+                                Text("Price".tr,
                                     style: GoogleFonts.montserrat(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
@@ -192,7 +192,7 @@ class MenuView extends StatelessWidget {
                           MainColor.primary,
                         ),
                       ),
-                      child: Text("Tambahkan Ke Pesanan",
+                      child: Text("Adding order".tr,
                           style: GoogleFonts.montserrat(
                               fontSize: 16.sp, color: MainColor.white)),
                     )

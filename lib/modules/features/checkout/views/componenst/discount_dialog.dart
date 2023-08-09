@@ -18,7 +18,7 @@ class DiscountDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Info Diskon'.tr,
+                'Discount Info'.tr,
                 style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.bold,
                   color: MainColor.primary,
@@ -63,8 +63,8 @@ class DiscountDialog extends StatelessWidget {
                       children: discountWidgets,
                     );
                   } else {
-                    return const Center(
-                      child: Text("Tidak ada diskon yang tersedia"),
+                    return Center(
+                      child: Text("Tidak ada diskon yang tersedia".tr),
                     );
                   }
                 },
@@ -83,7 +83,7 @@ class DiscountDialog extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 10.h),
                   child: Text(
-                    "Oke",
+                    "Oke".tr,
                     style: GoogleFonts.montserrat(
                       fontWeight: FontWeight.w800,
                       fontSize: 12.sp,

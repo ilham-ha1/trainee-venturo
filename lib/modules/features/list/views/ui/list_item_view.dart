@@ -34,10 +34,10 @@ class ListItemView extends StatelessWidget {
               return [
                 SliverToBoxAdapter(child: 22.verticalSpace),
                 // list of promo
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: SectionHeader(
                     icon: Icons.discount_rounded,
-                    title: 'Promo yang tersedia',
+                    title: 'Available Promo'.tr,
                   ),
                 ),
                 SliverToBoxAdapter(child: 22.verticalSpace),
@@ -115,13 +115,13 @@ class ListItemView extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 10.h),
                       child: SectionHeader(
                         title: currentCategory == 'semua menu'
-                            ? 'Makanan'
+                            ? 'Food'.tr
                             : currentCategory == 'makanan'
-                                ? 'Makanan'
-                                : 'Minuman',
+                                ? 'Food'.tr
+                                : 'Beverage'.tr,
                         icon: currentCategory == 'semua menu'
                             ? Icons.food_bank
-                            : currentCategory == 'makanan'
+                            : currentCategory == 'minuman'
                                 ? Icons.food_bank
                                 : Icons.local_drink,
                       ),
@@ -154,7 +154,7 @@ class ListItemView extends StatelessWidget {
                                   delegate: SliverChildListDelegate([
                                     SectionHeader(
                                       icon: Icons.food_bank_outlined,
-                                      title: 'Makanan',
+                                      title: 'Food'.tr,
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ]),
@@ -202,7 +202,7 @@ class ListItemView extends StatelessWidget {
                                                       const Color(0xFFFE4A49),
                                                   foregroundColor: Colors.white,
                                                   icon: Icons.delete,
-                                                  label: 'Delete',
+                                                  label: 'Delete'.tr,
                                                 ),
                                               ],
                                             ),
@@ -247,7 +247,7 @@ class ListItemView extends StatelessWidget {
                                   delegate: SliverChildListDelegate([
                                     SectionHeader(
                                       icon: Icons.local_drink_outlined,
-                                      title: 'Minuman',
+                                      title: 'Beverage'.tr,
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ]),
@@ -298,7 +298,7 @@ class ListItemView extends StatelessWidget {
                                                       const Color(0xFFFE4A49),
                                                   foregroundColor: Colors.white,
                                                   icon: Icons.delete,
-                                                  label: 'Delete',
+                                                  label: 'Delete'.tr,
                                                 ),
                                               ],
                                             ),
@@ -380,7 +380,7 @@ class ListItemView extends StatelessWidget {
                                                       const Color(0xFFFE4A49),
                                                   foregroundColor: Colors.white,
                                                   icon: Icons.delete,
-                                                  label: 'Delete',
+                                                  label: 'Delete'.tr,
                                                 ),
                                               ],
                                             ),

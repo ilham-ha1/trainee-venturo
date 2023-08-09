@@ -17,6 +17,14 @@ class MenuChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String i18n = text;
+    if (text == 'Makanan') {
+      i18n = 'Food'.tr;
+    } else if (text == 'Minuman') {
+      i18n = 'Beverage'.tr;
+    }else if(text == 'Semua Menu'){
+      i18n = 'All Menu'.tr;
+    }
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(30.r),
@@ -37,22 +45,23 @@ class MenuChip extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Center(
-            child: Row(
-              children:[ 
-                if(text.toLowerCase() == 'semua menu')
-                  const Icon(Icons.list, color: MainColor.white,)
-                else if(text.toLowerCase() == 'makanan')
-                  const Icon(Icons.food_bank, color: MainColor.white)
-                else
-                  const Icon(Icons.local_drink, color: MainColor.white)
-                ,
-                const SizedBox(width: 8),
-                Text(
-                  text,
-                  style: Get.textTheme.bodyLarge!.copyWith(
-                    color: Colors.white,
-                  ),
+            child: Row(children: [
+              if (i18n == 'All Menu'.tr)
+                const Icon(
+                  Icons.list,
+                  color: MainColor.white,
+                )
+              else if (i18n == 'Food'.tr)
+                const Icon(Icons.food_bank, color: MainColor.white)
+              else
+                const Icon(Icons.local_drink, color: MainColor.white),
+              const SizedBox(width: 8),
+              Text(
+                i18n,
+                style: Get.textTheme.bodyLarge!.copyWith(
+                  color: Colors.white,
                 ),
+              ),
             ]),
           ),
         ),

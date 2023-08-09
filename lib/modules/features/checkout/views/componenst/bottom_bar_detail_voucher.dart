@@ -42,7 +42,7 @@ class BottomBarDetailVoucher extends StatelessWidget {
             MainColor.primary,
           ),
         ),
-        child: Text("Pakai Voucher",
+        child: Text('Use Voucher'.tr,
             style: GoogleFonts.montserrat(
                 fontSize: 16.sp,
                 color: MainColor.white,

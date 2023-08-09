@@ -29,7 +29,7 @@ class DetailOrderView extends StatelessWidget {
 
     return Scaffold(
       appBar: RoundedAppBar(
-        title: 'Pesanan',
+        title: 'Order'.tr,
         icon: Icons.shopping_bag_outlined,
         titleStyle: GoogleFonts.montserrat(
             fontWeight: FontWeight.bold, color: MainColor.black),
@@ -61,7 +61,7 @@ class DetailOrderView extends StatelessWidget {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                'Apakah Anda yakin ingin membatalkan pesanan ini ?',
+                                'Are you sure to cancel it ?'.tr,
                                 style: GoogleFonts.montserrat(
                                   color: MainColor.black, fontSize: 17.sp
                                 ),
@@ -87,9 +87,9 @@ class DetailOrderView extends StatelessWidget {
                                   minimumSize: const Size(120, 40), 
                                 ),
                                 
-                                child: const Text(
-                                  'Batal',
-                                  style: TextStyle(color: MainColor.primary),
+                                child: Text(
+                                  'Cancel'.tr,
+                                  style: GoogleFonts.montserrat(color: MainColor.primary),
                                 ),
                               ),
                               ElevatedButton(
@@ -104,7 +104,7 @@ class DetailOrderView extends StatelessWidget {
                                   ),
                                   minimumSize: const Size(120, 40), 
                                 ),
-                                child: const Text('Yakin'),
+                                child: Text('Sure'.tr),
                               ),
                             ],
                           )
@@ -117,7 +117,7 @@ class DetailOrderView extends StatelessWidget {
                     visualDensity: VisualDensity.compact,
                   ),
                   child: Text(
-                    'Batalkan'.tr,
+                    'Cancel it'.tr,
                     style: GoogleFonts.montserrat(
                       color: const Color(0xFFD81D1D),
                     ),
@@ -143,7 +143,7 @@ class DetailOrderView extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: SectionHeader(
                     icon: Icons.food_bank_outlined,
-                    title: 'Makanan',
+                    title: 'Food'.tr,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -160,7 +160,7 @@ class DetailOrderView extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: SectionHeader(
                     icon: Icons.food_bank_outlined,
-                    title: 'Minuman',
+                    title: 'Beverage'.tr,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -203,7 +203,7 @@ class DetailOrderView extends StatelessWidget {
                         children: [
                           // Total order tile
                           TileOption(
-                            title: 'Total Pesanan',
+                            title: 'Total Payment'.tr,
                             subtitle:
                                 '(${DetailOrderController.to.order.value?.detail?.length} Menu):',
                             message:
@@ -240,7 +240,7 @@ class DetailOrderView extends StatelessWidget {
                                 TileOption(
                                   icon: Icons.discount_outlined,
                                   iconSize: 24.r,
-                                  title: 'Discount',
+                                  title: 'Discount'.tr,
                                   message:
                                       'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.potongan ?? '0')}',
                                   titleStyle: GoogleFonts.montserrat(
@@ -297,8 +297,8 @@ class DetailOrderView extends StatelessWidget {
                           TileOption(
                             icon: Icons.payment_outlined,
                             iconSize: 24.r,
-                            title: 'Pembayaran'.tr,
-                            message: 'Pay Later',
+                            title: 'Payment'.tr,
+                            message: 'Pay Later'.tr,
                             titleStyle: GoogleFonts.montserrat(
                                 color: MainColor.black,
                                 fontWeight: FontWeight.bold,
@@ -314,7 +314,7 @@ class DetailOrderView extends StatelessWidget {
                           // total payment
                           TileOption(
                             iconSize: 24.r,
-                            title: 'Total Pembayaran'.tr,
+                            title: 'Total Payment'.tr,
                             message:
                                 'Rp ${NumberFormat('#,##0', 'id_ID').format(DetailOrderController.to.order.value?.order?.totalBayar ?? '0')}',
                             titleStyle: GoogleFonts.montserrat(
@@ -340,7 +340,6 @@ class DetailOrderView extends StatelessWidget {
               fallbackBuilder: (context) => const SizedBox(),
             ),
           ),
-          const BottomNavigation(),
         ],
       ),
     );

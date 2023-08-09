@@ -116,7 +116,7 @@ class MenuCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Buat Catatan",
+                            Text("Create Note".tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
@@ -164,7 +164,7 @@ class MenuCard extends StatelessWidget {
                             child: Text(
                               catatan.toString() != ''
                                   ? catatan.toString()
-                                  : "Tambahkan Catatan",
+                                  : "Add Note".tr,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: const TextStyle(

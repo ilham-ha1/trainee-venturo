@@ -167,7 +167,7 @@ class OrderHistoryTabView extends StatelessWidget {
                           Image.asset(ImageConstant.icOrderPage),
                           Flexible(
                             child: Text(
-                              'Mulai buat Pesanan. Makanan yang kamu pesan akan muncul di sini     agar kamu bisa menemukan menu favoritmu lagi!',
+                             'Start making an Order. The food you ordered will appear here so you can find your favorites again!'.tr,
                               style: GoogleFonts.montserrat(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.normal,
@@ -195,7 +195,7 @@ class OrderHistoryTabView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Total pesanan'.tr,
+              'Total Order'.tr,
               style: Get.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w700,
               ),

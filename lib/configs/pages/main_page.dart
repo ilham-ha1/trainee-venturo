@@ -3,14 +3,11 @@ import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/checkout/binddings/checkout_binding.dart';
 import 'package:trainee/modules/features/checkout/views/ui/checkout_view.dart';
 import 'package:trainee/modules/features/dashboard/binddings/dashboard_binding.dart';
-
 import 'package:trainee/modules/features/dashboard/views/ui/dashboard_view.dart';
 import 'package:trainee/modules/features/edit_menu/binddings/edit_menu_binding.dart';
 import 'package:trainee/modules/features/edit_menu/views/ui/edit_menu_view.dart';
 import 'package:trainee/modules/features/checkout/views/ui/voucher/detail_voucher_view.dart';
 import 'package:trainee/modules/features/checkout/views/ui/voucher/voucher_view.dart';
-import 'package:trainee/modules/features/counter/binddings/conter_bindding.dart';
-import 'package:trainee/modules/features/counter/views/ui/conter_view.dart';
 import 'package:trainee/modules/features/order/views/ui/detail_order_view.dart';
 import 'package:trainee/modules/features/order/views/ui/order_view.dart';
 import 'package:trainee/modules/features/profile/binddings/profile_binding.dart';
@@ -38,11 +35,6 @@ abstract class MainPage {
   static final orderBinding = OrderBinding();
   static final main = [
     /// Setup
-    GetPage(
-      name: MainRoute.initial,
-      page: () => const ConterView(),
-      binding: ConterBindding(),
-    ),
     GetPage(
         name: MainRoute.splashScreen,
         page: () => const SplashView(),

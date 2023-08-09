@@ -41,7 +41,7 @@ class OnGoingOrderTabView extends StatelessWidget {
                         Image.asset(ImageConstant.icOrderPage),
                           Flexible(
                             child: Text(
-                              'Sudah Pesan? Lacak pesananmu di sini.',
+                              'Ordered? Track your order here.'.tr,
                               style: GoogleFonts.montserrat(
                                 fontSize: 18.sp,
                                 fontWeight: FontWeight.normal,

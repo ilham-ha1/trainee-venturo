@@ -40,7 +40,7 @@ class AppBarMenu extends StatelessWidget implements PreferredSizeWidget{
               child: Padding(
             padding: const EdgeInsets.only(right: 35.0),
             child: Text(
-              "Detail Menu",
+              "Menu Detail".tr,
               style: GoogleFonts.montserrat(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,

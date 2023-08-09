@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/sign_in/controllers/sign_in_controller.dart';
 import 'package:trainee/modules/features/sign_in/views/components/form_sign_in_component.dart';
@@ -67,7 +68,7 @@ class SignInView extends StatelessWidget {
               ),
               SizedBox(height: 121.h),
               Text(
-                'Masuk untuk melanjutkan!',
+                'Login to continue!'.tr,
                 style: GoogleTextStyle.fw600.copyWith(
                   fontSize: 22.sp,
                   color: MainColor.black,
@@ -81,7 +82,7 @@ class SignInView extends StatelessWidget {
                 style: EvelatedButtonStyle.mainRounded,
                 onPressed: () => SignInController.to.validateForm(context),
                 child: Text(
-                  "Masuk",
+                  "Login".tr,
                   style: GoogleTextStyle.fw800.copyWith(
                     fontSize: 14.sp,
                     color: MainColor.white,
@@ -105,7 +106,7 @@ class SignInView extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Text(
-                      'atau',
+                      'or'.tr,
                       style: TextStyle(
                         color: const Color.fromARGB(145, 51, 51, 51),
                         fontSize: 14.sp,
@@ -139,9 +140,9 @@ class SignInView extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             style: DefaultTextStyle.of(context).style,
-                            children: const [
-                              TextSpan(text: 'Masuk menggunakan '),
-                              TextSpan(
+                            children:  [
+                              TextSpan(text: 'Login Using '.tr),
+                              const TextSpan(
                                 text: 'Google',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
@@ -171,13 +172,13 @@ class SignInView extends StatelessWidget {
                         ),
                         const SizedBox(width: 30),
                         RichText(
-                          text: const TextSpan(
-                            style: TextStyle(
+                          text: TextSpan(
+                            style:const TextStyle(
                               color: Colors.white,
                             ),
                             children: [
-                              TextSpan(text: 'Masuk menggunakan '),
-                              TextSpan(
+                              TextSpan(text: 'Login Using '.tr),
+                              const TextSpan(
                                 text: 'Apple',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),

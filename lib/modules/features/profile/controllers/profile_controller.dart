@@ -99,9 +99,9 @@ class ProfileController extends GetxController {
       userProfileData.value =
           postUpdatePhotoResponse?.profileData ?? UserProfileData();
       await getDetailProfile();
-      Get.snackbar("Foto Profile", "Berhasil Mengganti Foto Profile");
+      Get.snackbar("Profile Photo".tr, "Success change profile photo".tr);
     } else {
-      Get.snackbar("Foto Profile", "Gagal Mengganti Foto Profile");
+      Get.snackbar("Profile Photo".tr, "Failed change profile photo".tr);
     }
   }
 
@@ -142,10 +142,10 @@ class ProfileController extends GetxController {
     if (postKtpResponse?.statusCode == 200) {
       isVerif.value = true;
       await getDetailProfile();
-      Get.snackbar("Ktp", "Berhasil validasi Ktp");
+      Get.snackbar("ID Card".tr, 'Success validate KTP'.tr);
     } else {
       isVerif.value = false;
-      Get.snackbar("Ktp", "Gagal validasi Ktp");
+      Get.snackbar("ID Card".tr, 'Failed validate KTP'.tr);
     }
   }
 

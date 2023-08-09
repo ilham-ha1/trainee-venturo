@@ -49,7 +49,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
                     )),
               ),
               Text(
-                "Beranda",
+                "Home".tr,
                 style: TextStyle(
                   color: MainColor.white,
                   fontSize: 12.sp,
@@ -75,7 +75,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
                     )),
               ),
               Text(
-                "Pesanan",
+                "Order".tr,
                 style: TextStyle(
                   color: MainColor.white,
                   fontSize: 12.sp,
@@ -100,7 +100,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
                     )),
               ),
               Text(
-                "Profil",
+                "Profile".tr,
                 style: TextStyle(
                   color: MainColor.white,
                   fontSize: 12.sp,

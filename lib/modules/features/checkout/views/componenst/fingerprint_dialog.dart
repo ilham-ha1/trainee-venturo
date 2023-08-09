@@ -14,13 +14,13 @@ class FingerprintDialog extends StatelessWidget {
         children: [
           // title
           Text(
-            'Verifikasi Pesanan'.tr,
+            'Verify Order'.tr,
             style: Get.textTheme.headlineMedium,
           ),
 
           // subtitle
           Text(
-            'Finger Print'.tr,
+            'Finger Print',
             style: Get.textTheme.bodySmall!.copyWith(color: Colors.black),
           ),
           30.verticalSpacingRadius,
@@ -45,7 +45,7 @@ class FingerprintDialog extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Text(
-                      'atau',
+                      'or'.tr,
                       style: TextStyle(
                         color: const Color.fromARGB(145, 51, 51, 51),
                         fontSize: 14.sp,
@@ -66,7 +66,7 @@ class FingerprintDialog extends StatelessWidget {
           TextButton(
             onPressed: () => Get.back<String>(result: 'pin'),
             child: Text(
-              'Verifikasi Menggunakan PIN',
+              'Verify Using Pin'.tr,
               style: Get.textTheme.titleSmall!
                   .copyWith(color: Theme.of(context).primaryColor),
             ),

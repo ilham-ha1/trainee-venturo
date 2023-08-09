@@ -27,7 +27,7 @@ class ReviewView extends StatelessWidget {
             },
           ),
           title: Text(
-            'Penilaian'.tr,
+            'Review'.tr,
             style: GoogleFonts.montserrat(
               fontWeight: FontWeight.bold,
               fontSize: 20.sp,
@@ -76,7 +76,7 @@ class ReviewView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Berikan Penilaianmu!',
+                                'Give Review!'.tr,
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.sp,
@@ -132,19 +132,19 @@ class ReviewView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Apa yang bisa ditingkatkan?',
+                                  'What can be improved?'.tr,
                                   style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.sp,
                                   ),
                                 ),
                                 SizedBox(height: 4.h),
-                                ReviewChip(),
+                                const ReviewChip(),
                                 SizedBox(height: 4.h),
                                 const Divider(),
                                 SizedBox(height: 4.h),
                                 Text(
-                                  'Tulis Review',
+                                  'Write Review'.tr,
                                   style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.sp,
@@ -163,7 +163,7 @@ class ReviewView extends StatelessWidget {
                                   ),
                                   decoration: InputDecoration(
                                     hintText:
-                                        'Tulis review disini...', // Add your hint text here
+                                        'Write a review here...'.tr, // Add your hint text here
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
@@ -183,7 +183,7 @@ class ReviewView extends StatelessWidget {
                                           ),
                                         ),
                                         child: Text(
-                                          "Kirim Penilaian",
+                                          "Send Review".tr,
                                           style: GoogleFonts.montserrat(
                                               fontSize: 16.sp,
                                               color: MainColor.white,

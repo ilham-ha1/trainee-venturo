@@ -65,7 +65,7 @@ class _PinDialogState extends State<PinDialog> {
         children: [
           // title
           Text(
-            'Verifikasi Pesanan',
+            'Verify Order'.tr,
             style: Get.textTheme.labelLarge!.copyWith(
               color: Colors.black,
               fontSize: 25.sp,
@@ -74,7 +74,7 @@ class _PinDialogState extends State<PinDialog> {
 
           // subtitle
           Text(
-            'Masukkan kode PIN',
+            'Enter PIN Code'.tr,
             style: Get.textTheme.bodySmall!.copyWith(color: Colors.black),
           ),
           24.verticalSpacingRadius,
