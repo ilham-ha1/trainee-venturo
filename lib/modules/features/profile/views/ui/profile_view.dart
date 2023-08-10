@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/constants/commons/asset_const.dart';
 import '../components/tile_option.dart';
@@ -277,7 +278,7 @@ class ProfileView extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    
+                    // Get.toNamed(MainRoute.listReview); not implemented yet
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -296,7 +297,7 @@ class ProfileView extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Get.toNamed(MainRoute.review);
+                          Get.toNamed(MainRoute.review);
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: MainColor.primary,
