@@ -9,6 +9,7 @@ import 'package:trainee/constants/commons/asset_const.dart';
 import '../components/tile_option.dart';
 import 'package:trainee/modules/features/profile/controllers/profile_controller.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -162,8 +163,9 @@ class ProfileView extends StatelessWidget {
                     padding: EdgeInsets.only(left: 20.w),
                     child: Text(
                       'Account info'.tr,
-                      style: Get.textTheme.titleMedium!
-                          .copyWith(color: Theme.of(context).primaryColor),
+                      style: GoogleTextStyle.fw600.copyWith(
+                        color: MainColor.primary, fontSize: 16.sp
+                      ),
                     ),
                   ),
                   14.verticalSpacingRadius,
@@ -184,6 +186,12 @@ class ProfileView extends StatelessWidget {
                               onTap: () {
                                 ProfileController.to.updateProfileName();
                               },
+                              titleStyle: GoogleTextStyle.fw600.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              ),
+                              messageStyle: GoogleTextStyle.fw400.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              )
                             )),
                         Divider(color: Colors.black45, height: 0.5.h),
                         Obx(() => TileOption(
@@ -193,6 +201,12 @@ class ProfileView extends StatelessWidget {
                               onTap: () {
                                 ProfileController.to.updateBirthDate();
                               },
+                               titleStyle: GoogleTextStyle.fw600.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              ),
+                              messageStyle: GoogleTextStyle.fw400.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              )
                             )),
                         Divider(color: Colors.black45, height: 0.5.h),
                         Obx( () =>
@@ -203,6 +217,12 @@ class ProfileView extends StatelessWidget {
                             onTap: () {
                                ProfileController.to.updateProfileNumberPhone();
                             },
+                            titleStyle: GoogleTextStyle.fw600.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                            ),
+                            messageStyle: GoogleTextStyle.fw400.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              )
                           ),
                         ),
                         Divider(color: Colors.black45, height: 0.5.h),
@@ -214,6 +234,12 @@ class ProfileView extends StatelessWidget {
                             onTap: () {
                               ProfileController.to.updateProfileEmail();
                             },
+                             titleStyle: GoogleTextStyle.fw600.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              ),
+                              messageStyle: GoogleTextStyle.fw400.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              )
                           ),
                         ),
                         Divider(color: Colors.black45, height: 0.5.h),
@@ -225,6 +251,12 @@ class ProfileView extends StatelessWidget {
                             onTap: () {
                               ProfileController.to.updateProfilePin();
                             },
+                             titleStyle: GoogleTextStyle.fw600.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              ),
+                              messageStyle: GoogleTextStyle.fw400.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              )
                           ),
                         ),
                         Divider(color: Colors.black45, height: 0.5.h),
@@ -233,6 +265,12 @@ class ProfileView extends StatelessWidget {
                             title: 'Change language'.tr,
                             message: ProfileController.to.currentLang.value,
                             onTap: ProfileController.to.updateLanguage,
+                             titleStyle: GoogleTextStyle.fw600.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              ),
+                               messageStyle: GoogleTextStyle.fw400.copyWith(
+                                color: MainColor.black, fontSize: 14.sp
+                              )
                           ),
                         ),
                       ],
