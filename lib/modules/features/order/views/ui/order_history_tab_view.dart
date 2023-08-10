@@ -118,7 +118,7 @@ class OrderHistoryTabView extends StatelessWidget {
                                             level: null,
                                             catatan: menuItem.catatan == ""
                                                 ? ""
-                                                : menuItem.catatan,
+                                                :  menuItem.catatan?.replaceAll(RegExp('^\\"*|\\"*\$'), ''), 
                                             deskripsi: null, //required
                                             foto: menuItem.foto, //req
                                             topping: toppingList,
