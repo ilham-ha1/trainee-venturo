@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,10 +17,11 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:trainee/utils/services/firebase_messaging_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  FirebaseMessagingService().initialize();
   /// Localstorage init
   await Hive.initFlutter();
   Hive.registerAdapter(CartAdapter());
@@ -29,6 +33,22 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await FirebaseMessagingService.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  log((await FirebaseMessagingService.instance.getToken()).toString());
+  await FirebaseMessaging.instance.subscribeToTopic('order');
+
+  await FirebaseMessagingService().initialize();
+  FirebaseMessaging.onBackgroundMessage(
+      FirebaseMessagingService.handleBackgroundNotif);
   /// Sentry init
   await SentryFlutter.init(
     (options) {
