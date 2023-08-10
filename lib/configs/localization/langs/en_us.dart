@@ -125,5 +125,7 @@ const Map<String, String> translationsEnUs = {
   'Rate Now':'Rate Now',
   'Other info':'Other info',
   'Device Info':'Device Info',
-  'Device Version':'Device Version'
+  'Device Version':'Device Version',
+  'Log Out':'Log Out',
+  'Are you sure to logout ?':'Are you sure to logout ?',
 };

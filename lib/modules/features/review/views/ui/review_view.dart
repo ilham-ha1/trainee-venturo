@@ -139,7 +139,7 @@ class ReviewView extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 4.h),
-                                ReviewChip(),
+                                const ReviewChip(),
                                 SizedBox(height: 4.h),
                                 const Divider(),
                                 SizedBox(height: 4.h),

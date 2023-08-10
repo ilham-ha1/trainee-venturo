@@ -345,6 +345,89 @@ class ProfileView extends StatelessWidget {
                 ],
               ),
             ),
+
+            26.verticalSpacingRadius,
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.dialog(
+                    AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      backgroundColor: Colors.white,
+                      titlePadding: EdgeInsets.zero,
+                      title: Container(), // Empty container to hide the title
+                      content: Row(
+                        children: [
+                          const Icon(
+                            Icons.warning_amber_outlined,
+                            color: MainColor.primary,
+                            size: 48,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              'Are you sure to logout ?'.tr,
+                              style: GoogleFonts.montserrat(
+                                  color: MainColor.black, fontSize: 17.sp),
+                            ),
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        ButtonBar(
+                          alignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              style: TextButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                side: const BorderSide(
+                                    color: MainColor.primary, width: 1.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                minimumSize: const Size(120, 40),
+                              ),
+                              child: Text(
+                                'Cancel'.tr,
+                                style: GoogleFonts.montserrat(
+                                    color: MainColor.primary),
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                Get.back();
+                                await ProfileController.to.logout();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: MainColor.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                minimumSize: const Size(120, 40),
+                              ),
+                              child: Text('Sure'.tr),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: MainColor.primary,
+                    elevation: 3,
+                    minimumSize: Size(200.w, 36.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    )),
+                child: Text("Log Out".tr),
+              ),
+            )
           ],
         ),
       ),

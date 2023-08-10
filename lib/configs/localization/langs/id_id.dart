@@ -129,5 +129,8 @@ const Map<String, String> translationsIdId = {
   'Rate Now':'Nilai Sekarang',
   'Other info':'Informasi Lain',
   'Device Info':'Informasi Perangkat',
-  'Device Version':'Versi Perangkat'
+  'Device Version':'Versi Perangkat',
+  'Log Out': 'keluar',
+  'Are you sure to logout ?':'Apakah yakin ingin keluar?',
+  
 };

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:trainee/configs/localization/localization.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/profile/repositories/profile_repository.dart';
 import 'package:trainee/modules/features/profile/views/components/email_bottom_sheet.dart';
@@ -15,10 +16,12 @@ import 'package:trainee/modules/features/profile/views/components/language_botto
 import 'package:trainee/modules/features/profile/views/components/name_bottom_sheet.dart';
 import 'package:trainee/modules/features/profile/views/components/pin_bottom_sheet.dart';
 import 'package:trainee/modules/features/profile/views/components/telephone_bottom_sheet.dart';
+import 'package:trainee/modules/global_models/logout_response.dart';
 import 'package:trainee/modules/global_models/user_detail_profile.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
 import 'package:trainee/utils/services/http_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:trainee/utils/services/local_storage_service.dart';
 
 class ProfileController extends GetxController {
   static ProfileController get to => Get.find();
@@ -221,7 +224,7 @@ class ProfileController extends GetxController {
     }
   }
 
-   Future<void> updateProfileNumberPhone() async {
+  Future<void> updateProfileNumberPhone() async {
     String? phoneInput = await Get.bottomSheet(
       TelephoneBottomSheet(phoneNumber: userDetailData.value.telepon ?? '-'),
       backgroundColor: Colors.white,
@@ -265,7 +268,7 @@ class ProfileController extends GetxController {
       await postEmailProfile(emailInput);
     }
   }
-  
+
   Future<void> postEmailProfile(String email) async {
     final postProfileResponse =
         await HttpService.dioService.postEmailProfile(email);
@@ -302,6 +305,14 @@ class ProfileController extends GetxController {
       Get.snackbar("Update Profile".tr, "Success change profile".tr);
     } else {
       Get.snackbar("Update Profile".tr, "Failed change profile".tr);
+    }
+  }
+
+  Future<void> logout() async {
+    final logoutResponse = await HttpService.dioService.logout();
+    if (logoutResponse?.statusCode == 200) {
+      LocalStorageService.deleteAuth();
+      Get.offAllNamed(MainRoute.signIn);
     }
   }
 }

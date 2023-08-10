@@ -461,8 +461,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<UserUpdatedProfileResponse?> postNameProfile(
-      String name) async {
+  Future<UserUpdatedProfileResponse?> postNameProfile(String name) async {
     final idUser = LocalStorageService.getId();
     final url = '$baseUrl/user/update/$idUser';
     final authToken = LocalStorageService.getToken();
@@ -498,9 +497,7 @@ class HttpService extends GetxService {
     try {
       final response = await dioCall().post(
         url,
-        data: {
-          "tgl_lahir": DateFormat('dd/MM/yyyy').format(birthday)
-        },
+        data: {"tgl_lahir": DateFormat('dd/MM/yyyy').format(birthday)},
         options: Options(
           headers: {
             'token': '$authToken',
@@ -526,9 +523,7 @@ class HttpService extends GetxService {
     try {
       final response = await dioCall().post(
         url,
-        data: {
-          "telepon": numberPhone
-        },
+        data: {"telepon": numberPhone},
         options: Options(
           headers: {
             'token': '$authToken',
@@ -545,8 +540,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<UserUpdatedProfileResponse?> postEmailProfile(
-      String email) async {
+  Future<UserUpdatedProfileResponse?> postEmailProfile(String email) async {
     final idUser = LocalStorageService.getId();
     final url = '$baseUrl/user/update/$idUser';
     final authToken = LocalStorageService.getToken();
@@ -573,8 +567,7 @@ class HttpService extends GetxService {
     }
   }
 
-  Future<UserUpdatedProfileResponse?> postPinProfile(
-      String pin) async {
+  Future<UserUpdatedProfileResponse?> postPinProfile(String pin) async {
     final idUser = LocalStorageService.getId();
     final url = '$baseUrl/user/update/$idUser';
     final authToken = LocalStorageService.getToken();
@@ -602,8 +595,7 @@ class HttpService extends GetxService {
   }
 
   //post data ktp profile
-  Future<UserUpdatedKtpResponse?> postKtp(
-      String base64ImageData) async {
+  Future<UserUpdatedKtpResponse?> postKtp(String base64ImageData) async {
     final idUser = LocalStorageService.getId();
     final url = '$baseUrl/user/ktp/$idUser';
     final authToken = LocalStorageService.getToken();
@@ -632,10 +624,15 @@ class HttpService extends GetxService {
 
   Future<LogoutResponse?> logout() async {
     const url = '$baseUrl/auth/logout';
-    
+    final authToken = LocalStorageService.getToken();
     try {
       final response = await dioCall().get(
         url,
+        options: Options(
+          headers: {
+            'token': '$authToken',
+          },
+        ),
       );
 
       return LogoutResponse.fromJson(response.data);
@@ -647,5 +644,4 @@ class HttpService extends GetxService {
       return null;
     }
   }
-
 }
