@@ -22,7 +22,6 @@ import 'package:trainee/modules/global_models/user_updated_profile_response.dart
 import 'package:trainee/modules/global_models/user_voucher_response.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
 import 'package:trainee/modules/global_models/detail_promo_response.dart';
-import 'package:trainee/modules/global_models/user_edit_body.dart';
 import 'package:trainee/modules/global_models/logout_response.dart';
 import 'package:intl/intl.dart';
 
@@ -422,7 +421,6 @@ class HttpService extends GetxService {
         },
         options: Options(
           headers: {
-            'id_order': idUser,
             'token': '$authToken',
           },
         ),
@@ -448,7 +446,7 @@ class HttpService extends GetxService {
         url,
         options: Options(
           headers: {
-            'id_order': idUser,
+            'id_user': idUser,
             'token': '$authToken',
           },
         ),
@@ -462,22 +460,6 @@ class HttpService extends GetxService {
       return null;
     }
   }
-
-// class UserProfile {
-//   String? nama;
-//   DateTime? tanggalLahir;
-//   String? nomorTelepon;
-//   String? email;
-//   String? pin;
-
-//   UserProfile({
-//     this.nama,
-//     this.tanggalLahir,
-//     this.nomorTelepon,
-//     this.email,
-//     this.pin,
-//   });
-// }
 
   Future<UserUpdatedProfileResponse?> postNameProfile(
       String name) async {
@@ -493,7 +475,6 @@ class HttpService extends GetxService {
         },
         options: Options(
           headers: {
-            'id_order': idUser,
             'token': '$authToken',
           },
         ),
@@ -518,11 +499,10 @@ class HttpService extends GetxService {
       final response = await dioCall().post(
         url,
         data: {
-          "tanggal_lahir": DateFormat('dd/MM/yyyy').format(birthday)
+          "tgl_lahir": DateFormat('dd/MM/yyyy').format(birthday)
         },
         options: Options(
           headers: {
-            'id_order': idUser,
             'token': '$authToken',
           },
         ),
@@ -547,11 +527,10 @@ class HttpService extends GetxService {
       final response = await dioCall().post(
         url,
         data: {
-          "nomor_telepon": numberPhone
+          "telepon": numberPhone
         },
         options: Options(
           headers: {
-            'id_order': idUser,
             'token': '$authToken',
           },
         ),
@@ -580,7 +559,6 @@ class HttpService extends GetxService {
         },
         options: Options(
           headers: {
-            'id_order': idUser,
             'token': '$authToken',
           },
         ),
@@ -609,7 +587,6 @@ class HttpService extends GetxService {
         },
         options: Options(
           headers: {
-            'id_order': idUser,
             'token': '$authToken',
           },
         ),
@@ -639,7 +616,6 @@ class HttpService extends GetxService {
         },
         options: Options(
           headers: {
-            'id_order': idUser,
             'token': '$authToken',
           },
         ),

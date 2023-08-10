@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:trainee/configs/localization/localization.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/profile/repositories/profile_repository.dart';
@@ -17,10 +16,8 @@ import 'package:trainee/modules/features/profile/views/components/name_bottom_sh
 import 'package:trainee/modules/features/profile/views/components/pin_bottom_sheet.dart';
 import 'package:trainee/modules/features/profile/views/components/telephone_bottom_sheet.dart';
 import 'package:trainee/modules/global_models/user_detail_profile.dart';
-import 'package:trainee/modules/global_models/user_edit_body.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
 import 'package:trainee/utils/services/http_service.dart';
-import 'package:trainee/modules/global_models/user_update_photo_profile.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 class ProfileController extends GetxController {

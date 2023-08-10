@@ -11,7 +11,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 68.h,
+      height: 70.h,
       padding: EdgeInsets.symmetric(horizontal: 55.w),
       decoration: BoxDecoration(
         color: MainColor.black,
@@ -32,6 +32,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -45,7 +46,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
                       color: NavigationController.to.tabIndex.value == 0  
                           ? Colors.white
                           : const Color.fromARGB(105, 255, 255, 255),
-                      size: 34,
+                      size: 30,
                     )),
               ),
               Text(
@@ -58,6 +59,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           Column(
+             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -68,7 +70,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
                 },
                 icon: Obx(() => Icon(
                       Icons.food_bank_rounded,
-                      size: 34,
+                      size: 30,
                       color: NavigationController.to.tabIndex.value == 1
                           ? MainColor.white
                           : const Color.fromARGB(105, 255, 255, 255),
@@ -84,6 +86,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -93,7 +96,7 @@ class BottomNavigation extends StatelessWidget implements PreferredSizeWidget {
                 },
                 icon: Obx(() => Icon(
                       Icons.account_circle_outlined,
-                      size: 34,
+                      size: 30,
                       color: NavigationController.to.tabIndex.value == 2
                           ? MainColor.white
                           : const Color.fromARGB(105, 255, 255, 255),
