@@ -124,5 +124,10 @@ const Map<String, String> translationsIdId = {
   'Name is required': 'Nama diperlukan',
   'Email is required': 'Email harus diisi',
   'Phone Number is required': 'Nomor telephone harus diisi',
-  'Pin is required': 'Pin harus diisi'
+  'Pin is required': 'Pin harus diisi',
+    'Rating':'Penilaian',
+  'Rate Now':'Nilai Sekarang',
+  'Other info':'Informasi Lain',
+  'Device Info':'Informasi Perangkat',
+  'Device Version':'Versi Perangkat'
 };

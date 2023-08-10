@@ -121,4 +121,9 @@ const Map<String, String> translationsEnUs = {
   'Email is required': 'Email is required',
   'Phone Number is required': 'Phone Number is required',
   'Pin is required': 'Pin is required',
+  'Rating':'Rating',
+  'Rate Now':'Rate Now',
+  'Other info':'Other info',
+  'Device Info':'Device Info',
+  'Device Version':'Device Version'
 };
