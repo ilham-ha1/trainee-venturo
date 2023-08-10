@@ -129,4 +129,7 @@ const Map<String, String> translationsEnUs = {
   'Log Out':'Log Out',
   'Are you sure to logout ?':'Are you sure to logout ?',
   'Success to add review':'Success to add review',
+  'Privacy & Policy':'Privacy & Policy',
+  'Privacy Policy':'Privacy Policy',
+  'Here':'Here'
 };

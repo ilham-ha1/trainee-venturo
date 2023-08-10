@@ -21,6 +21,7 @@ import 'package:trainee/shared/widgets/image_picker_dialog.dart';
 import 'package:trainee/utils/services/http_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class ProfileController extends GetxController {
   static ProfileController get to => Get.find();
@@ -310,8 +311,53 @@ class ProfileController extends GetxController {
   Future<void> logout() async {
     final logoutResponse = await HttpService.dioService.logout();
     if (logoutResponse?.statusCode == 200) {
+      deleteCookie();
       LocalStorageService.deleteAuth();
       Get.offAllNamed(MainRoute.signIn);
     }
+  }
+
+  void privacyPolicyWebView() {
+    Get.toNamed(MainRoute.privacyPolicy);
+  }
+
+  void setCookie() async {
+    // mendapatkan instance cookie manager
+    final cookieManager = CookieManager.instance();
+    // waktu berlaku (session) untuk cookie
+    final expiresDate =
+        DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch;
+    // url sumber cookie yang akan disimpan
+    final url = Uri.parse("https://venturo.id");
+
+    // menyimpan cookie
+    await cookieManager.setCookie(
+      url: url,
+      name: "traineeCookie",
+      value: "trainee",
+      expiresDate: expiresDate,
+      isSecure: true,
+    );
+  }
+
+  Future<Cookie?> getCookie() async {
+    // mendapatkan instance cookie manager
+    final cookieManager = CookieManager.instance();
+    // url sumber cookie yang akan disimpan
+    final url = Uri.parse("https://venturo.id");
+    // mendapatkan cookie
+    Cookie? cookie =
+        await cookieManager.getCookie(url: url, name: "traineeCookie");
+
+    return cookie;
+  }
+
+  void deleteCookie() async {
+    // mendapatkan instance cookie manager
+    final cookieManager = CookieManager.instance();
+    // url sumber cookie yang akan dihapus
+    final url = Uri.parse("https://venturo.id");
+    // menghapus cookie
+    await cookieManager.deleteCookie(url: url, name: "traineeCookie");
   }
 }

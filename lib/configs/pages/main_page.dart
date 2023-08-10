@@ -11,6 +11,7 @@ import 'package:trainee/modules/features/checkout/views/ui/voucher/voucher_view.
 import 'package:trainee/modules/features/order/views/ui/detail_order_view.dart';
 import 'package:trainee/modules/features/order/views/ui/order_view.dart';
 import 'package:trainee/modules/features/profile/binddings/profile_binding.dart';
+import 'package:trainee/modules/features/profile/views/components/privacy_policy_view.dart';
 import 'package:trainee/modules/features/profile/views/ui/profile_view.dart';
 import 'package:trainee/modules/features/promo/binddings/promo_binding.dart';
 import 'package:trainee/modules/features/promo/views/ui/promo_view.dart';
@@ -114,5 +115,9 @@ abstract class MainPage {
       page: () => const ProfileView(),
       binding: ProfileBinding()
     ),
+    GetPage(
+     name: MainRoute.privacyPolicy,
+     page: () => const PrivacyPolicyView(),
+   )
   ];
 }

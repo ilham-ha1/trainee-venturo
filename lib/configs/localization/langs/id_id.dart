@@ -132,5 +132,8 @@ const Map<String, String> translationsIdId = {
   'Device Version':'Versi Perangkat',
   'Log Out': 'Keluar',
   'Are you sure to logout ?':'Apakah yakin ingin keluar?',
-  'Success to add review':'Berhasil menambahkan review'
+  'Success to add review':'Berhasil menambahkan review',
+  'Privacy & Policy':'Privasi & Kebijakan',
+  'Privacy Policy':'Privasi dan Kebijakan',
+  'Here':'Disini'
 };

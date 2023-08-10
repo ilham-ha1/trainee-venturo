@@ -17,4 +17,6 @@ abstract class MainRoute {
   static const String dashboard = '/dashboard';
   static const String review = '/review';
   static const String profile = '/profile';
+  static const String privacyPolicy = '/privacy_policy';
+  
 }
