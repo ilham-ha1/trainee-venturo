@@ -16,7 +16,6 @@ import 'package:trainee/modules/features/profile/views/components/language_botto
 import 'package:trainee/modules/features/profile/views/components/name_bottom_sheet.dart';
 import 'package:trainee/modules/features/profile/views/components/pin_bottom_sheet.dart';
 import 'package:trainee/modules/features/profile/views/components/telephone_bottom_sheet.dart';
-import 'package:trainee/modules/global_models/logout_response.dart';
 import 'package:trainee/modules/global_models/user_detail_profile.dart';
 import 'package:trainee/shared/widgets/image_picker_dialog.dart';
 import 'package:trainee/utils/services/http_service.dart';

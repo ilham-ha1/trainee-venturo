@@ -10,6 +10,8 @@ import 'package:trainee/modules/global_models/menu_response.dart';
 import 'package:trainee/modules/global_models/order_body.dart';
 import 'package:trainee/modules/global_models/order_response.dart';
 import 'package:trainee/modules/global_models/promo_response.dart';
+import 'package:trainee/modules/global_models/user_add_review_body.dart';
+import 'package:trainee/modules/global_models/user_all_review_response.dart';
 import 'package:trainee/modules/global_models/user_detail_profile.dart';
 import 'package:trainee/modules/global_models/user_discount_response.dart';
 import 'package:trainee/modules/global_models/user_order_cancel_response.dart';
@@ -644,4 +646,55 @@ class HttpService extends GetxService {
       return null;
     }
   }
+
+  Future<UserAllReviewResponse?> addReview(UserAddReviewBody addReview) async {
+    const url = '$baseUrl/review/add';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().post(
+        url,
+        data: addReview,
+        options: Options(
+          headers: {
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserAllReviewResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+
+  Future<UserAllReviewResponse?> getUserAllReview() async {
+    final idUser = LocalStorageService.getId();
+    final url = '$baseUrl/review/$idUser';
+    final authToken = LocalStorageService.getToken();
+
+    try {
+      final response = await dioCall().get(
+        url,
+        options: Options(
+          headers: {
+            'token': '$authToken',
+          },
+        ),
+      );
+      return UserAllReviewResponse.fromJson(response.data);
+    } catch (exception, stackTrace) {
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+      return null;
+    }
+  }
+  
+
+
 }

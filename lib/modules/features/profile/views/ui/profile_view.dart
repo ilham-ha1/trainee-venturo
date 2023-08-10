@@ -277,7 +277,9 @@ class ProfileView extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -295,7 +297,7 @@ class ProfileView extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Get.toNamed(MainRoute.review);
+                          // Get.toNamed(MainRoute.review);
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: MainColor.primary,
