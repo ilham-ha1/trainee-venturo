@@ -138,5 +138,10 @@ const Map<String, String> translationsEnUs = {
   'Success':'Success',
   'OTP is Valid':'OTP is Valid',
   'Enter OTP sended on your email ': 'Enter OTP sended on your email ',
-  'Forget Password?':'Forget Password?'
+  'Forget Password?':'Forget Password?',
+  'Perfect':'Perfect',
+  'Almost Perfect':'Almost Perfect',
+  'Good':'Good',
+  'Bad':'Bad',
+  'Worse':'Worse',
 };

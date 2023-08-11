@@ -54,15 +54,15 @@ class ReviewController extends GetxController {
 
   void updateTextRating(double rating) {
     if (rating >= 4.5) {
-      textRating?.value = 'Sempurna';
+      textRating?.value = 'Perfect'.tr;
     } else if (rating >= 3.5) {
-      textRating?.value = 'Bagus';
+      textRating?.value = 'Almost Perfect'.tr;
     } else if (rating >= 2.5) {
-      textRating?.value = 'Cukup';
+      textRating?.value = 'Good'.tr;
     } else if (rating >= 1.5) {
-      textRating?.value = 'Buruk';
+      textRating?.value = 'Bad'.tr;
     } else {
-      textRating?.value = 'Jelek';
+      textRating?.value = 'Worse'.tr;
     }
   }
 

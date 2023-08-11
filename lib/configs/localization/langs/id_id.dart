@@ -142,6 +142,10 @@ const Map<String, String> translationsIdId = {
   'Success':'Sukses',
   'OTP is Valid':'Kode OTP Valid',
   'Enter OTP sended on your email ': 'Masukkan kode otp yang telah dikirimkan ke email ',
-  'Forget Password?':'Lupa Password?'
-
+  'Forget Password?':'Lupa Password?',
+  'Perfect':'Sempurna',
+  'Almost Perfect':'Hampir Sempurna',
+  'Good':'Bagus',
+  'Bad':'Buruk',
+  'Worse':'Sangat Buruk',
 };
