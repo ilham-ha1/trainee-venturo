@@ -41,7 +41,7 @@ class Review {
     int? idReview;
     int? idUser;
     String? nama;
-    int? score;
+    double? score;
     String? type;
     String? review;
     String? image;
@@ -62,7 +62,7 @@ class Review {
         int? idReview,
         int? idUser,
         String? nama,
-        int? score,
+        double? score,
         String? type,
         String? review,
         String? image,

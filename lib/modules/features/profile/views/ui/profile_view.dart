@@ -279,7 +279,7 @@ class ProfileView extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    // Get.toNamed(MainRoute.listReview); not implemented yet
+                    Get.toNamed(MainRoute.listReview);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

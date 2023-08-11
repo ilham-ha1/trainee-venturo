@@ -25,7 +25,9 @@ import 'package:trainee/modules/features/list/binddings/list_binding.dart';
 import 'package:trainee/modules/features/list/views/ui/list_item_view.dart';
 import 'package:trainee/modules/features/menu/binddings/menu_binding.dart';
 import 'package:trainee/modules/features/no_connection/view/ui/no_connection_view.dart';
+import 'package:trainee/modules/features/review/binddings/list_review_binding.dart';
 import 'package:trainee/modules/features/review/binddings/review_binding.dart';
+import 'package:trainee/modules/features/review/views/ui/list_review_view.dart';
 import 'package:trainee/modules/features/review/views/ui/review_view.dart';
 import 'package:trainee/modules/features/splash/binddings/splash_binding.dart';
 import 'package:trainee/modules/features/splash/views/ui/splash_view.dart';
@@ -132,6 +134,11 @@ abstract class MainPage {
       name: MainRoute.otpInput,
       page: () => const OtpView(),
       binding: OtpBinding(),
+    ),
+     GetPage(
+      name: MainRoute.listReview,
+      page: () => const ListReviewView(),
+      binding: ListReviewBinding(),
     ),
   ];
 }

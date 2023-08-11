@@ -20,5 +20,5 @@ abstract class MainRoute {
   static const String privacyPolicy = '/privacy_policy';
   static const String forgotPassword = "/forgot-password";
   static const String otpInput = "/otp-input";
-  
+  static const String listReview = "/list-review";
 }
