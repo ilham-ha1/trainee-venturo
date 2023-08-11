@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class FingerprintDialog extends StatelessWidget {
   const FingerprintDialog({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class FingerprintDialog extends StatelessWidget {
             style: Get.textTheme.bodySmall!.copyWith(color: Colors.black),
           ),
           30.verticalSpacingRadius,
-          
+
           // fingerprint icon
           GestureDetector(
             child: Icon(Icons.fingerprint,
@@ -33,42 +34,43 @@ class FingerprintDialog extends StatelessWidget {
           ),
           30.verticalSpacingRadius,
           Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      height: 1,
-                      thickness: 1,
-                      color: Color.fromARGB(145, 51, 51, 51),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: Text(
-                      'or'.tr,
-                      style: TextStyle(
-                        color: const Color.fromARGB(145, 51, 51, 51),
-                        fontSize: 14.sp,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      height: 1,
-                      thickness: 1,
-                      color: Color.fromARGB(145, 51, 51, 51),
-                    ),
-                  ),
-                ],
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Expanded(
+                child: Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: Color.fromARGB(145, 51, 51, 51),
+                ),
               ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Text(
+                  'or'.tr,
+                  style: GoogleTextStyle.fw400.copyWith(
+                    color: const Color.fromARGB(145, 51, 51, 51),
+                    fontSize: 14.sp,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const Expanded(
+                child: Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: Color.fromARGB(145, 51, 51, 51),
+                ),
+              ),
+            ],
+          ),
           // verify using pin code
           TextButton(
             onPressed: () => Get.back<String>(result: 'pin'),
             child: Text(
               'Verify Using Pin'.tr,
-              style: Get.textTheme.titleSmall!
-                  .copyWith(color: Theme.of(context).primaryColor),
+              style: GoogleTextStyle.fw400.copyWith(
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class PromoAppBar extends StatelessWidget implements PreferredSizeWidget {
   const PromoAppBar({super.key});
@@ -46,7 +47,7 @@ class PromoAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 Text(
                   "Promo",
-                  style: TextStyle(fontSize: 20.sp, color: Colors.black),
+                  style: GoogleTextStyle.fw400.copyWith(fontSize: 20.sp, color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
               ],

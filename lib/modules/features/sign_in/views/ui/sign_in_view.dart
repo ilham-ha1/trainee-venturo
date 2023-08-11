@@ -85,7 +85,7 @@ class SignInView extends StatelessWidget {
                     Get.toNamed(MainRoute.forgotPassword);
                   },
                   child: Text(
-                    "Lupa Password?",
+                    "Forget Password?".tr,
                     style: GoogleTextStyle.fw600.copyWith(
                       fontSize: 14.sp,
                       color: MainColor.black,
@@ -124,7 +124,7 @@ class SignInView extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: Text(
                       'or'.tr,
-                      style: TextStyle(
+                      style: GoogleTextStyle.fw400.copyWith(
                         color: const Color.fromARGB(145, 51, 51, 51),
                         fontSize: 14.sp,
                       ),
@@ -158,10 +158,10 @@ class SignInView extends StatelessWidget {
                           text: TextSpan(
                             style: DefaultTextStyle.of(context).style,
                             children: [
-                              TextSpan(text: 'Login Using '.tr),
-                              const TextSpan(
+                              TextSpan(text: 'Login Using '.tr, style: GoogleTextStyle.fw400.copyWith(),),
+                               TextSpan(
                                 text: 'Google',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleTextStyle.fw800.copyWith(),
                               ),
                             ],
                           ),
@@ -190,14 +190,14 @@ class SignInView extends StatelessWidget {
                         const SizedBox(width: 30),
                         RichText(
                           text: TextSpan(
-                            style: const TextStyle(
+                            style:  GoogleTextStyle.fw400.copyWith(
                               color: Colors.white,
                             ),
                             children: [
-                              TextSpan(text: 'Login Using '.tr),
-                              const TextSpan(
+                              TextSpan(text: 'Login Using '.tr,style: GoogleTextStyle.fw400.copyWith(),),
+                              TextSpan(
                                 text: 'Apple',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: GoogleTextStyle.fw800.copyWith(),
                               ),
                             ],
                           ),

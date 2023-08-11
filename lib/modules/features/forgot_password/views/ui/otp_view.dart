@@ -61,15 +61,29 @@ class OtpView extends StatelessWidget {
             ),
             SizedBox(height: 121.h),
             Obx(
-              () => Text(
-                'Masukkan kode otp yang telah dikirimkan ke email ${OtpController.to.email.value}',
-                style: GoogleTextStyle.fw600.copyWith(
-                  fontSize: 22.sp,
-                  color: MainColor.black,
-                ),
+              () => RichText(
                 textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: GoogleTextStyle.fw600.copyWith(
+                    fontSize: 22.sp,
+                    color: MainColor.black,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Enter OTP sended on your email '.tr,
+                    ),
+                    TextSpan(
+                      text: OtpController.to.email.value,
+                      style: GoogleTextStyle.fw400.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue, // Cus
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+
             SizedBox(height: 40.h),
             // pin input
             Pinput(
@@ -79,7 +93,7 @@ class OtpView extends StatelessWidget {
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value != "123456") {
-                  return "Kode OTP salah";
+                  return "Invalid OTP".tr;
                 }
                 return null;
               },

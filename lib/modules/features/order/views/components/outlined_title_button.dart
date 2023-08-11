@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class OutlinedTitleButton extends StatelessWidget {
   final String text;
@@ -50,7 +51,7 @@ class OutlinedTitleButton extends StatelessWidget {
         ),
       ),
       child:
-          Text(text, style: TextStyle(color: Theme.of(context).primaryColor)),
+          Text(text, style: GoogleTextStyle.fw400.copyWith(color: Theme.of(context).primaryColor)),
     );
   }
 }

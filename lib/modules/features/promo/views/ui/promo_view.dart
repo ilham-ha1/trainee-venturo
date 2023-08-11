@@ -5,6 +5,7 @@ import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/promo/controllers/promo_controller.dart';
 import 'package:trainee/modules/features/promo/views/components/promo_app_bar.dart';
 import 'package:trainee/modules/features/promo/views/components/promo_card.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 
 class PromoView extends StatelessWidget {
@@ -54,13 +55,13 @@ class PromoView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Promo Name".tr,
-                            style: TextStyle(
+                            style: GoogleTextStyle.fw800.copyWith(
                                  fontWeight: FontWeight.bold, fontSize: 16.sp, color: MainColor.black)),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                               detailPromo.nama ?? '',
-                              style: TextStyle(
+                              style: GoogleTextStyle.fw800.copyWith(
                                    fontWeight: FontWeight.bold,fontSize: 20.sp, color: MainColor.primary)),
                         ),
                         const Divider(
@@ -87,13 +88,13 @@ class PromoView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text("Terms and Conditions".tr,
-                                    style: TextStyle(
+                                    style: GoogleTextStyle.fw800.copyWith(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
                                         color: MainColor.black)),
                                 Text(
                                   detailPromo.syaratKetentuan?.replaceAll('<p>', '').replaceAll('</p>', '') ?? '',
-                                  style: TextStyle(fontSize: 16.sp, color: MainColor.black)
+                                  style: GoogleTextStyle.fw400.copyWith(fontSize: 16.sp, color: MainColor.black)
                                 )
                               ],
                             ))

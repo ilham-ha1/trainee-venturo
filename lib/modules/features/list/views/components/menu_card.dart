@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/shared/customs/text_form_field_custom.dart';
+import 'package:trainee/shared/styles/google_text_style.dart';
 
 class MenuCard extends StatelessWidget {
   final dynamic menu;
@@ -78,16 +79,13 @@ class MenuCard extends StatelessWidget {
                 children: [
                   Text(
                      menu.nama ?? '',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                    style: GoogleTextStyle.fw800.copyWith(fontSize: 18.sp),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   Text(
                     "Rp. ${NumberFormat('#,##0', 'id_ID').format(menu.harga)}",
-                    style: Get.textTheme.bodyMedium!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold),
+                    style: GoogleTextStyle.fw800.copyWith(fontSize: 18.sp, color:Theme.of(context).primaryColor ),
                   ),
                   InkWell(
                     onTap: () => Get.bottomSheet(
@@ -117,7 +115,8 @@ class MenuCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Create Note".tr,
-                                style: TextStyle(
+                                style:  
+                                GoogleTextStyle.fw800.copyWith(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
                                     color: MainColor.black)),
@@ -167,7 +166,7 @@ class MenuCard extends StatelessWidget {
                                   : "Add Note".tr,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
-                              style: const TextStyle(
+                              style:  GoogleTextStyle.fw400.copyWith(
                                 fontSize: 12,
                                 color: Colors.grey,
                               ),

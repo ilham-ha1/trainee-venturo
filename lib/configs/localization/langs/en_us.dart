@@ -131,5 +131,12 @@ const Map<String, String> translationsEnUs = {
   'Success to add review':'Success to add review',
   'Privacy & Policy':'Privacy & Policy',
   'Privacy Policy':'Privacy Policy',
-  'Here':'Here'
+  'Here':'Here',
+  'Add email address to change password':'Add email address to change password',
+  'Change Password':'Change Password',
+  'Invalid OTP':'Invalid OTP',
+  'Success':'Success',
+  'OTP is Valid':'OTP is Valid',
+  'Enter OTP sended on your email ': 'Enter OTP sended on your email ',
+  'Forget Password?':'Forget Password?'
 };

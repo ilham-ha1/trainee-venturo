@@ -135,5 +135,13 @@ const Map<String, String> translationsIdId = {
   'Success to add review':'Berhasil menambahkan review',
   'Privacy & Policy':'Privasi & Kebijakan',
   'Privacy Policy':'Privasi dan Kebijakan',
-  'Here':'Disini'
+  'Here':'Disini',
+  'Add email address to change password':'Masukkan alamat email untuk mengubah password anda',
+  'Change Password':'Ubah Password',
+  'Invalid OTP':'Kode OTP salah',
+  'Success':'Sukses',
+  'OTP is Valid':'Kode OTP Valid',
+  'Enter OTP sended on your email ': 'Masukkan kode otp yang telah dikirimkan ke email ',
+  'Forget Password?':'Lupa Password?'
+
 };

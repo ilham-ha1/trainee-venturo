@@ -321,7 +321,7 @@ class ProfileView extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.r),
               child: Text(
                 'Other info'.tr,
-                style: TextStyle(
+                style: GoogleTextStyle.fw800.copyWith(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                   color: MainColor.primary,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trainee/configs/routes/main_route.dart';
 
 class OtpController extends GetxController {
   static OtpController get to => Get.find();
@@ -22,7 +21,7 @@ class OtpController extends GetxController {
 
   void onOtpComplete(String value) {
     if (value == "123456") {
-      Get.snackbar("Sukses", "Kode Otp Valid",
+      Get.snackbar("Success".tr, "OTP is Valid".tr,
           duration: const Duration(seconds: 1));
     }
   }
