@@ -72,7 +72,7 @@ const Map<String, String> translationsIdId = {
   'Password cannot be empty': 'Password tidak dapat kosong',
   'Login to continue!': 'Masuk untuk melanjutkan!',
   'Login': 'Masuk',
-  'Login Using ': 'Masuk Menggunakan',
+  'Login Using ': 'Masuk Menggunakan ',
   'On Queue': 'Dalam antrian',
   'Prepared': 'Sedang disiapkan',
   'Ready': 'Siap',

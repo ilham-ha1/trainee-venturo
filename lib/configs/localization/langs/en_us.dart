@@ -71,7 +71,7 @@ const Map<String, String> translationsEnUs = {
   'Password cannot be empty': 'Password cannot be empty',
   'Login to continue!': 'Login to continue!',
   'Login': 'Login',
-  'Login Using ': 'Login Using',
+  'Login Using ': 'Login Using ',
   'On Queue': 'On Queue',
   'Prepared': 'Prepared',
   'Ready': 'Ready',
