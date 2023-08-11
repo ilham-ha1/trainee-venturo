@@ -100,7 +100,7 @@ class SignInView extends StatelessWidget {
                 onPressed: () => SignInController.to.validateForm(context),
                 child: Text(
                   "Login".tr,
-                  style: GoogleTextStyle.fw800.copyWith(
+                  style: GoogleTextStyle.fw700.copyWith(
                     fontSize: 14.sp,
                     color: MainColor.white,
                   ),
@@ -161,7 +161,7 @@ class SignInView extends StatelessWidget {
                               TextSpan(text: 'Login Using '.tr, style: GoogleTextStyle.fw400.copyWith(),),
                                TextSpan(
                                 text: 'Google',
-                                style: GoogleTextStyle.fw800.copyWith(),
+                                style: GoogleTextStyle.fw700.copyWith(),
                               ),
                             ],
                           ),
@@ -197,7 +197,7 @@ class SignInView extends StatelessWidget {
                               TextSpan(text: 'Login Using '.tr,style: GoogleTextStyle.fw400.copyWith(),),
                               TextSpan(
                                 text: 'Apple',
-                                style: GoogleTextStyle.fw800.copyWith(),
+                                style: GoogleTextStyle.fw700.copyWith(),
                               ),
                             ],
                           ),

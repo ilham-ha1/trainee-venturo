@@ -55,13 +55,13 @@ class PromoView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Promo Name".tr,
-                            style: GoogleTextStyle.fw800.copyWith(
+                            style: GoogleTextStyle.fw700.copyWith(
                                  fontWeight: FontWeight.bold, fontSize: 16.sp, color: MainColor.black)),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Text(
                               detailPromo.nama ?? '',
-                              style: GoogleTextStyle.fw800.copyWith(
+                              style: GoogleTextStyle.fw700.copyWith(
                                    fontWeight: FontWeight.bold,fontSize: 20.sp, color: MainColor.primary)),
                         ),
                         const Divider(
@@ -88,7 +88,7 @@ class PromoView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text("Terms and Conditions".tr,
-                                    style: GoogleTextStyle.fw800.copyWith(
+                                    style: GoogleTextStyle.fw700.copyWith(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
                                         color: MainColor.black)),

@@ -47,7 +47,7 @@ class PromoAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 Text(
                   "Promo",
-                  style: GoogleTextStyle.fw400.copyWith(fontSize: 20.sp, color: Colors.black),
+                  style: GoogleTextStyle.fw700.copyWith(fontSize: 20.sp, color: Colors.black),
                   textAlign: TextAlign.center,
                 ),
               ],

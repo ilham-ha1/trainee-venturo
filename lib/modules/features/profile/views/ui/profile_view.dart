@@ -156,7 +156,7 @@ class ProfileView extends StatelessWidget {
             //info akun
             22.verticalSpacingRadius,
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,8 +321,8 @@ class ProfileView extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.r),
               child: Text(
                 'Other info'.tr,
-                style: GoogleTextStyle.fw800.copyWith(
-                  fontSize: 20.sp,
+                style: GoogleTextStyle.fw700.copyWith(
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: MainColor.primary,
                 ),

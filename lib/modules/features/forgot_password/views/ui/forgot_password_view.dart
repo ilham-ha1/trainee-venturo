@@ -96,7 +96,7 @@ class ForgotPasswordView extends StatelessWidget {
                 },
                 child: Text(
                   "Change Password".tr,
-                  style: GoogleTextStyle.fw800.copyWith(
+                  style: GoogleTextStyle.fw700.copyWith(
                     fontSize: 14.sp,
                     color: MainColor.white,
                   ),

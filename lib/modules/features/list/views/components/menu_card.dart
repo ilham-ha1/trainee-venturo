@@ -79,13 +79,13 @@ class MenuCard extends StatelessWidget {
                 children: [
                   Text(
                      menu.nama ?? '',
-                    style: GoogleTextStyle.fw800.copyWith(fontSize: 18.sp),
+                    style: GoogleTextStyle.fw600.copyWith(fontSize: 18.sp),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                   Text(
                     "Rp. ${NumberFormat('#,##0', 'id_ID').format(menu.harga)}",
-                    style: GoogleTextStyle.fw800.copyWith(fontSize: 18.sp, color:Theme.of(context).primaryColor ),
+                    style: GoogleTextStyle.fw600.copyWith(fontSize: 18.sp, color:Theme.of(context).primaryColor ),
                   ),
                   InkWell(
                     onTap: () => Get.bottomSheet(
@@ -116,7 +116,7 @@ class MenuCard extends StatelessWidget {
                           children: [
                             Text("Create Note".tr,
                                 style:  
-                                GoogleTextStyle.fw800.copyWith(
+                                GoogleTextStyle.fw700.copyWith(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
                                     color: MainColor.black)),
