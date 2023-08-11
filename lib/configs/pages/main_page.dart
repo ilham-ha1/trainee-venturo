@@ -8,6 +8,10 @@ import 'package:trainee/modules/features/edit_menu/binddings/edit_menu_binding.d
 import 'package:trainee/modules/features/edit_menu/views/ui/edit_menu_view.dart';
 import 'package:trainee/modules/features/checkout/views/ui/voucher/detail_voucher_view.dart';
 import 'package:trainee/modules/features/checkout/views/ui/voucher/voucher_view.dart';
+import 'package:trainee/modules/features/forgot_password/binddings/forgot_password_binding.dart';
+import 'package:trainee/modules/features/forgot_password/binddings/otp_binding.dart';
+import 'package:trainee/modules/features/forgot_password/views/ui/forgot_password_view.dart';
+import 'package:trainee/modules/features/forgot_password/views/ui/otp_view.dart';
 import 'package:trainee/modules/features/order/views/ui/detail_order_view.dart';
 import 'package:trainee/modules/features/order/views/ui/order_view.dart';
 import 'package:trainee/modules/features/profile/binddings/profile_binding.dart';
@@ -118,6 +122,16 @@ abstract class MainPage {
     GetPage(
      name: MainRoute.privacyPolicy,
      page: () => const PrivacyPolicyView(),
-   )
+   ),
+     GetPage(
+      name: MainRoute.forgotPassword,
+      page: () => const ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: MainRoute.otpInput,
+      page: () => const OtpView(),
+      binding: OtpBinding(),
+    ),
   ];
 }

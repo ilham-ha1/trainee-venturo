@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/configs/themes/main_color.dart';
 import 'package:trainee/modules/features/sign_in/controllers/sign_in_controller.dart';
 import 'package:trainee/modules/features/sign_in/views/components/form_sign_in_component.dart';
@@ -77,6 +78,22 @@ class SignInView extends StatelessWidget {
               ),
               SizedBox(height: 40.h),
               const FormSignInCompoent(),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    Get.toNamed(MainRoute.forgotPassword);
+                  },
+                  child: Text(
+                    "Lupa Password?",
+                    style: GoogleTextStyle.fw600.copyWith(
+                      fontSize: 14.sp,
+                      color: MainColor.black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
               SizedBox(height: 40.h),
               ElevatedButton(
                 style: EvelatedButtonStyle.mainRounded,
@@ -140,7 +157,7 @@ class SignInView extends StatelessWidget {
                         RichText(
                           text: TextSpan(
                             style: DefaultTextStyle.of(context).style,
-                            children:  [
+                            children: [
                               TextSpan(text: 'Login Using '.tr),
                               const TextSpan(
                                 text: 'Google',
@@ -173,7 +190,7 @@ class SignInView extends StatelessWidget {
                         const SizedBox(width: 30),
                         RichText(
                           text: TextSpan(
-                            style:const TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                             children: [
