@@ -15,9 +15,10 @@ import 'package:trainee/shared/styles/google_text_style.dart';
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
+  
   @override
   Widget build(BuildContext context) {
+    
     analytics.setCurrentScreen(
       screenName: 'Profile Screen',
       screenClassOverride: 'Trainee',
@@ -239,7 +240,7 @@ class ProfileView extends StatelessWidget {
                           () => TileOption(
                               title: 'Change PIN'.tr,
                               message: ProfileController
-                                      .to.userDetailData.value.pin ??
+                                      .to.userDetailData.value.pin?.replaceAll(RegExp('.'), '*') ??
                                   '-',
                               onTap: () {
                                 ProfileController.to.updateProfilePin();
