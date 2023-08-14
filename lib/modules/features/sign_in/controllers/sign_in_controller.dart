@@ -182,12 +182,15 @@ class SignInController extends GetxController {
           );
 
           await _auth.signInWithCredential(credential);
-          final response = await HttpService.dioService.loginWithGmail(
+          final response = await HttpService.dioService.loginWithGmail( //issue
             googleSignInAccount.email,
             googleSignInAccount.displayName!,
           );
 
-          LocalStorageService.setAuth(response!.data);
+          await LocalStorageService.setAuth(response!.data);
+          if(LocalStorageService.isLoggedIn()){
+            await Get.offAndToNamed(MainRoute.getLocation);
+          }
         }
       }
     } catch (exception, stackTrace) {

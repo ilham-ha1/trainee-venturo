@@ -83,7 +83,7 @@ class Review {
         idReview: json["id_review"],
         idUser: json["id_user"],
         nama: json["nama"],
-        score: json["score"],
+        score: json["score"]?.toDouble(),
         type: json["type"],
         review: json["review"],
         image: json["image"],

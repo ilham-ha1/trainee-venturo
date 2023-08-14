@@ -13,13 +13,15 @@ class ListReviewController extends GetxController {
     await getAllUserReview();
   }
 
-  Future<Review> getAllUserReview() async {
+  Future<void> getAllUserReview() async {
     try {
       final userAllReviewResponse =
           await HttpService.dioService.getUserAllReview();
-      userListReviewlData.clear();
-      if (userAllReviewResponse?.data != null) {
-        userListReviewlData.addAll(userAllReviewResponse!.data!.toList());
+      if (userAllReviewResponse != null) {
+        userListReviewlData.clear();
+        for (var item in userAllReviewResponse.data!) {
+          userListReviewlData.add(item);
+        }
       }
     } catch (exception, stacktrace) {
       await Sentry.captureException(
@@ -27,6 +29,5 @@ class ListReviewController extends GetxController {
         stackTrace: stacktrace,
       );
     }
-    return Review();
   }
 }

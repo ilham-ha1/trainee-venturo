@@ -53,18 +53,19 @@ class ListReviewView extends StatelessWidget {
               fit: BoxFit.fitHeight,
               alignment: Alignment.center),
         ),
-        child: ListView.separated(
-          padding: EdgeInsets.all(25.r),
-          itemBuilder: (context, index) => ReviewItemCard(
-            review: ListReviewController.to.userListReviewlData[index],
-            onTap: () {
-              // Get.toNamed(
-              //   '${MainRoute.detailReview}/${ListReviewController.to.userListReviewlData[index].idReview}',
-              // );
-            },
+        child: Obx(()=> ListView.separated(
+            padding: EdgeInsets.all(25.r),
+            itemBuilder: (context, index) => ReviewItemCard(
+              review: ListReviewController.to.userListReviewlData[index],
+              onTap: () {
+                // Get.toNamed(
+                //   '${MainRoute.detailReview}/${ListReviewController.to.userListReviewlData[index].idReview}',
+                // );
+              },
+            ),
+            separatorBuilder: (context, index) => 16.verticalSpace,
+            itemCount: ListReviewController.to.userListReviewlData.length,
           ),
-          separatorBuilder: (context, index) => 16.verticalSpace,
-          itemCount: ListReviewController.to.userListReviewlData.length,
         ),
       ),
     );

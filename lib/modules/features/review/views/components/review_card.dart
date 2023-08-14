@@ -25,21 +25,14 @@ class ReviewItemCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10.r),
-            boxShadow: const [
-              BoxShadow(
-                offset: Offset(0, 2),
-                blurRadius: 8,
-                spreadRadius: -1,
-                color: Colors.black87,
-              ),
-            ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.only(bottom: 2.0, left: 10.0 , right: 10.0, top: 2.0),
             child: Row(
               children: [
                 Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -61,7 +54,7 @@ class ReviewItemCard extends StatelessWidget {
                           allowHalfRating: true,
                           itemCount: 5,
                           itemSize:
-                              24.0, // Adjust the size of the rating icons as needed
+                              16.0, // Adjust the size of the rating icons as needed
                           itemBuilder: (context, _) => const Icon(
                             Icons.star,
                             color: Colors.orange,
@@ -85,6 +78,7 @@ class ReviewItemCard extends StatelessWidget {
                 SizedBox(
                   width: 5.w,
                 ),
+                const Spacer(),
                 const Icon(
                   Icons.reply,
                   color: Colors.green,

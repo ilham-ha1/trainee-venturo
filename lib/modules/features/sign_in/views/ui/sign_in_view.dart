@@ -147,6 +147,7 @@ class SignInView extends StatelessWidget {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
                           width: 20,
@@ -158,7 +159,7 @@ class SignInView extends StatelessWidget {
                           text: TextSpan(
                             style: DefaultTextStyle.of(context).style,
                             children: [
-                              TextSpan(text: 'Login Using '.tr, style: GoogleTextStyle.fw400.copyWith(),),
+                              TextSpan(text: 'Login Using '.tr, style: GoogleTextStyle.fw400.copyWith(fontSize: 12.sp),),
                                TextSpan(
                                 text: 'Google',
                                 style: GoogleTextStyle.fw700.copyWith(),
@@ -181,6 +182,7 @@ class SignInView extends StatelessWidget {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
                           width: 20,
@@ -194,7 +196,7 @@ class SignInView extends StatelessWidget {
                               color: Colors.white,
                             ),
                             children: [
-                              TextSpan(text: 'Login Using '.tr,style: GoogleTextStyle.fw400.copyWith(),),
+                              TextSpan(text: 'Login Using '.tr,style: GoogleTextStyle.fw400.copyWith(fontSize: 12.sp),),
                               TextSpan(
                                 text: 'Apple',
                                 style: GoogleTextStyle.fw700.copyWith(),

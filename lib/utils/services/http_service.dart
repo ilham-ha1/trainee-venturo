@@ -130,7 +130,7 @@ class HttpService extends GetxService {
           'nama': nama,
         },
       );
-      Get.offAndToNamed(MainRoute.getLocation);
+
       return LoginResponse.fromJson(response.data);
     } catch (exception, stackTrace) {
       await Sentry.captureException(
@@ -694,7 +694,4 @@ class HttpService extends GetxService {
       return null;
     }
   }
-  
-
-
 }
