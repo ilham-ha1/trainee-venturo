@@ -71,6 +71,7 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   firebase_messaging: ^14.6.3
   flutter_local_notifications: ^14.1.1
+  firebase_crashlytics: ^3.3.4
   
 
 
