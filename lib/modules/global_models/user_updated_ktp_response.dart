@@ -23,7 +23,7 @@ class UserUpdatedKtpResponse {
     }) => 
         UserUpdatedKtpResponse(
             statusCode: statusCode ?? this.statusCode,
-            userUpdatedKtpData: data ?? this.userUpdatedKtpData,
+            userUpdatedKtpData: data ?? userUpdatedKtpData,
         );
 
     factory UserUpdatedKtpResponse.fromJson(Map<String, dynamic> json) => UserUpdatedKtpResponse(

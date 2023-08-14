@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/global_controllers/global_controller.dart';
 import 'package:trainee/modules/global_models/detail_menu_response.dart';
 import 'package:trainee/modules/global_models/login_response.dart';
