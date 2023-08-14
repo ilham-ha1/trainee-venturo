@@ -168,9 +168,7 @@ class SignInController extends GetxController {
 
   void signInWithGoogle() async {
     try {
-      
         GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-
         if (googleSignInAccount != null) {
           GoogleSignInAuthentication googleSignInAuthentication =
               await googleSignInAccount.authentication;
@@ -193,11 +191,6 @@ class SignInController extends GetxController {
         }
       
     } catch (exception, stackTrace) {
-      Get.snackbar(
-        "Error Gmail Sign In",
-        exception.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-      );
       await Sentry.captureException(
         exception,
         stackTrace: stackTrace,
