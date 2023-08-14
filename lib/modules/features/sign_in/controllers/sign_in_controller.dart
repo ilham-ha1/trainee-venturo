@@ -168,8 +168,7 @@ class SignInController extends GetxController {
 
   void signInWithGoogle() async {
     try {
-      GlobalController.to.checkConnection();
-      if (GlobalController.to.isConnect.isTrue) {
+      
         GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
         if (googleSignInAccount != null) {
@@ -192,7 +191,7 @@ class SignInController extends GetxController {
             await Get.offAndToNamed(MainRoute.getLocation);
           }
         }
-      }
+      
     } catch (exception, stackTrace) {
       Get.snackbar(
         "Error Gmail Sign In",

@@ -28,7 +28,7 @@ class GlobalController extends GetxController {
         stackTrace: stackTrace,
       );
 
-      Get.offAllNamed(MainRoute.noConnection);
+      Get.offAllNamed(MainRoute.signIn);
     }
   }
 
