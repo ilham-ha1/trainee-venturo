@@ -21,46 +21,55 @@ import 'package:trainee/utils/services/firebase_messaging_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseMessagingService().initialize();
-  /// Localstorage init
-  await Hive.initFlutter();
-  Hive.registerAdapter(CartAdapter());
-  await Hive.openBox("Venturo");
-  await Hive.openBox("itemCartMenus");
+  try {
+    FirebaseMessagingService().initialize();
 
-  /// Firebase init
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+    /// Localstorage init
+    await Hive.initFlutter();
+    Hive.registerAdapter(CartAdapter());
+    await Hive.openBox("Venturo");
+    await Hive.openBox("itemCartMenus");
 
-  await FirebaseMessagingService.instance.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
+    /// Firebase init
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  log((await FirebaseMessagingService.instance.getToken()).toString());
-  await FirebaseMessaging.instance.subscribeToTopic('order');
+    await FirebaseMessagingService.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
-  await FirebaseMessagingService().initialize();
-  FirebaseMessaging.onBackgroundMessage(
-      FirebaseMessagingService.handleBackgroundNotif);
-  /// Sentry init
-  await SentryFlutter.init(
-    (options) {
-      options.dsn =
-          'https://67235a5ef8b341fe85cfc166ab3e917f@o4505525339684864.ingest.sentry.io/4505525351809024';
-      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-      // We recommend adjusting this value in production.
-      options.tracesSampleRate = 1.0;
-    },
-    appRunner: () => runApp(const MyApp()),
-  );
+    // log((await FirebaseMessagingService.instance.getToken()).toString());
+    await FirebaseMessaging.instance.subscribeToTopic('order');
+
+    await FirebaseMessagingService().initialize();
+    FirebaseMessaging.onBackgroundMessage(
+        FirebaseMessagingService.handleBackgroundNotif);
+
+    /// Sentry init
+    await SentryFlutter.init(
+      (options) {
+        options.dsn =
+            'https://67235a5ef8b341fe85cfc166ab3e917f@o4505525339684864.ingest.sentry.io/4505525351809024';
+        // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+        // We recommend adjusting this value in production.
+        options.tracesSampleRate = 1.0;
+      },
+      appRunner: () => runApp(const MyApp()),
+    );
 // or define SENTRY_DSN via Dart environment variable (--dart-define)
+  } catch (exception, stacktrace) {
+    await Sentry.captureException(
+      exception,
+      stackTrace: stacktrace,
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
