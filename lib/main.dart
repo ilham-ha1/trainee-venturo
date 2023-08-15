@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -21,62 +23,54 @@ import 'package:trainee/utils/services/firebase_messaging_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  try {
-    FirebaseMessagingService().initialize();
+  
+  /// Localstorage init
+  await Hive.initFlutter();
+  Hive.registerAdapter(CartAdapter());
+  await Hive.openBox("Venturo");
+  await Hive.openBox("itemCartMenus");
 
-    /// Localstorage init
-    await Hive.initFlutter();
-    Hive.registerAdapter(CartAdapter());
-    await Hive.openBox("Venturo");
-    await Hive.openBox("itemCartMenus");
+  /// Firebase init
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 
-    /// Firebase init
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    // Pass all uncaught "fatal" errors from the framework to Crashlytics
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-    // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
-    
-    await FirebaseMessagingService.instance.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+  await FirebaseMessagingService.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
 
-    // log((await FirebaseMessagingService.instance.getToken()).toString());
-    await FirebaseMessaging.instance.subscribeToTopic('order');
+  log((await FirebaseMessagingService.instance.getToken()).toString());
+  await FirebaseMessaging.instance.subscribeToTopic('order');
 
-    await FirebaseMessagingService().initialize();
-    FirebaseMessaging.onBackgroundMessage(
-        FirebaseMessagingService.handleBackgroundNotif);
+  await FirebaseMessagingService().initialize();
+  FirebaseMessaging.onBackgroundMessage(
+      FirebaseMessagingService.handleBackgroundNotif);
 
-    /// Sentry init
-    await SentryFlutter.init(
-      (options) {
-        options.dsn =
-            'https://67235a5ef8b341fe85cfc166ab3e917f@o4505525339684864.ingest.sentry.io/4505525351809024';
-        // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-        // We recommend adjusting this value in production.
-        options.tracesSampleRate = 1.0;
-      },
-      appRunner: () => runApp(const MyApp()),
-    );
+  /// Sentry init
+  await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://67235a5ef8b341fe85cfc166ab3e917f@o4505525339684864.ingest.sentry.io/4505525351809024';
+      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      // We recommend adjusting this value in production.
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(const MyApp()),
+  );
 // or define SENTRY_DSN via Dart environment variable (--dart-define)
-  } catch (exception, stacktrace) {
-    await Sentry.captureException(
-      exception,
-      stackTrace: stacktrace,
-    );
-  }
 }
 
 class MyApp extends StatelessWidget {
