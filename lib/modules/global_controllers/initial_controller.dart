@@ -1,6 +1,7 @@
-
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:trainee/configs/localization/localization.dart';
 import 'package:trainee/configs/routes/main_route.dart';
 import 'package:trainee/modules/features/initial/views/ui/get_location_screen.dart';
 import 'package:trainee/utils/services/local_storage_service.dart';
@@ -14,13 +15,19 @@ class InitialController extends GetxController {
   RxString photo = ''.obs;
 
   @override
+  void onInit() async{
+    super.onInit();
+    await loadSavedLocale();
+  }
+
+  @override
   void onReady() {
     super.onReady();
 
     getLocation();
     LocationServices.streamService.listen((status) => getLocation());
 
-    id.value = LocalStorageService.box.get("id")?? 0;
+    id.value = LocalStorageService.box.get("id") ?? 0;
     name.value = LocalStorageService.box.get("name") ?? '';
     photo.value = LocalStorageService.box.get("photo") ?? '';
   }
@@ -58,6 +65,14 @@ class InitialController extends GetxController {
       /// Jika terjadi kesalahan server
       statusLocation.value = 'error';
       messageLocation.value = 'Server error'.tr;
+    }
+  }
+
+  Future<void> loadSavedLocale() async {
+    final box = await Hive.openBox<String>('locale_box');
+    final selectedLocale = box.get('selected_locale', defaultValue: null);
+    if (selectedLocale != null) {
+      Localization.changeLocale(selectedLocale);
     }
   }
 }

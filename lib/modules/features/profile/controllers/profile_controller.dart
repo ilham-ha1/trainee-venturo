@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:trainee/configs/localization/localization.dart';
@@ -34,6 +35,7 @@ class ProfileController extends GetxController {
   RxString deviceVersion = ''.obs;
   RxBool isVerif = false.obs;
   RxString currentLang = Localization.currentLanguage.obs;
+
 
   final Rx<UserDetailData> userDetailData = UserDetailData().obs;
 
@@ -169,6 +171,7 @@ class ProfileController extends GetxController {
     if (language != null) {
       Localization.changeLocale(language);
       currentLang(language);
+      await saveLocaleToHive(language);
     }
   }
 
@@ -359,5 +362,10 @@ class ProfileController extends GetxController {
     final url = Uri.parse("https://venturo.id");
     // menghapus cookie
     await cookieManager.deleteCookie(url: url, name: "traineeCookie");
+  }
+
+  Future<void> saveLocaleToHive(String locale) async {
+    final box = await Hive.openBox<String>('locale_box'); // Open Hive box for locales
+    await box.put('selected_locale', locale); // Save the selected locale
   }
 }
